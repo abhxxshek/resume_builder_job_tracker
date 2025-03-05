@@ -13,14 +13,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Send Email Notification
+            - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: "ambient963@gmail.com"
           password: "sxpv ujck ufze ugtr"
-          subject: "Repo Update: Changes in Your Forked Repo"
+          subject: "🚀 Repo Update: Changes in Your Forked Repo"
+          content_type: text/html
           body: |
             <!DOCTYPE html>
             <html>
