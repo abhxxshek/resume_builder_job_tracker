@@ -24,7 +24,9 @@ jobs:
           body: |
             Hello,
 
-            The repository you forked has been updated. Check out the latest changes:
+            The repository you forked has been updated. 
+            
+            Check out the latest changes:
 
             🔗https://github.com/abhxxshek/resume_builder_job_tracker.git
 
