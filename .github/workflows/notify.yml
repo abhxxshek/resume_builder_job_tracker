@@ -1,0 +1,38 @@
+name: Notify Forked Users
+
+on:
+  push:
+    branches:
+      - development  # Change if needed
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: "ambient963@gmail.com"
+          password: "sxpv ujck ufze ugtr"
+          subject: "Repo Update: Changes in Your Forked Repo"
+          body: |
+            Hello,
+
+            The repository you forked has been updated. Check out the latest changes:
+
+            🔗https://github.com/abhxxshek/resume_builder_job_tracker.git
+
+            Happy coding! 🚀
+
+          to: |
+            akhilzacharia.mail@gmail.com,
+            aksassanthosh2002@gmail.com,
+            anupmanil10@gmail.com,
+            gokulsanthosh125@gmail.com
+          from: "Abhishek"
