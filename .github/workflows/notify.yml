@@ -1,9 +1,9 @@
 name: Notify Forked Users
 
 on:
-  push:
-    branches:
-      - development  # Change if needed
+  pull_request:
+    types:
+      - closed  # Runs when a PR is closed (either merged or rejected)
 
 jobs:
   notify:
