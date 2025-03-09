@@ -12,13 +12,13 @@ function App() {
 // 
   return (
     <>
-      <About/>
-      {/* <Education/> Abishek */}
-      <Experience/>
+      {/* <About/> */}
+      {/* <Education/>  */}
+      {/* <Experience/> */}
       {/* <Projects/>Gokul */}
-      <Skills/>
+      {/* <Skills/> */}
       {/* <Achievements/> Aksa */}
-      <Awards/>
+      {/* <Awards/> */}
       {/* <Trainings/> Akhil */}
     </>
   )
