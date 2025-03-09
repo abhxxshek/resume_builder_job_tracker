@@ -12,14 +12,14 @@ function App() {
 // 
   return (
     <>
-      <About/>
+      {/* <About/> */}
       {/* <Education/> Abishek */}
-      <Experience/>
+      {/* <Experience/> */}
       {/* <Projects/>Gokul */}
-      <Skills/>
+      {/* <Skills/> */}
       {/* <Achievements/> Aksa */}
       <Awards/>
-      {/* <Trainings/> Akhil */}
+      <Trainings/>
     </>
   )
 }
