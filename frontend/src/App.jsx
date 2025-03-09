@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       {/* <About/> */}
-      {/* <Education/>  */}
+      <Education/> 
       {/* <Experience/> */}
       {/* <Projects/>Gokul */}
       {/* <Skills/> */}
