@@ -16,7 +16,7 @@ const Skills = () => {
 
   return (
     <Container>
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto", mt: 4 }}>
+    
         <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
           Skills
         </Typography>
@@ -69,7 +69,7 @@ const Skills = () => {
             ))}
           </Grid>
         )}
-      </Paper>
+    
     </Container>
   );
 };

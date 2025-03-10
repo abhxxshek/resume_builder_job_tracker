@@ -23,7 +23,7 @@ const Achievements = () => {
 
   return (
     <Container>
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto", mt: 4 }}>
+      
         <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
           Achievements
         </Typography>
@@ -88,7 +88,6 @@ const Achievements = () => {
             + Add Achievement
           </Link>
         </Grid>
-      </Paper>
     </Container>
   );
 };

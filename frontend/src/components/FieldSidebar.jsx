@@ -1,17 +1,25 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import SchoolIcon from "@mui/icons-material/School";
+import WorkIcon from "@mui/icons-material/Work";
+import FolderIcon from "@mui/icons-material/Folder";
+import BuildIcon from "@mui/icons-material/Build";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { motion } from "framer-motion";
 
 const FieldSidebar = ({ selectedField, setSelectedField }) => {
   const fieldTemplate = [
-    { name: "About", icon: "👤" },
-    { name: "Education", icon: "🎓" },
-    { name: "Experience", icon: "💼" },
-    { name: "Projects", icon: "📂" },
-    { name: "Skills", icon: "🛠️" },
-    { name: "Achievements", icon: "🏆" },
-    { name: "Awards", icon: "🥇" },
-    { name: "Trainings", icon: "📚" },
+    { name: "About", icon: <InfoIcon />},
+    { name: "Education", icon: <SchoolIcon /> },
+    { name: "Experience", icon: <WorkIcon /> },
+    { name: "Projects", icon: <FolderIcon />},
+    { name: "Skills", icon: <BuildIcon /> },
+    { name: "Achievements", icon: <EmojiEventsIcon /> },
+    { name: "Awards", icon: <CardGiftcardIcon />  },
+    { name: "Trainings", icon: <RocketLaunchIcon /> },
   ];
 
   return (
@@ -22,8 +30,8 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
         display: "flex",
         flexDirection: "column",
         flex: "1",
-        padding:"15px"
-      }}
+        
+         }}
     >
       {fieldTemplate.map((field, index) => (
         <motion.div
@@ -36,19 +44,21 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
             fullWidth
             variant={field.name === selectedField ? "contained" : "outlined"}
             sx={{
-              my: 1,
-              textTransform: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              border: "none",
-            //   margin: "30px auto",
-              maxWidth:"150px",
-              minHeight:"80px",
-            }}
+                my: 1,
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                border: "none",
+                maxWidth: "150px",
+                maxHeight: "90px",
+                justifyContent: "center",
+                flexDirection: "column",
+                
+                gap: "5px", 
+              }}
           >
-            <span>{field.icon}</span>
-            <Typography>{field.name}</Typography>
+            <Typography sx={{ margin: 0, lineHeight: 1,paddingTop:"10px" }}>{field.icon}</Typography>
+            <Typography sx={{ margin: 0, lineHeight: 1 ,paddingBottom:"10px"}}>{field.name}</Typography>
           </Button>
         </motion.div>
       ))}

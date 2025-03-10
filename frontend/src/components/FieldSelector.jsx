@@ -49,9 +49,9 @@ const FieldSelector = ({ selectedField }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <Box sx={{ p: 3, bgcolor: "white",}}>
+        <Box sx={{ p: 0, bgcolor: "white"}}>
           {selectedComponent}
         </Box>
       </motion.div>
