@@ -13,11 +13,14 @@ function App() {
   return (
     <>
       {/* <About/> */}
+      {/* <Education/> Abishek */}
       <Education/> 
       {/* <Experience/> */}
       {/* <Projects/>Gokul */}
       {/* <Skills/> */}
       {/* <Achievements/> Aksa */}
+      <Awards/>
+      <Trainings/>
       {/* <Awards/> */}
       {/* <Trainings/> Akhil */}
     </>
