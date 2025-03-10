@@ -13,14 +13,14 @@ import Experience from './components/Experience'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
-import Template1 from './Template/Template1'
+
 
 function App() {
 
   return (
     <>
 
-      <Layout2/>
+       <Layout2/> 
     </>
   )
 }
