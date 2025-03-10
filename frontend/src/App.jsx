@@ -4,27 +4,23 @@ import Achievements from './components/Achievements'
 import Awards from './components/Awards'
 import Education from './components/Education'
 import Experience from './components/Experience'
-import Home from './components/Home'
-import Navbar from './components/Navbar'
+// <<<<<<< development
+// import Home from './components/Home'
+// import Navbar from './components/Navbar'
+// =======
+// import Layout2 from './components/Layout2'
+// >>>>>>> development
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
+import Template1 from './Template/Template1'
 
 function App() {
-// 
+
   return (
     <>
-    {/* <Navbar/>
-    <Home/> */}
-      {/* <About/> */}
-      {/* <Education/> Abishek */}
-      <Education/> 
-      {/* <Experience/> */}
-      {/* <Projects/>Gokul */}
-      {/* <Skills/> */}
-      {/* <Achievements/> Aksa */}
-      <Awards/>
-      <Trainings/>
+
+      <Layout2/>
     </>
   )
 }

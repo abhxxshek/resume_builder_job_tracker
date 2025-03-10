@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Typography, Box, Grid } from "@mui/material";
 
 const Education = () => {
+  const[isEducation,setIsEducation]=useState(false);
+
+  function displayForm(){
+    setIsEducation(true);
+  }
   return (
     <>
+    
       <Box sx={{ p: 4 }}>
         <Typography
           variant="h4"
@@ -22,7 +28,8 @@ const Education = () => {
           A varied education on your resume sums up the value that your
           learnings and background will bring to a job.
         </Typography>
-        <Box component="form" sx={{ flexGrow: 1 }}>
+        {isEducation && (
+          <Box component="form" sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField label="School" variant="outlined" fullWidth />
@@ -64,9 +71,12 @@ const Education = () => {
               </Button>
             </Grid>
 
-            <Button color="primary" sx={{marginTop:"20px"}}>+ Add Education</Button>
+            
           </Grid>
         </Box>
+        )}
+        
+        <Button color="primary" sx={{marginTop:"20px"}} onClick={()=>{displayForm()}}>+ Add Education</Button>
       </Box>
     </>
   );
