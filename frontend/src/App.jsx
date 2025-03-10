@@ -21,8 +21,6 @@ function App() {
       {/* <Achievements/> Aksa */}
       <Awards/>
       <Trainings/>
-      {/* <Awards/> */}
-      {/* <Trainings/> Akhil */}
     </>
   )
 }
