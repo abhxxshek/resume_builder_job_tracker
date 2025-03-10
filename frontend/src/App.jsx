@@ -11,10 +11,10 @@ import Trainings from './components/Trainings'
 import Template1 from './Template/Template1'
 
 function App() {
-// 
+
   return (
     <>
-
+      <Layout2/>
     </>
   )
 }
