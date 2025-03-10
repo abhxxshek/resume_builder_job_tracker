@@ -4,7 +4,12 @@ import Achievements from './components/Achievements'
 import Awards from './components/Awards'
 import Education from './components/Education'
 import Experience from './components/Experience'
-import Layout2 from './components/Layout2'
+// <<<<<<< development
+// import Home from './components/Home'
+// import Navbar from './components/Navbar'
+// =======
+// import Layout2 from './components/Layout2'
+// >>>>>>> development
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
@@ -14,6 +19,7 @@ function App() {
 
   return (
     <>
+
       <Layout2/>
     </>
   )
