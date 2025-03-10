@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ResumeBuilder = () => {
+const Template1 = () => {
   const [formData, setFormData] = useState({
     fullName: "John Doe",
     email: "john.doe@gmail.com",
