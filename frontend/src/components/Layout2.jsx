@@ -9,13 +9,41 @@ const Layout2 = () => {
   const [selectedField, setSelectedField] = useState("About");
 
   return (
-
     <Box>
-        <Grid container columnSpacing={2}>
-            <Grid item xs={12} md={2} sx={{borderRight:"1px solid lightgrey"}}><FieldSidebar selectedField={selectedField} setSelectedField={setSelectedField} /></Grid>
-            <Grid item xs={12} md={5} sx={{borderRight:"1px solid lightgrey"}}><FieldSelector selectedField={selectedField} /></Grid>
-            <Grid item xs={12} md={5}> Template</Grid>
+      <Grid container>
+        <Grid item xs={12} md={2} sx={{ borderRight: "1px solid lightgrey" }}>
+          <FieldSidebar
+            selectedField={selectedField}
+            setSelectedField={setSelectedField}
+          />
         </Grid>
+        <Grid item xs={12} md={5} sx={{ borderRight: "1px solid lightgrey" }}>
+          <Box
+            sx={{
+              maxHeight: "600px",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                display: "none", // Hide scrollbar
+              },
+            }}
+          >
+            <FieldSelector selectedField={selectedField} />
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <Box
+            sx={{
+              maxHeight: "600px",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                display: "none", // Hide scrollbar
+              },
+            }}
+          >
+            Template
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

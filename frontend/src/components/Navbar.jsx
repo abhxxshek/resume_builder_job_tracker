@@ -30,7 +30,7 @@ const Navbar = () => {
             </Typography>
 
             {/* Mobile Menu */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' },justifyContent: 'flex-end'  }}>
               <IconButton
                 size="large"
                 aria-label="menu"
@@ -38,6 +38,7 @@ const Navbar = () => {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
                 color="inherit"
+                
               >
                 <MenuIcon />
               </IconButton>

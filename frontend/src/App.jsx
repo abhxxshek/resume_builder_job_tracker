@@ -4,7 +4,7 @@ import Achievements from './components/Achievements'
 import Awards from './components/Awards'
 import Education from './components/Education'
 import Experience from './components/Experience'
-import Home from './components/Home'
+
 import Navbar from './components/Navbar'
 import Layout2 from './components/Layout2'
 import Projects from './components/Projects'
