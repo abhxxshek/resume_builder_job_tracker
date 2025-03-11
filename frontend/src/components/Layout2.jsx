@@ -30,7 +30,7 @@ const Layout2 = () => {
             <FieldSelector selectedField={selectedField} />
           </Box>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={5.5}>
           <Box
             sx={{
               maxHeight: "600px",
