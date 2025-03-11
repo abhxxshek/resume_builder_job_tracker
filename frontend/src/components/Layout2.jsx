@@ -3,7 +3,7 @@ import { Box, Container, Grid } from "@mui/material";
 
 import FieldSelector from "./FieldSelector";
 import FieldSidebar from "./FieldSidebar";
-import { div } from "framer-motion/client";
+
 
 const Layout2 = () => {
   const [selectedField, setSelectedField] = useState("About");
@@ -11,7 +11,7 @@ const Layout2 = () => {
   return (
     <Box>
       <Grid container>
-        <Grid item xs={12} md={2} sx={{ borderRight: "1px solid lightgrey" }}>
+        <Grid item xs={12} md={1.5} sx={{ borderRight: "1px solid lightgrey" }}>
           <FieldSidebar
             selectedField={selectedField}
             setSelectedField={setSelectedField}
