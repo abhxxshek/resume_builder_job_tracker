@@ -10,15 +10,30 @@ import Layout2 from './components/Layout2'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
+import Template1 from './Templates/Template1'
+
+import { Route, Routes } from 'react-router-dom'
+import TemplateView from './Templates/Templateview'
+
+
 
 function App() {
 
   return (
     <>
-      <Navbar/>
+         <Navbar/>
+  
+  <Routes>
+    {/* Route for Template Selection Page */}
+    <Route path="/templates" element={<TemplateView />} />
+
+    {/* Route for Layout2 with Template Selection */}
+    <Route path="/layout2/:template" element={<Layout2 />} />
+  </Routes>
+
+</>
       
-      <Layout2/>
-    </>
+    
   )
 }
 

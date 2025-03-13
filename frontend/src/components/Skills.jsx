@@ -1,75 +1,64 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, Paper } from "@mui/material";
+import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Skills = () => {
-  const [skills, setSkills] = useState([]);
-  const [skillTitle, setSkillTitle] = useState("");
-  const [skillLevel, setSkillLevel] = useState("");
+const Skills = ({ resumeData = {}, handleChange }) => {
+  const [skillsList, setSkillsList] = useState(resumeData.skillsList || []);
+  const [formData, setFormData] = useState({
+    skill: "",
+    level: ""
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleAddSkill = () => {
-    if (skillTitle && skillLevel) {
-      setSkills([...skills, { title: skillTitle, level: skillLevel }]);
-      setSkillTitle("");
-      setSkillLevel("");
+    if (formData.skill && formData.level) {
+      const newList = [...skillsList, formData];
+      setSkillsList(newList);
+      setFormData({ skill: "", level: "" });
+      handleChange({ target: { name: 'skillsList', value: newList } });
     }
   };
 
+  const handleDelete = (index) => {
+    const updatedList = skillsList.filter((_, i) => i !== index);
+    setSkillsList(updatedList);
+    handleChange({ target: { name: 'skillsList', value: updatedList } });
+  };
+
   return (
-    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}}>
-    
-        <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
-          Skills
-        </Typography>
-        <Typography variant="body1" textAlign="left" gutterBottom>
-          Add 5 important skills that make you fit for that position. Make sure they match the key skills mentioned in job listings.
-        </Typography>
+    <Container>
+      <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
+        Skills
+      </Typography>
+      <Typography variant="body1" textAlign="left" gutterBottom>
+        List your key skills relevant to the position.
+      </Typography>
 
-        {/* Skill Input Fields */}
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item xs={12} md={6}>
-            <TextField 
-              label="Skill Title" 
-              variant="outlined" 
-              fullWidth 
-              value={skillTitle} 
-              onChange={(e) => setSkillTitle(e.target.value)} 
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField 
-              label="Level" 
-              variant="outlined" 
-              fullWidth 
-              value={skillLevel} 
-              onChange={(e) => setSkillLevel(e.target.value)} 
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              fullWidth 
-              onClick={handleAddSkill}
-            >
-              Add Skill
-            </Button>
-          </Grid>
+      {skillsList.map((skill, index) => (
+        <Card key={index} sx={{ mb: 2 }}>
+          <CardContent>
+            <Typography variant="h6">{skill.skill}</Typography>
+            <Typography variant="body2">Level: {skill.level}</Typography>
+            <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
+          </CardContent>
+        </Card>
+      ))}
+
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <TextField label="Skill" fullWidth name="skill" value={formData.skill} onChange={handleInputChange} />
         </Grid>
-
-        {/* Display Added Skills */}
-        {skills.length > 0 && (
-          <Grid container spacing={2} sx={{ mt: 3 }}>
-            {skills.map((skill, index) => (
-              <Grid item xs={12} key={index}>
-                <Paper sx={{ p: 2, display: "flex", justifyContent: "space-between" }}>
-                  <Typography variant="body1">{skill.title}</Typography>
-                  <Typography variant="body2" color="textSecondary">{skill.level}</Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-    
+        <Grid item xs={6}>
+          <TextField label="Level (e.g. Beginner, Intermediate, Expert)" fullWidth name="level" value={formData.level} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddSkill}>+ Add Skill</Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
