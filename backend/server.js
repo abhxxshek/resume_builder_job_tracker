@@ -1,42 +1,21 @@
+
 const express = require('express');
-const app = express(); 
+const app = new express(); 
 const morgan = require('morgan');
-const cors = require('cors');
-const connectDB = require('./config/db');
 
-// Load environment variables
-require('dotenv').config();
+// const routes= require('./routes/router');
 
-// Connect to database
-connectDB();
-
-// Middleware
+const cors= require('cors');
 app.use(cors());
-app.use(express.json()); // Parse JSON bodies
+require('dotenv').config();
+// require('./db/connection');
+
 app.use(morgan('dev'));
+// app.use("/",routes); 
 
-// Import routes
-const authRoutes = require('./routes/authRoutes');
 
-// Mount routes
-app.use('/api/auth', authRoutes);
 
-// Basic route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-  });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is active on Port ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is active on Port ${process.env.PORT}`);
 });

@@ -40,7 +40,22 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const [resumes, setResumes] = useState([
-
+    { 
+      id: 1, 
+      title: 'Software Developer Resume', 
+      template: 'Template1',
+      lastUpdated: '2023-05-15',
+      completionPercentage: 85,
+      tags: ['IT', 'Tech']
+    },
+    { 
+      id: 2, 
+      title: 'Project Manager Resume', 
+      template: 'Template3',
+      lastUpdated: '2023-04-22',
+      completionPercentage: 70,
+      tags: ['Management', 'Leadership']
+    }
   ]);
 
   const handleCreateResume = () => {
