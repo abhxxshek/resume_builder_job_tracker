@@ -1,9 +1,5 @@
 import './App.css'
-import About from './components/About'
-import Achievements from './components/Achievements'
-import Awards from './components/Awards'
-import Education from './components/Education'
-import Experience from './components/Experience'
+
 
 import Navbar from './components/Navbar'
 import Layout2 from './components/Layout2'
