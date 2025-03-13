@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent } from "@mui/material";
+import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Box } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Trainings = ({ resumeData = {}, handleChange }) => {
-  const [trainingsList, setTrainingsList] = useState(resumeData.trainingsList || []);
+const Projects = ({ resumeData = {}, handleChange }) => {
+  const [projectsList, setProjectsList] = useState(resumeData.projectsList || []);
   const [formData, setFormData] = useState({
-    training: "",
-    institute: "",
-    completionDate: "",
-    description: ""
+    project: "",
+    description5: "",
+    projectlink: ""
   });
 
   const handleInputChange = (e) => {
@@ -16,42 +15,44 @@ const Trainings = ({ resumeData = {}, handleChange }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAddTraining = () => {
-    if (formData.training && formData.institute) {
-      const newList = [...trainingsList, formData];
-      setTrainingsList(newList);
+  const handleAddProject = () => {
+    if (formData.project && formData.description5 && formData.projectlink) {
+      const newList = [...projectsList, formData];
+      setProjectsList(newList);
       setFormData({
-        training: "",
-        institute: "",
-        completionDate: "",
-        description: ""
+        project: "",
+        description5: "",
+        projectlink: ""
       });
-      handleChange({ target: { name: 'trainingsList', value: newList } });
+      handleChange({ target: { name: 'projectsList', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
-    const updatedList = trainingsList.filter((_, i) => i !== index);
-    setTrainingsList(updatedList);
-    handleChange({ target: { name: 'trainingsList', value: updatedList } });
+    const updatedList = projectsList.filter((_, i) => i !== index);
+    setProjectsList(updatedList);
+    handleChange({ target: { name: 'projectsList', value: updatedList } });
   };
 
   return (
-    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}}>
+    <Container>
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
-        Trainings
+        Projects
       </Typography>
       <Typography variant="body1" textAlign="left" gutterBottom>
-        Add your training details.
+        Share your significant projects with links and descriptions.
       </Typography>
 
-      {trainingsList.map((training, index) => (
+      {projectsList.map((project, index) => (
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
-            <Typography variant="h6">{training.training}</Typography>
-            <Typography variant="body2">{training.institute}</Typography>
-            <Typography variant="body2">{training.completionDate}</Typography>
-            <Typography variant="body2">{training.description}</Typography>
+            <Typography variant="h6">{project.project}</Typography>
+            <Typography variant="body2">{project.description5}</Typography>
+            <Typography variant="body2">
+              <a href={project.projectlink} target="_blank" rel="noopener noreferrer">
+                {project.projectlink}
+              </a>
+            </Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
         </Card>
@@ -59,23 +60,20 @@ const Trainings = ({ resumeData = {}, handleChange }) => {
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField label="Training Title" fullWidth name="training" value={formData.training} onChange={handleInputChange} />
+          <TextField label="Project Title" fullWidth name="project" value={formData.project} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Institute" fullWidth name="institute" value={formData.institute} onChange={handleInputChange} />
+          <TextField label="Description" fullWidth multiline rows={4} name="description5" value={formData.description5} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Completion Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="completionDate" value={formData.completionDate} onChange={handleInputChange} />
+          <TextField label="Project Link" fullWidth name="projectlink" value={formData.projectlink} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
-        </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" fullWidth onClick={handleAddTraining}>+ Add Training</Button>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddProject}>+ Add Project</Button>
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-export default Trainings;
+export default Projects;

@@ -39,7 +39,7 @@ const Awards = ({ resumeData = {}, handleChange }) => {
   };
 
   return (
-    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}}>
+    <Container>
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
         Awards
       </Typography>
