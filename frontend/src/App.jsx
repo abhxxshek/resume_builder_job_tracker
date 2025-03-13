@@ -11,6 +11,7 @@ import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
 import Template1 from './Templates/Template1'
+import { Route, Routes } from 'react-router-dom'
 
 
 
@@ -18,10 +19,17 @@ function App() {
 
   return (
     <>
-      <Navbar/>
-      
-      
-      <Layout2/>
+         <Navbar/>
+  
+  <Routes>
+    {/* Route for Template Selection Page */}
+    <Route path="/" element={<TemplateView />} />
+
+    {/* Route for Layout2 with Template Selection */}
+    <Route path="/layout2/:template" element={<Layout2 />} />
+  </Routes>
+
+</>
       
     </>
   )

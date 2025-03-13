@@ -1,80 +1,86 @@
 import React from "react";
-import { Typography, Container, Box, Divider, Grid, Avatar } from "@mui/material";
+import { Typography, Container, Box, Divider } from "@mui/material";
 
-const Template5 = ({ resumeData }) => {
+const Template5 = ({ resumeData = {} }) => {
   return (
-    <Container maxWidth="md" sx={{ width: "210mm", height: "297mm", padding: "20px", backgroundColor: "white", boxShadow: 3, fontFamily: "Arial, sans-serif", border: "5px solid #8B8B8B", backgroundImage: "url('/path-to-checkered-pattern.png')", backgroundSize: "contain" }}>
-      <Grid container>
-        {/* Header Section */}
-        <Grid item xs={12} sx={{ textAlign: "center", paddingBottom: "10px" }}>
-          <Avatar src={resumeData.profileImage || "/default-profile.png"} sx={{ width: 100, height: 100, margin: "0 auto" }} />
-          <Typography variant="h4" fontWeight="bold" color="#1F3C88">
-            {resumeData.firstName || "Kit"} {resumeData.lastName || "Maxwell"}
-          </Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Contact Information */}
-        <Grid item xs={12} sx={{ textAlign: "center", paddingBottom: "10px" }}>
-          <Typography variant="body2">{resumeData.address || "San Antonio, TX 87213"} | {resumeData.phoneNumber || "(123) 966-1415"} | {resumeData.email || "example@email.com"}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Profile</Typography>
-          <Typography variant="body1">{resumeData.profile || "Your training details go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
+    <Container maxWidth="lg" sx={{ height: "297mm", backgroundColor: "#ffffff", boxShadow: 3, fontFamily: "Arial, sans-serif", border: "10px solid #8B0000" }}>
+      <Box sx={{ padding: 4 }}>
+        <Box sx={{ backgroundColor: "#8B0000", color: "white", textAlign: "center", padding: 2, mb: 4 }}>
+          <Typography variant="h4">{resumeData?.firstName || "John"} {resumeData?.lastName || "Smith"}</Typography>
+          <Typography variant="subtitle1">{resumeData?.designation || "Your Designation"}</Typography>
+        </Box>
 
-        
-        {/* Education */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Education</Typography>
-          <Typography variant="body1">{resumeData.education || "Your education details go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Experience */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Experience</Typography>
-          <Typography variant="body1">{resumeData.experience || "Your experience details go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Projects */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Projects</Typography>
-          <Typography variant="body1">{resumeData.projects || "Your project details go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Skills */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Skills</Typography>
-          <Typography variant="body1">{resumeData.skills || "Your skills go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Achievements */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Achievements</Typography>
-          <Typography variant="body1">{resumeData.achievements || "Your achievements go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Awards */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Awards</Typography>
-          <Typography variant="body1">{resumeData.awards || "Your awards go here."}</Typography>
-          <Divider sx={{ my: 2, backgroundColor: "#1F3C88" }} />
-        </Grid>
-        
-        {/* Training */}
-        <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-          <Typography variant="h5" fontWeight="bold" color="#1F3C88">Training</Typography>
-          <Typography variant="body1">{resumeData.training || "Your training details go here."}</Typography>
-        </Grid>
-      </Grid>
+        <Typography variant="body2">📧 {resumeData?.email || "your.email@example.com"}</Typography>
+        <Typography variant="body2">📞 {resumeData?.phoneNumber || "Your Phone Number"}</Typography>
+        <Typography variant="body2">📍 {resumeData?.city || "City"}, {resumeData?.address || "Your Address"}</Typography>
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Professional Summary</Typography>
+        <Typography variant="body1">{resumeData?.profile || "Your profile summary goes here."}</Typography>
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Work History</Typography>
+        {resumeData.experiencesList?.map((experience, index) => (
+          <Box key={index} mb={3}>
+            <Typography variant="h6">{experience.employer}</Typography>
+            <Typography variant="body2">{experience.job} at {experience.company}, {experience.City}</Typography>
+            <Typography variant="body2">From {experience.startDate} to {experience.endDate}</Typography>
+            <Typography variant="body2">{experience.description1}</Typography>
+          </Box>
+        ))}
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Education</Typography>
+        {resumeData.educationList?.map((edu, index) => (
+          <Box key={index} mb={2}>
+            <Typography variant="body2">{edu.degree} at {edu.school}</Typography>
+            <Typography variant="caption">{edu.startdate} to {edu.enddate}</Typography>
+          </Box>
+        ))}
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Skills</Typography>
+        <Typography variant="body2">{resumeData.skills?.join(", ") || "Your skills here."}</Typography>
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Projects</Typography>
+        {resumeData.projectsList?.map((project, index) => (
+          <Box key={index} mb={3}>
+            <Typography variant="h6">{project.title}</Typography>
+            <Typography variant="body2">{project.description}</Typography>
+          </Box>
+        ))}
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Achievements</Typography>
+        {resumeData.achievementsList?.map((achievement, index) => (
+          <Box key={index} mb={3}>
+            <Typography variant="body2">{achievement}</Typography>
+          </Box>
+        ))}
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Awards</Typography>
+        {resumeData.awardsList?.map((award, index) => (
+          <Box key={index} mb={3}>
+            <Typography variant="h6">{award.award}</Typography>
+            <Typography variant="body2">{award.organization} - {award.city1}</Typography>
+            <Typography variant="body2">{award.recieveddate}</Typography>
+            <Typography variant="body2">{award.description3}</Typography>
+          </Box>
+        ))}
+        <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+
+        <Typography variant="h5" fontWeight="bold">Trainings</Typography>
+        {resumeData.trainingsList?.map((training, index) => (
+          <Box key={index} mb={3}>
+            <Typography variant="h6">{training.training}</Typography>
+            <Typography variant="body2">{training.institute}</Typography>
+            <Typography variant="body2">{training.completionDate}</Typography>
+            <Typography variant="body2">{training.description}</Typography>
+          </Box>
+        ))}
+      </Box>
     </Container>
   );
 };

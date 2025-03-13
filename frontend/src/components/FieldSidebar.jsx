@@ -25,20 +25,26 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
   return (
     <Box
       sx={{
-        width: "100%",
+        width: "80%",
         p: 2,
         display: "flex",
         flexDirection: "column",
         flex: "1",
+        maxHeight:"600px",
+        overflowY:"auto",
+        '&::-webkit-scrollbar': {
+            display: 'none', // Hide scrollbar
+          },
         
          }}
     >
       {fieldTemplate.map((field, index) => (
-        <motion.div
+        <Box
           key={index}
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.05 }}
+          // whileTap={{ scale: 0.95 }}
+          // whileHover={{ scale: 1.05 }}
           onClick={() => setSelectedField(field.name)}
+          // style={{width:"80%"}}
         >
           <Button
             fullWidth
@@ -49,18 +55,17 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
                 display: "flex",
                 alignItems: "center",
                 border: "none",
-                maxWidth: "150px",
+                width: "100%",
                 maxHeight: "90px",
                 justifyContent: "center",
                 flexDirection: "column",
-                
                 gap: "5px", 
               }}
           >
             <Typography sx={{ margin: 0, lineHeight: 1,paddingTop:"10px" }}>{field.icon}</Typography>
             <Typography sx={{ margin: 0, lineHeight: 1 ,paddingBottom:"10px"}}>{field.name}</Typography>
           </Button>
-        </motion.div>
+        </Box>
       ))}
     </Box>
   );
