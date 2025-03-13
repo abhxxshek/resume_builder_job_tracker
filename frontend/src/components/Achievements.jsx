@@ -1,93 +1,67 @@
-import React, { useState, useRef } from "react";
-import { TextField, Button, Typography, Container, Grid, Paper, Link } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Box } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Achievements = () => {
-  const [achievements, setAchievements] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const inputRef = useRef(null);
+const Achievements = ({ resumeData = {}, handleChange }) => {
+  const [achievementsList, setAchievementsList] = useState(resumeData.achievementsList || []);
+  const [formData, setFormData] = useState({
+    achievements: "",
+    description2: ""
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleAddAchievement = () => {
-    if (title && description) {
-      setAchievements([...achievements, { title, description }]);
-      setTitle("");
-      setDescription("");
+    if (formData.achievements && formData.description2) {
+      const newList = [...achievementsList, formData];
+      setAchievementsList(newList);
+      setFormData({
+        achievements: "",
+        description2: ""
+      });
+      handleChange({ target: { name: 'achievementsList', value: newList } });
     }
   };
 
-  const handleFocusInput = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+  const handleDelete = (index) => {
+    const updatedList = achievementsList.filter((_, i) => i !== index);
+    setAchievementsList(updatedList);
+    handleChange({ target: { name: 'achievementsList', value: updatedList } });
   };
 
   return (
     <Container>
-      
-        <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
-          Achievements
-        </Typography>
-        <Typography variant="body1" textAlign="left" gutterBottom>
-          Add your most notable works and accomplishments to create a stronger persona.
-        </Typography>
+      <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
+        Achievements
+      </Typography>
+      <Typography variant="body1" textAlign="left" gutterBottom>
+        Add your most notable works and accomplishments.
+      </Typography>
 
-        {/* Achievement Input Fields */}
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item xs={12}>
-            <TextField
-              inputRef={inputRef}
-              label="Achievement Title"
-              variant="outlined"
-              fullWidth
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Description"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={4}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              fullWidth 
-              onClick={handleAddAchievement}
-            >
-              Add
-            </Button>
-          </Grid>
+      {achievementsList.map((achievement, index) => (
+        <Card key={index} sx={{ mb: 2 }}>
+          <CardContent>
+            <Typography variant="h6">{achievement.achievements}</Typography>
+            <Typography variant="body2">{achievement.description2}</Typography>
+            <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
+          </CardContent>
+        </Card>
+      ))}
+
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField label="Achievement Title" variant="outlined" fullWidth name="achievements" value={formData.achievements} onChange={handleInputChange} />
         </Grid>
-
-        {/* Display Added Achievements */}
-        {achievements.length > 0 && (
-          <Grid container spacing={2} sx={{ mt: 3 }}>
-            {achievements.map((achievement, index) => (
-              <Grid item xs={12} key={index}>
-                <Paper sx={{ p: 2 }}>
-                  <Typography variant="h6">{achievement.title}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {achievement.description}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-
-        {/* "+ Add Achievement" Link */}
-        <Grid container justifyContent="flex-start" sx={{ mt: 2 }}>
-          <Link component="button" variant="body2" onClick={handleFocusInput} color="primary">
-            + Add Achievement
-          </Link>
+        <Grid item xs={12}>
+          <TextField label="Description" variant="outlined" fullWidth multiline rows={4} name="description2" value={formData.description2} onChange={handleInputChange} />
         </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddAchievement}>+ Add Achievement</Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

@@ -1,49 +1,96 @@
 import React from "react";
-import { TextField, Button, Typography, Container, Grid } from "@mui/material";
+import { TextField, Typography, Container, Grid } from "@mui/material";
 
-const About = () => {
+const About = ({ resumeData = {}, handleChange }) => {
+  
   return (
-    <>
-      <Container >
-        <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
-          About Yourself
-        </Typography>
-        <Typography variant="body1" textAlign={"left"} gutterBottom>
-          Fill out about yourself
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <TextField label="First Name" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField label="Last Name" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <TextField label="Designation" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <TextField label="Career Objective" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField label="Email" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField label="Phone Number" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField label="City" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField label="Address" variant="outlined" fullWidth />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <Button variant="contained" color="primary" fullWidth>
-              Submit
-            </Button>
-          </Grid>
+    <Container>
+      <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
+        About Yourself
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="First Name"
+            name="firstName"
+            variant="outlined"
+            fullWidth
+            value={resumeData.firstName || ""}
+            onChange={handleChange}
+          />
         </Grid>
-      </Container>
-    </>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Last Name"
+            name="lastName"
+            variant="outlined"
+            fullWidth
+            value={resumeData.lastName || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <TextField
+            label="Designation"
+            name="designation"
+            variant="outlined"
+            fullWidth
+            value={resumeData.designation || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <TextField
+            label="Career Objective"
+            name="profile"
+            variant="outlined"
+            fullWidth
+            value={resumeData.profile || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Email"
+            name="email"
+            variant="outlined"
+            fullWidth
+            value={resumeData.email || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Phone Number"
+            name="phoneNumber"
+            variant="outlined"
+            fullWidth
+            value={resumeData.phoneNumber || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="City"
+            name="city"
+            variant="outlined"
+            fullWidth
+            value={resumeData.city || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Address"
+            name="address"
+            variant="outlined"
+            fullWidth
+            value={resumeData.address || ""}
+            onChange={handleChange}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

@@ -1,72 +1,81 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Projects = () => {
-  const [projects, setProjects] = useState([]);
+const Trainings = ({ resumeData = {}, handleChange }) => {
+  const [trainingsList, setTrainingsList] = useState(resumeData.trainingsList || []);
+  const [formData, setFormData] = useState({
+    training: "",
+    institute: "",
+    completionDate: "",
+    description: ""
+  });
 
-  const [projectTitle, setProjectTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [projectLink, setProjectLink] = useState("");
-
-  const addProject = () => {
-    const newProject = {
-      projectTitle,
-      description,
-      projectLink
-    };
-
-    setProjects([...projects, newProject]);
-
-    setProjectTitle("");
-    setDescription("");
-    setProjectLink("");
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const removeProject = (index) => {
-    const updatedProjects = projects.filter((_, i) => i !== index);
-    setProjects(updatedProjects);
+  const handleAddTraining = () => {
+    if (formData.training && formData.institute) {
+      const newList = [...trainingsList, formData];
+      setTrainingsList(newList);
+      setFormData({
+        training: "",
+        institute: "",
+        completionDate: "",
+        description: ""
+      });
+      handleChange({ target: { name: 'trainingsList', value: newList } });
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedList = trainingsList.filter((_, i) => i !== index);
+    setTrainingsList(updatedList);
+    handleChange({ target: { name: 'trainingsList', value: updatedList } });
   };
 
   return (
     <Container>
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
-        Projects
+        Trainings
       </Typography>
       <Typography variant="body1" textAlign="left" gutterBottom>
-        Share your significant projects with links and descriptions.
+        Add your training details.
       </Typography>
+
+      {trainingsList.map((training, index) => (
+        <Card key={index} sx={{ mb: 2 }}>
+          <CardContent>
+            <Typography variant="h6">{training.training}</Typography>
+            <Typography variant="body2">{training.institute}</Typography>
+            <Typography variant="body2">{training.completionDate}</Typography>
+            <Typography variant="body2">{training.description}</Typography>
+            <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
+          </CardContent>
+        </Card>
+      ))}
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField label="Project Title" fullWidth value={projectTitle} onChange={(e) => setProjectTitle(e.target.value)} />
+          <TextField label="Training Title" fullWidth name="training" value={formData.training} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" fullWidth multiline rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+          <TextField label="Institute" fullWidth name="institute" value={formData.institute} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Project Link" fullWidth value={projectLink} onChange={(e) => setProjectLink(e.target.value)} />
+          <TextField label="Completion Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="completionDate" value={formData.completionDate} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" fullWidth onClick={addProject}>
-            Add Project
-          </Button>
+          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddTraining}>+ Add Training</Button>
         </Grid>
       </Grid>
-
-      <div>
-        {projects.map((project, index) => (
-          <div key={index} style={{ marginBottom: '20px' }}>
-            <Typography variant="h5">{project.projectTitle}</Typography>
-            <Typography>Description: {project.description}</Typography>
-            <Typography>Link: <a href={project.projectLink} target="_blank" rel="noopener noreferrer">{project.projectLink}</a></Typography>
-            <IconButton color="error" onClick={() => removeProject(index)}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ))}
-      </div>
     </Container>
   );
 };
 
-export default Projects;
+export default Trainings;

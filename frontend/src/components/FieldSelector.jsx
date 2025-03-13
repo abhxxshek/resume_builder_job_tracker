@@ -10,36 +10,36 @@ import Achievements from "./Achievements";
 import Awards from "./Awards";
 import Trainings from "./Trainings";
 
-const FieldSelector = ({ selectedField }) => {
+const FieldSelector = ({ selectedField, resumeData, handleChange }) => {
   let selectedComponent;
 
   switch (selectedField) {
     case "About":
-      selectedComponent = <About />;
+      selectedComponent = <About resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Education":
-      selectedComponent = <Education />;
+      selectedComponent = <Education resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Experience":
-      selectedComponent = <Experience />;
+      selectedComponent = <Experience resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Projects":
-      selectedComponent = <Projects />;
+      selectedComponent = <Projects resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Skills":
-      selectedComponent = <Skills />;
+      selectedComponent = <Skills resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Achievements":
-      selectedComponent = <Achievements />;
+      selectedComponent = <Achievements resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Awards":
-      selectedComponent = <Awards />;
+      selectedComponent = <Awards resumeData={resumeData} handleChange={handleChange} />;
       break;
     case "Trainings":
-      selectedComponent = <Trainings />;
+      selectedComponent = <Trainings resumeData={resumeData} handleChange={handleChange} />;
       break;
     default:
-      selectedComponent = <About />;
+      selectedComponent = <About resumeData={resumeData} handleChange={handleChange} />;
   }
 
   return (
@@ -51,7 +51,7 @@ const FieldSelector = ({ selectedField }) => {
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <Box sx={{ p: 0, bgcolor: "white"}}>
+        <Box sx={{ p: 0, bgcolor: "white" }}>
           {selectedComponent}
         </Box>
       </motion.div>
