@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Container, Box, Divider } from "@mui/material";
+import { Typography, Container, Box, Divider, Grid } from "@mui/material";
 
 const Template5 = ({ resumeData = {} }) => {
   return (
@@ -51,13 +51,42 @@ const Template5 = ({ resumeData = {} }) => {
           </Box>
         ))}
         <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
+        
+              {/* Skills Section */}
+              <Typography variant="h5" fontWeight="bold" color="#2c3e50">Skills</Typography>
+        {resumeData.skillsList && resumeData.skillsList.length > 0 ? (
+          resumeData.skillsList.map((skill, index) => (
+            <Box key={index} mb={2} p={2} border={1} borderColor="grey.300" borderRadius={2}>
+              <Typography variant="h6" fontWeight="bold" color="primary">
+                {skill.skill}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Level: {skill.level}
+              </Typography>
+            </Box>
+          ))
+        ) : (
+          <Typography variant="body1" color="textSecondary">
+            Your skills will be displayed here.
+          </Typography>
+        )}
+        
+              <Divider sx={{ my: 2, backgroundColor: "#2c3e50" }} />
 
-        <Typography variant="h5" fontWeight="bold">Achievements</Typography>
-        {resumeData.achievementsList?.map((achievement, index) => (
-          <Box key={index} mb={3}>
-            <Typography variant="body2">{achievement}</Typography>
-          </Box>
-        ))}
+        {/* Achievements */}
+      <Grid item xs={12}>
+      <Typography variant="h5" fontWeight="bold" color="#2c3e50">Achievements</Typography>
+    {resumeData.achievementsList && resumeData.achievementsList.length > 0 ? (
+      resumeData.achievementsList.map((achievement, index) => (
+        <Box key={index} mb={2}>
+          <Typography variant="h6">{achievement.achievements}</Typography>
+          <Typography variant="body2">{achievement.description2}</Typography>
+        </Box>
+      ))
+    ) : (
+      <Typography variant="body1">Your achievements details go here.</Typography>
+    )}
+      </Grid>
         <Divider sx={{ my: 3, backgroundColor: "#bdc3c7" }} />
 
         <Typography variant="h5" fontWeight="bold">Awards</Typography>
