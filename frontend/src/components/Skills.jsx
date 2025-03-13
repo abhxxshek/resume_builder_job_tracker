@@ -30,7 +30,7 @@ const Skills = ({ resumeData = {}, handleChange }) => {
   };
 
   return (
-    <Container>
+    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}} >
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
         Skills
       </Typography>

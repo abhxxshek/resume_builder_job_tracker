@@ -69,7 +69,7 @@ const Layout2 = () => {
     <Box>
       <Grid container columnSpacing={2}>
         {/* Sidebar */}
-        <Grid item xs={12} md={2} sx={{ borderRight: "1px solid lightgrey" }}>
+        <Grid item xs={12} md={1.5} sx={{ borderRight: "1px solid lightgrey" }}>
           <FieldSidebar
             selectedField={selectedField}
             setSelectedField={setSelectedField}
@@ -77,7 +77,21 @@ const Layout2 = () => {
         </Grid>
 
         {/* Form Fields */}
-        <Grid item xs={12} md={5} sx={{ borderRight: "1px solid lightgrey" }}>
+        <Grid
+          item
+          xs={12}
+          md={5}
+          sx={{
+            borderRight: "1px solid lightgrey",
+            maxHeight: "620px",
+            overflowY: "auto",
+            scrollbarWidth: "none", 
+              "&::-webkit-scrollbar": {
+                display: "none", 
+              },
+
+          }}
+        >
           <FieldSelector
             selectedField={selectedField}
             resumeData={resumeData}
@@ -86,12 +100,55 @@ const Layout2 = () => {
         </Grid>
 
         {/* Template Preview */}
-        <Grid item xs={12} md={5}>
-          {template === "Template1" && <Template1 resumeData={resumeData} />}
-          {template === "Template2" && <Template2 resumeData={resumeData} />}
-          {template === "Template3" && <Template3 resumeData={resumeData} />}
-          {template === "Template4" && <Template4 resumeData={resumeData} />}
-          {template === "Template5" && <Template5 resumeData={resumeData} />}
+        <Grid
+          item
+          xs={12}
+          md={5.5}
+          sx={{
+            height: "89vh",
+            overflow: "hidden", // Prevents any overflow outside the grid
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              overflowY: "auto", // Enables only vertical scrolling
+              display: "flex",
+              flexDirection: "column", // Aligns content from top to bottom
+              alignItems: "center", // Centers content while preventing horizontal overflow
+              scrollbarWidth: "none", 
+              "&::-webkit-scrollbar": {
+                display: "none", 
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%", // Ensures template scales properly
+                maxWidth: "100%", // Prevents horizontal overflow
+                height: "auto", // Let content adjust its height
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {template === "Template1" && (
+                <Template1 resumeData={resumeData} />
+              )}
+              {template === "Template2" && (
+                <Template2 resumeData={resumeData} />
+              )}
+              {template === "Template3" && (
+                <Template3 resumeData={resumeData} />
+              )}
+              {template === "Template4" && (
+                <Template4 resumeData={resumeData} />
+              )}
+              {template === "Template5" && (
+                <Template5 resumeData={resumeData} />
+              )}
+            </Box>
+          </Box>
         </Grid>
       </Grid>
     </Box>

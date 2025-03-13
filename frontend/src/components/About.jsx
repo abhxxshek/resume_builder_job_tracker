@@ -1,10 +1,11 @@
 import React from "react";
-import { TextField, Typography, Container, Grid } from "@mui/material";
+import { TextField, Typography, Container, Grid, Box } from "@mui/material";
 
 const About = ({ resumeData = {}, handleChange }) => {
   
   return (
-    <Container>
+    
+    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}} >
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
         About Yourself
       </Typography>
@@ -91,6 +92,7 @@ const About = ({ resumeData = {}, handleChange }) => {
         </Grid>
       </Grid>
     </Container>
+    
   );
 };
 
