@@ -20,6 +20,7 @@ function App() {
          <Navbar/>
   
   <Routes>
+    <Route path='/' element={<Layout2/>}/>
     {/* Route for Template Selection Page */}
     <Route path="/templates" element={<TemplateView />} />
 

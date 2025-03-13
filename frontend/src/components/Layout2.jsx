@@ -6,8 +6,8 @@ import FieldSidebar from "./FieldSidebar";
 import Template1 from "../Templates/Template1";
 import Template2 from "../Templates/Template2";
 import Template3 from "../Templates/Template3";
-import Template4 from "../Templates/Template4"
-import Template5 from "../Templates/Template5"
+import Template4 from "../Templates/Template4";
+import Template5 from "../Templates/Template5";
 
 const Layout2 = () => {
   const { template } = useParams(); // Get the selected template from the URL
@@ -25,35 +25,35 @@ const Layout2 = () => {
     address: "",
     experience: "",
     school: "",
-    degree:"",
-    
-    startdate:"",
-    enddate:"",
-    description:"",
+    degree: "",
+
+    startdate: "",
+    enddate: "",
+    description: "",
     skill: "",
-    level:"",
-    employer:"",
-      job:"",
-      company:"",
-      City:"",
-      startDate:"",
-      endDate:"",
-      description1:"",
+    level: "",
+    employer: "",
+    job: "",
+    company: "",
+    City: "",
+    startDate: "",
+    endDate: "",
+    description1: "",
     achievements: "",
-    description2:"",
-    award:"",
-city1:"",
-organization:"",
-description3:"",
-recieveddate:"",
-    
-training:"",
-institute:"",
-completionDate:"",
-description4:"",
-project:"",
-     description5:"",
-    projectlink:""
+    description2: "",
+    award: "",
+    city1: "",
+    organization: "",
+    description3: "",
+    recieveddate: "",
+
+    training: "",
+    institute: "",
+    completionDate: "",
+    description4: "",
+    project: "",
+    description5: "",
+    projectlink: "",
   });
 
   // Function to handle input changes
@@ -92,8 +92,6 @@ project:"",
           {template === "Template3" && <Template3 resumeData={resumeData} />}
           {template === "Template4" && <Template4 resumeData={resumeData} />}
           {template === "Template5" && <Template5 resumeData={resumeData} />}
-          
-          
         </Grid>
       </Grid>
     </Box>
