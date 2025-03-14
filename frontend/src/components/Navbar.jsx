@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const settings = [
-    { label: 'HOME', path: '/dashboard' },
+    { label: 'HOME', path: '/' },
     { label: 'TEMPLATES', path: '/templates' },
     { label: 'JOBS', path: '/jobs' },
     { label: "LOGOUT" , path: '/Login'}

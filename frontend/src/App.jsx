@@ -7,6 +7,7 @@ import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Trainings from './components/Trainings'
 import Template1 from './Templates/Template1'
+import Dashboard from './components/Dashboard'
 
 import { Route, Routes } from 'react-router-dom'
 import TemplateView from './Templates/Templateview'
@@ -20,7 +21,8 @@ function App() {
          <Navbar/>
   
   <Routes>
-    <Route path='/' element={<Layout2/>}/>
+    <Route path='/' element={<Dashboard />}/>
+    <Route path='/resume-form' element={<Layout2/>}/>
     {/* Route for Template Selection Page */}
     <Route path="/templates" element={<TemplateView />} />
 
