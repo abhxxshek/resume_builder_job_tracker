@@ -30,7 +30,7 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
         display: "flex",
         flexDirection: "column",
         flex: "1",
-        maxHeight:"600px",
+        maxHeight:"620px",
         overflowY:"auto",
         '&::-webkit-scrollbar': {
             display: 'none', // Hide scrollbar
