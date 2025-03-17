@@ -78,12 +78,13 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{margin:"10% auto"}}>
       <Paper 
         elevation={3} 
         sx={{ 
           mt: 8, 
-          p: 4, 
+          p: 4,
+         
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center',

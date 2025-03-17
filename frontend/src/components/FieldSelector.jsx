@@ -7,7 +7,7 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Skills from "./Skills";
 import Achievements from "./Achievements";
-import Awards from "./Awards";
+// import Awards from "./Awards";
 import Trainings from "./Trainings";
 
 const FieldSelector = ({ selectedField, resumeData, handleChange }) => {
@@ -32,9 +32,9 @@ const FieldSelector = ({ selectedField, resumeData, handleChange }) => {
     case "Achievements":
       selectedComponent = <Achievements resumeData={resumeData} handleChange={handleChange} />;
       break;
-    case "Awards":
-      selectedComponent = <Awards resumeData={resumeData} handleChange={handleChange} />;
-      break;
+    // case "Awards":
+    //   selectedComponent = <Awards resumeData={resumeData} handleChange={handleChange} />;
+    //   break;
     case "Trainings":
       selectedComponent = <Trainings resumeData={resumeData} handleChange={handleChange} />;
       break;

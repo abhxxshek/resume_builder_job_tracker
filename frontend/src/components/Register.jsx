@@ -88,7 +88,7 @@ const Register = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{margin:"6% auto"}}>
       <Paper 
         elevation={3} 
         sx={{ 

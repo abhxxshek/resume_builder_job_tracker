@@ -18,7 +18,7 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
     { name: "Projects", icon: <FolderIcon />},
     { name: "Skills", icon: <BuildIcon /> },
     { name: "Achievements", icon: <EmojiEventsIcon /> },
-    { name: "Awards", icon: <CardGiftcardIcon />  },
+    // { name: "Awards", icon: <CardGiftcardIcon />  },
     { name: "Trainings", icon: <RocketLaunchIcon /> },
   ];
 

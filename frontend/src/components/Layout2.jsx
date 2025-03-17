@@ -18,7 +18,7 @@ const Layout2 = () => {
     firstName: "",
     lastName: "",
     designation: "",
-    profile: "",
+    careerObjective: "",
     email: "",
     phoneNumber: "",
     city: "",

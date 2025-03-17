@@ -43,10 +43,10 @@ const About = ({ resumeData = {}, handleChange }) => {
         <Grid item xs={12} md={12}>
           <TextField
             label="Career Objective"
-            name="profile"
+            name="careerObjective"
             variant="outlined"
             fullWidth
-            value={resumeData.profile || ""}
+            value={resumeData.careerObjective || ""}
             onChange={handleChange}
           />
         </Grid>

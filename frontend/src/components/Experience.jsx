@@ -27,7 +27,7 @@ const Experience = ({ resumeData = {}, handleChange }) => {
         employer: "",
         job: "",
         company: "",
-        City: "",
+        // City: "",
         startDate: "",
         endDate: "",
         description1: ""
@@ -73,9 +73,9 @@ const Experience = ({ resumeData = {}, handleChange }) => {
         <Grid item xs={12}>
           <TextField label="Company" fullWidth name="company" value={formData.company} onChange={handleInputChange} />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <TextField label="City" fullWidth name="City" value={formData.City} onChange={handleInputChange} />
-        </Grid>
+        </Grid> */}
         <Grid item xs={6}>
           <TextField label="Start Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="startDate" value={formData.startDate} onChange={handleInputChange} />
         </Grid>

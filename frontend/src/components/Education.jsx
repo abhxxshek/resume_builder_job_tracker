@@ -10,7 +10,7 @@ const Education = ({ resumeData = {}, handleChange }) => {
     degree: "",
     startdate: "",
     enddate: "",
-    description: ""
+    percentage: ""
   });
 
   const displayForm = () => {
@@ -32,7 +32,7 @@ const Education = ({ resumeData = {}, handleChange }) => {
         degree: "",
         startdate: "",
         enddate: "",
-        description: ""
+        percentage: ""
       });
       handleChange({ target: { name: 'educationList', value: newList } }); // Update the template
     }
@@ -59,7 +59,7 @@ const Education = ({ resumeData = {}, handleChange }) => {
             <Typography variant="h6">{edu.school}</Typography>
             <Typography variant="subtitle1">{edu.degree}</Typography>
             <Typography variant="body2">{`${edu.startdate} to ${edu.enddate}`}</Typography>
-            <Typography variant="body2">{edu.description}</Typography>
+            <Typography variant="body2">{edu.percentage}%</Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
         </Card>
@@ -81,7 +81,7 @@ const Education = ({ resumeData = {}, handleChange }) => {
               <TextField label="End Date" type="date" name="enddate" value={formData.enddate} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Description" name="description" value={formData.description} onChange={handleInputChange} multiline rows={3} variant="outlined" fullWidth />
+              <TextField label="Percentage" type="number" name="percentage" value={formData.description} onChange={handleInputChange}  variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={12}>
               <Button variant="contained" color="primary" fullWidth onClick={handleAddEducation}>Add</Button>
