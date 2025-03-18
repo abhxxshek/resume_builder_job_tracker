@@ -33,8 +33,9 @@ function App() {
     const storedUserInfo = localStorage.getItem('userInfo');
     if (storedUserInfo) {
       try {
-        const parsedUserInfo = JSON.parse(storedUserInfo);
-        setUserInfo(parsedUserInfo);
+        // const parsedUserInfo = JSON.parse(storedUserInfo);
+        // setUserInfo(parsedUserInfo);
+        setUserInfo(storedUserInfo);
       } catch (error) {
         console.error('Error parsing user info:', error);
         localStorage.removeItem('userInfo');

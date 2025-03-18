@@ -33,7 +33,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
       const storedUserInfo = localStorage.getItem('userInfo');
       if (storedUserInfo) {
         try {
-          setCurrentUser(JSON.parse(storedUserInfo));
+          setCurrentUser(storedUserInfo);
         } catch (error) {
           console.error('Error parsing user info in Navbar:', error);
         }
