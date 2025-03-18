@@ -66,7 +66,7 @@ const Login = () => {
       }
 
       // Save user data to localStorage
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('userInfo', data.token);
       
       // Force a page reload to update the navbar state
       window.location.href = '/';
