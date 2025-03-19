@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent } from "@mui/material";
+import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Select, MenuItem } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Delete } from "@mui/icons-material";
 
 const Skills = ({ resumeData = {}, handleChange }) => {
   const [skillsList, setSkillsList] = useState(resumeData.skillsList || []);
@@ -43,7 +44,7 @@ const Skills = ({ resumeData = {}, handleChange }) => {
           <CardContent>
             <Typography variant="h6">{skill.skill}</Typography>
             <Typography variant="body2">Level: {skill.level}</Typography>
-            <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
+            <IconButton onClick={() => handleDelete(index)}><Delete/></IconButton>
           </CardContent>
         </Card>
       ))}
@@ -53,7 +54,21 @@ const Skills = ({ resumeData = {}, handleChange }) => {
           <TextField label="Skill" fullWidth name="skill" value={formData.skill} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={6}>
-          <TextField label="Level (e.g. Beginner, Intermediate, Expert)" fullWidth name="level" value={formData.level} onChange={handleInputChange} />
+          <Select
+            label="Level"
+            fullWidth
+            name="level"
+            value={formData.level}
+            onChange={handleInputChange}
+            displayEmpty
+          >
+            <MenuItem value="" disabled>
+              Level (e.g. Beginner, Intermediate, Expert)
+            </MenuItem>
+            <MenuItem value="Beginner">Beginner</MenuItem>
+            <MenuItem value="Intermediate">Intermediate</MenuItem>
+            <MenuItem value="Expert">Expert</MenuItem>
+          </Select>
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" fullWidth onClick={handleAddSkill}>+ Add Skill</Button>

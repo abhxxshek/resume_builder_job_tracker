@@ -18,7 +18,7 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
     { name: "Projects", icon: <FolderIcon />},
     { name: "Skills", icon: <BuildIcon /> },
     { name: "Achievements", icon: <EmojiEventsIcon /> },
-    { name: "Awards", icon: <CardGiftcardIcon />  },
+    // { name: "Awards", icon: <CardGiftcardIcon />  },
     { name: "Trainings", icon: <RocketLaunchIcon /> },
   ];
 
@@ -30,7 +30,7 @@ const FieldSidebar = ({ selectedField, setSelectedField }) => {
         display: "flex",
         flexDirection: "column",
         flex: "1",
-        maxHeight:"600px",
+        maxHeight:"620px",
         overflowY:"auto",
         '&::-webkit-scrollbar': {
             display: 'none', // Hide scrollbar

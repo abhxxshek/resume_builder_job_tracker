@@ -6,6 +6,7 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
   const [achievementsList, setAchievementsList] = useState(resumeData.achievementsList || []);
   const [formData, setFormData] = useState({
     achievements: "",
+    year:"",
     description2: ""
   });
 
@@ -45,6 +46,7 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
             <Typography variant="h6">{achievement.achievements}</Typography>
+            <Typography variant="h6">{achievement.year}</Typography>
             <Typography variant="body2">{achievement.description2}</Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
@@ -54,6 +56,9 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField label="Achievement Title" variant="outlined" fullWidth name="achievements" value={formData.achievements} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Year" variant="outlined" fullWidth name="year" value={formData.year} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <TextField label="Description" variant="outlined" fullWidth multiline rows={4} name="description2" value={formData.description2} onChange={handleInputChange} />

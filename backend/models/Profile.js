@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const profileSchema = new mongoose.Schema({
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -6,40 +7,59 @@ const profileSchema = new mongoose.Schema({
       unique: true,
     },
     personalDetails: {
-      fullName: String,
+      firstName: String,
+      lastName:String,
+      designation:String,
       email: String,
-      phone: String,
+      phoneNumber: Number,
+      city:String,
       address: String,
-      linkedIn: String,
-      github: String,
+      careerObjective:String,
+      // linkedIn: String,
+      // github: String,
     },
     skills: [{
-      name: String,
+      skill: String,
       proficiency: {
         type: String,
         enum: ["Beginner", "Intermediate", "Advanced"],
       },
     }],
     experience: [{
-      title: String,
+      jobTitle: String,
       company: String,
-      location: String,
+      // location: String,
       startDate: Date,
       endDate: Date,
-      currentJob: Boolean,
+      // currentJob: Boolean,
       description: String,
     }],
     education: [{
-      degree: String,
-      institution: String,
       fieldOfStudy: String,
+      institution: String,
       startYear: Number,
       endYear: Number,
+      percentage:Number,
     }],
-    certifications: [{
-      name: String,
-      issuer: String,
-      date: Date,
+    achievements: [{
+      achievementTitle: String,
+      description: String,
+      year: Date,
+    }],
+    project: [{
+      projectTitle: String,
+      description: String,
+      projectLink: String,
+    }],
+    training: [{
+      trainingTitle: String,
+      institute:String,
+      completion:String,
+      description: String,
+      
     }],
   });
   
+  const Profile = mongoose.model('profile', profileSchema);
+  
+  module.exports = Profile;

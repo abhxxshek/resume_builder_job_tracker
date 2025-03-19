@@ -8,17 +8,19 @@ import Template2 from "../Templates/Template2";
 import Template3 from "../Templates/Template3";
 import Template4 from "../Templates/Template4";
 import Template5 from "../Templates/Template5";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Layout2 = () => {
   const { template } = useParams(); // Get the selected template from the URL
   const [selectedField, setSelectedField] = useState("About");
-
+  const [response, setResponse] = useState();
   // State to manage resume data
   const [resumeData, setResumeData] = useState({
-    firstName: "",
+    firstName: "" ,
     lastName: "",
     designation: "",
-    profile: "",
+    careerObjective: "",
     email: "",
     phoneNumber: "",
     city: "",
@@ -55,6 +57,51 @@ const Layout2 = () => {
     description5: "",
     projectlink: "",
   });
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/profile/profile-details').then((res) => {  
+      // console.log(res.data);
+      setResponse(res.data);
+      setResumeData(prevState => ({
+        ...prevState,
+        firstName: res.data.personalDetails.firstName,
+        lastName: res.data.personalDetails.lastName,
+        designation: res.data.personalDetails.designation,
+        careerObjective: res.data.personalDetails.careerObjective,
+        email: res.data.personalDetails.email,
+        phoneNumber: res.data.personalDetails.phoneNumber,
+        city: res.data.personalDetails.city,
+        address: res.data.personalDetails.address,
+        experience: res.data.experience[0]?.description || "", // Assuming the first experience
+        school: res.data.education[0]?.institution || "",
+        degree: res.data.education[0]?.fieldOfStudy || "",
+        startdate: res.data.experience[0]?.startDate || "",
+        enddate: res.data.experience[0]?.endDate || "",
+        description: res.data.experience[0]?.description || "",
+        skill: res.data.skills[0]?.skill || "",
+        level: res.data.skills[0]?.proficiency || "",
+        employer: res.data.experience[0]?.company || "",
+        job: res.data.experience[0]?.jobTitle || "",
+        company: res.data.experience[0]?.company || "",
+        achievements: res.data.achievements[0]?.achievementTitle || "",
+        description2: res.data.achievements[0]?.description || "",
+        award: res.data.achievements[0]?.achievementTitle || "",
+        city1: res.data.personalDetails.city || "",
+        organization: res.data.training[0]?.institute || "",
+        description3: res.data.training[0]?.description || "",
+        recieveddate: res.data.training[0]?.completion || "",
+        training: res.data.training[0]?.trainingTitle || "",
+        institute: res.data.training[0]?.institute || "",
+        completionDate: res.data.training[0]?.completion || "",
+        description4: res.data.training[0]?.description || "",
+        project: res.data.project[0]?.projectTitle || "",
+        description5: res.data.project[0]?.description || "",
+        projectlink: res.data.project[0]?.projectLink || "",
+      })); 
+    }).catch((error) => {
+      alert('Failed to fetch Profile');
+    });
+  }, []);
 
   // Function to handle input changes
   const handleChange = (e) => {

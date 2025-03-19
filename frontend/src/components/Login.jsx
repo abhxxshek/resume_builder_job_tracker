@@ -65,8 +65,8 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Save user data to localStorage
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      // Save user data to sessionStorage
+      sessionStorage.setItem('userInfo', data.token);
       
       // Force a page reload to update the navbar state
       window.location.href = '/';
@@ -78,12 +78,13 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{margin:"10% auto"}}>
       <Paper 
         elevation={3} 
         sx={{ 
           mt: 8, 
-          p: 4, 
+          p: 4,
+         
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center',

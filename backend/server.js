@@ -17,10 +17,11 @@ app.use(morgan('dev'));
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
-
+app.use("/profile",profileRoutes);
 // Basic route
 app.get('/', (req, res) => {
   res.send('API is running...');
