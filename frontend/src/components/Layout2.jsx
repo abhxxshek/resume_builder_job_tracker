@@ -88,7 +88,7 @@ const Layout2 = () => {
 
   return (
     <Box>
-      <Grid container columnSpacing={2}>
+      <Grid container rowSpacing={2}>
         {/* Sidebar */}
         <Grid item xs={12} md={1.5} sx={{ borderRight: "1px solid lightgrey" }}>
           <FieldSidebar
@@ -104,7 +104,7 @@ const Layout2 = () => {
           md={5}
           sx={{
             borderRight: "1px solid lightgrey",
-            maxHeight: "620px",
+            maxHeight: "730px",
             overflowY: "auto",
             scrollbarWidth: "none", 
               "&::-webkit-scrollbar": {
@@ -125,7 +125,8 @@ const Layout2 = () => {
           xs={12}
           md={5.5}
           sx={{
-            height: "89vh",
+            // height: "93vh",
+            maxHeight: "730px",
             overflow: "hidden",
           }}
         >
