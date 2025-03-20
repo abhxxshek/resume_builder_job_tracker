@@ -3,15 +3,13 @@ import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardC
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Experience = ({ resumeData = {}, handleChange }) => {
-  const [experiencesList, setExperiencesList] = useState(resumeData.experiencesList || []);
-  const [formData, setFormData] = useState({
-    employer: "",
-    job: "",
+  const [experiencesList, setExperiencesList] = useState(resumeData.experiences || []);
+  const [formData, setFormData] = useState({ 
+    jobTitle: "",
     company: "",
-    City: "",
     startDate: "",
     endDate: "",
-    description1: ""
+    description: ""
   });
 
   const handleInputChange = (e) => {
@@ -32,14 +30,14 @@ const Experience = ({ resumeData = {}, handleChange }) => {
         endDate: "",
         description1: ""
       });
-      handleChange({ target: { name: 'experiencesList', value: newList } });
+      handleChange({ target: { name: 'experiences', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = experiencesList.filter((_, i) => i !== index);
     setExperiencesList(updatedList);
-    handleChange({ target: { name: 'experiencesList', value: updatedList } });
+    handleChange({ target: { name: 'experiences', value: updatedList } });
   };
 
   return (
@@ -54,10 +52,10 @@ const Experience = ({ resumeData = {}, handleChange }) => {
       {experiencesList.map((experience, index) => (
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
-            <Typography variant="h6">{experience.employer}</Typography>
-            <Typography variant="body2">{experience.job} at {experience.company}, {experience.City}</Typography>
+            <Typography variant="h6">{experience.jobTitle}</Typography>
+            <Typography variant="body2">at {experience.company}</Typography>
             <Typography variant="body2">From {experience.startDate} to {experience.endDate}</Typography>
-            <Typography variant="body2">{experience.description1}</Typography>
+            <Typography variant="body2">{experience.description}</Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
         </Card>

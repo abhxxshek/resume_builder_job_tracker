@@ -3,11 +3,11 @@ import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardC
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Projects = ({ resumeData = {}, handleChange }) => {
-  const [projectsList, setProjectsList] = useState(resumeData.projectsList || []);
+  const [projectsList, setProjectsList] = useState(resumeData.projects || []);
   const [formData, setFormData] = useState({
-    project: "",
-    description5: "",
-    projectlink: ""
+    projectTitle: "",
+    description: "",
+    projectLink: ""
   });
 
   const handleInputChange = (e) => {
@@ -16,22 +16,22 @@ const Projects = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddProject = () => {
-    if (formData.project && formData.description5 && formData.projectlink) {
+    if (formData.projectTitle && formData.description && formData.projectLink) {
       const newList = [...projectsList, formData];
       setProjectsList(newList);
       setFormData({
-        project: "",
-        description5: "",
-        projectlink: ""
+        projectTitle: "",
+        description: "",
+        projectLink: ""
       });
-      handleChange({ target: { name: 'projectsList', value: newList } });
+      handleChange({ target: { name: 'projects', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = projectsList.filter((_, i) => i !== index);
     setProjectsList(updatedList);
-    handleChange({ target: { name: 'projectsList', value: updatedList } });
+    handleChange({ target: { name: 'projects', value: updatedList } });
   };
 
   return (
@@ -46,11 +46,11 @@ const Projects = ({ resumeData = {}, handleChange }) => {
       {projectsList.map((project, index) => (
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
-            <Typography variant="h6">{project.project}</Typography>
-            <Typography variant="body2">{project.description5}</Typography>
+            <Typography variant="h6">{project.projectTitle}</Typography>
+            <Typography variant="body2">{project.description}</Typography>
             <Typography variant="body2">
-              <a href={project.projectlink} target="_blank" rel="noopener noreferrer">
-                {project.projectlink}
+              <a href={project.projectLink} target="_blank" rel="noopener noreferrer">
+                {project.projectLink}
               </a>
             </Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
@@ -60,13 +60,13 @@ const Projects = ({ resumeData = {}, handleChange }) => {
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField label="Project Title" fullWidth name="project" value={formData.project} onChange={handleInputChange} />
+          <TextField label="Project Title" fullWidth name="projectTitle" value={formData.projectTitle} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" fullWidth multiline rows={4} name="description5" value={formData.description5} onChange={handleInputChange} />
+          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Project Link" fullWidth name="projectlink" value={formData.projectlink} onChange={handleInputChange} />
+          <TextField label="Project Link" fullWidth name="projectLink" value={formData.projectLink} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" fullWidth onClick={handleAddProject}>+ Add Project</Button>
