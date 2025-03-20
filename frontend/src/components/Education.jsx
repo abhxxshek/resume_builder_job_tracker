@@ -4,12 +4,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const Education = ({ resumeData = {}, handleChange }) => {
   const [isEducation, setIsEducation] = useState(false);
-  const [educationList, setEducationList] = useState([]);
+  const [educationList, setEducationList] = useState( resumeData.education || [] );
   const [formData, setFormData] = useState({
-    school: "",
-    degree: "",
-    startdate: "",
-    enddate: "",
+    institution: "",
+    fieldOfStudy: "",
+    startYear: "",
+    endYear: "",
     percentage: ""
   });
 
@@ -24,24 +24,24 @@ const Education = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddEducation = () => {
-    if (formData.school && formData.degree) {
+    if (formData.institution && formData.fieldOfStudy) {
       const newList = [...educationList, formData];
       setEducationList(newList);
       setFormData({
-        school: "",
-        degree: "",
-        startdate: "",
-        enddate: "",
+        institution: "",
+        fieldOfStudy: "",
+        startYear: "",
+        endYear: "",
         percentage: ""
       });
-      handleChange({ target: { name: 'educationList', value: newList } }); // Update the template
+      handleChange({ target: { name: 'education', value: newList } }); // Update the template
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = educationList.filter((_, i) => i !== index);
     setEducationList(updatedList);
-    handleChange({ target: { name: 'educationList', value: updatedList } }); // Update the template
+    handleChange({ target: { name: 'education', value: updatedList } }); // Update the template
   };
 
   return (
@@ -56,9 +56,9 @@ const Education = ({ resumeData = {}, handleChange }) => {
       {educationList.map((edu, index) => (
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
-            <Typography variant="h6">{edu.school}</Typography>
-            <Typography variant="subtitle1">{edu.degree}</Typography>
-            <Typography variant="body2">{`${edu.startdate} to ${edu.enddate}`}</Typography>
+            <Typography variant="h6">{edu.institution}</Typography>
+            <Typography variant="subtitle1">{edu.fieldOfStudy}</Typography>
+            <Typography variant="body2">{`${edu.startYear} to ${edu.endYear}`}</Typography>
             <Typography variant="body2">{edu.percentage}%</Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
@@ -69,19 +69,19 @@ const Education = ({ resumeData = {}, handleChange }) => {
         <Box component="form" sx={{ flexGrow: 1, mb: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField label="School" name="school" variant="outlined" fullWidth value={formData.school} onChange={handleInputChange} />
+              <TextField label="School" name="institution" variant="outlined" fullWidth value={formData.institution} onChange={handleInputChange} />
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Degree" name="degree" variant="outlined" fullWidth value={formData.degree} onChange={handleInputChange} />
+              <TextField label="Degree" name="fieldOfStudy" variant="outlined" fullWidth value={formData.fieldOfStudy} onChange={handleInputChange} />
             </Grid>
             <Grid item xs={6}>
-              <TextField label="Start Date" type="date" name="startdate" value={formData.startdate} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
+              <TextField label="Start Date" type="date" name="startYear" value={formData.startYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
             </Grid>
             <Grid item xs={6}>
-              <TextField label="End Date" type="date" name="enddate" value={formData.enddate} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
+              <TextField label="End Date" type="date" name="endYear" value={formData.endYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <TextField label="Percentage" type="number" name="percentage" value={formData.description} onChange={handleInputChange}  variant="outlined" fullWidth />
+              <TextField label="Percentage" type="number" name="percentage" value={formData.percentage} onChange={handleInputChange}  variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={12}>
               <Button variant="contained" color="primary" fullWidth onClick={handleAddEducation}>Add</Button>

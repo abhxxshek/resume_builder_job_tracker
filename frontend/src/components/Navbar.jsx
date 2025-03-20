@@ -28,9 +28,9 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
     // Update current user when userInfo changes
     setCurrentUser(userInfo);
     
-    // Fallback: Check localStorage if userInfo prop is null
+    // Fallback: Check sessionStorage if userInfo prop is null
     if (!userInfo) {
-      const storedUserInfo = localStorage.getItem('userInfo');
+      const storedUserInfo = sessionStorage.getItem('userInfo');
       if (storedUserInfo) {
         try {
           setCurrentUser(storedUserInfo);
@@ -52,7 +52,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
       handleLogout();
     } else {
       // Fallback logout if handleLogout prop is not provided
-      localStorage.removeItem('userInfo');
+      sessionStorage.removeItem('userInfo');
       setCurrentUser(null);
       if (setUserInfo) setUserInfo(null);
       navigate('/login');

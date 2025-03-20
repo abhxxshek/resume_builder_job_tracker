@@ -3,11 +3,11 @@ import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardC
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Achievements = ({ resumeData = {}, handleChange }) => {
-  const [achievementsList, setAchievementsList] = useState(resumeData.achievementsList || []);
+  const [achievementsList, setAchievementsList] = useState(resumeData.achievements || []);
   const [formData, setFormData] = useState({
-    achievements: "",
+    achievementTitle: "",
     year:"",
-    description2: ""
+    description: ""
   });
 
   const handleInputChange = (e) => {
@@ -16,21 +16,22 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddAchievement = () => {
-    if (formData.achievements && formData.description2) {
+    if (formData.achievementTitle && formData.description) {
       const newList = [...achievementsList, formData];
       setAchievementsList(newList);
       setFormData({
-        achievements: "",
-        description2: ""
+        achievementTitle: "",
+        year:"",
+        description: ""
       });
-      handleChange({ target: { name: 'achievementsList', value: newList } });
+      handleChange({ target: { name: 'achievements', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = achievementsList.filter((_, i) => i !== index);
     setAchievementsList(updatedList);
-    handleChange({ target: { name: 'achievementsList', value: updatedList } });
+    handleChange({ target: { name: 'achievements', value: updatedList } });
   };
 
   return (
@@ -45,9 +46,9 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
       {achievementsList.map((achievement, index) => (
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
-            <Typography variant="h6">{achievement.achievements}</Typography>
+            <Typography variant="h6">{achievement.achievementTitle}</Typography>
             <Typography variant="h6">{achievement.year}</Typography>
-            <Typography variant="body2">{achievement.description2}</Typography>
+            <Typography variant="body2">{achievement.description}</Typography>
             <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
           </CardContent>
         </Card>
@@ -55,13 +56,13 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField label="Achievement Title" variant="outlined" fullWidth name="achievements" value={formData.achievements} onChange={handleInputChange} />
+          <TextField label="Achievement Title" variant="outlined" fullWidth name="achievementTitle" value={formData.achievementTitle} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <TextField label="Year" variant="outlined" fullWidth name="year" value={formData.year} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" variant="outlined" fullWidth multiline rows={4} name="description2" value={formData.description2} onChange={handleInputChange} />
+          <TextField label="Description" variant="outlined" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" fullWidth onClick={handleAddAchievement}>+ Add Achievement</Button>

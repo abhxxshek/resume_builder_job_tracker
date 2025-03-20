@@ -15,7 +15,7 @@ import TemplateView from './Templates/Templateview'
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
-  const userInfo = localStorage.getItem('userInfo');
+  const userInfo = sessionStorage.getItem('userInfo');
   
   if (!userInfo) {
     return <Navigate to="/login" replace />;
@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     // Check if user is logged in
-    const storedUserInfo = localStorage.getItem('userInfo');
+    const storedUserInfo = sessionStorage.getItem('userInfo');
     if (storedUserInfo) {
       try {
         // const parsedUserInfo = JSON.parse(storedUserInfo);
@@ -38,14 +38,14 @@ function App() {
         setUserInfo(storedUserInfo);
       } catch (error) {
         console.error('Error parsing user info:', error);
-        localStorage.removeItem('userInfo');
+        sessionStorage.removeItem('userInfo');
       }
     }
   }, []);
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo');
     setUserInfo(null);
     navigate('/login');
   };

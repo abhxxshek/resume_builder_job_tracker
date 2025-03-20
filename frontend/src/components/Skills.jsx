@@ -4,10 +4,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Delete } from "@mui/icons-material";
 
 const Skills = ({ resumeData = {}, handleChange }) => {
-  const [skillsList, setSkillsList] = useState(resumeData.skillsList || []);
+  const [skillsList, setSkillsList] = useState(resumeData.skills || []);
   const [formData, setFormData] = useState({
     skill: "",
-    level: ""
+    proficiency: ""
   });
 
   const handleInputChange = (e) => {
@@ -16,18 +16,18 @@ const Skills = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddSkill = () => {
-    if (formData.skill && formData.level) {
+    if (formData.skill && formData.proficiency) {
       const newList = [...skillsList, formData];
       setSkillsList(newList);
-      setFormData({ skill: "", level: "" });
-      handleChange({ target: { name: 'skillsList', value: newList } });
+      setFormData({ skill: "", proficiency: "" });
+      handleChange({ target: { name: 'skills', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = skillsList.filter((_, i) => i !== index);
     setSkillsList(updatedList);
-    handleChange({ target: { name: 'skillsList', value: updatedList } });
+    handleChange({ target: { name: 'skills', value: updatedList } });
   };
 
   return (
@@ -43,7 +43,7 @@ const Skills = ({ resumeData = {}, handleChange }) => {
         <Card key={index} sx={{ mb: 2 }}>
           <CardContent>
             <Typography variant="h6">{skill.skill}</Typography>
-            <Typography variant="body2">Level: {skill.level}</Typography>
+            <Typography variant="body2">Level: {skill.proficiency}</Typography>
             <IconButton onClick={() => handleDelete(index)}><Delete/></IconButton>
           </CardContent>
         </Card>
@@ -57,8 +57,8 @@ const Skills = ({ resumeData = {}, handleChange }) => {
           <Select
             label="Level"
             fullWidth
-            name="level"
-            value={formData.level}
+            name="proficiency"
+            value={formData.proficiency}
             onChange={handleInputChange}
             displayEmpty
           >

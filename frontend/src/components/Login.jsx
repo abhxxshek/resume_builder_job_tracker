@@ -65,8 +65,8 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Save user data to localStorage
-      localStorage.setItem('userInfo', data.token);
+      // Save user data to sessionStorage
+      sessionStorage.setItem('userInfo', data.token);
       
       // Force a page reload to update the navbar state
       window.location.href = '/';
