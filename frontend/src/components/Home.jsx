@@ -5,16 +5,18 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const GradientButton = styled(Button)({
-  background: "linear-gradient(90deg, #FF8C00, #FF6347)",
+  background: "linear-gradient(90deg,#7f8fa6,rgb(234, 225, 222))",
   color: "#fff",
   padding: "12px 24px",
   borderRadius: "8px",
   transition: "0.3s ease-in-out",
   "&:hover": {
-    background: "linear-gradient(90deg, #FF6347, #FF4500)",
+    background: "linear-gradient(90deg,#353b48,rgb(234, 225, 222))",
     transform: "scale(1.05)",
   },
 });
+
+
 
 const images = ["/public/img3.jpg", "/public/img4.jpg", "/public/img5.jpg"];
 
@@ -29,6 +31,8 @@ const resumeTemplates = [
   "/public/img10.jpg",
   "/public/img11.jpg",
 ];
+const rotatingImages = ["/public/img11.jpg", "/public/img12.jpg", "/public/img13.jpg", "/public/img14.jpg"];
+
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -66,27 +70,32 @@ const Home = () => {
                 width: "450px",
                 height: "450px",
                 transition: "transform 1s ease-in-out",
-                transform: isRotating ? "rotateY(360deg)" : "rotateY(0deg)",
+                transform: isRotating ? "rotateY(270deg)" : "rotateY(0deg)",
               }}
             />
           </Grid>
-          <Grid item xs={6} textAlign="left">
-            <Typography
-              variant="h3"
-              fontWeight="bold"
-              sx={{
-                background: "linear-gradient(to right, grey 20%, orange 30%, violet 80%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Craft Your Perfect Resume with Ease
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 2, color: "gray" }}>
-              Easily create a resume for any job using our best-in-class platform.
-            </Typography>
-            <GradientButton variant="contained">Create My Resume Now</GradientButton>
-          </Grid>
+          <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
+  <Box>
+    <Typography
+      variant="h3"
+      fontWeight="bold"
+      sx={{
+        background: "linear-gradient(to right,rgb(119, 127, 158) 20%, aqua 30%, lavender 80%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      Craft Your Perfect Resume with Ease
+    </Typography>
+    <Typography variant="h6" sx={{ mb: 2, color: "gray" }}>
+      Easily create a resume for any job using our best-in-class platform.
+    </Typography>
+    <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
+      <GradientButton variant="contained">Create My Resume Now</GradientButton>
+    </Box>
+  </Box>
+</Grid>
+
         </Grid>
       </Container>
 
@@ -98,7 +107,7 @@ const Home = () => {
           textAlign="center"
           sx={{
             mb: 4,
-            background: "linear-gradient(to right, orange, gray)",
+            background: "linear-gradient(to right,gray 40%, aqua 30%,gray 30%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -123,8 +132,8 @@ const Home = () => {
         >
           {resumeTemplates.map((src, index) => (
             <Box key={index} sx={{ display: "flex", justifyContent: "center" }}>
-              <img src={src} alt={`Resume ${index + 1}`} style={{ width: "300px", height: "400px", borderRadius: "8px" }} />
-            </Box>
+<img src={src} alt={`Resume ${index + 1}`} style={{ width: "300px", height: "400px", borderRadius: "8px" }} />
+</Box>
           ))}
         </Carousel>
       </Container>
@@ -137,7 +146,7 @@ const Home = () => {
           textAlign="center"
           sx={{
             mb: 4,
-            background: "linear-gradient(to right, #333, orange, gray)",
+            background: "linear-gradient(to right,gray 40%, aqua 30%,gray 30%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -158,7 +167,7 @@ const Home = () => {
                 sx={{
                   height:"200px",
                   p: 4,
-                  background: "linear-gradient(120deg,rgba(237, 130, 30, 0.9), violet)",
+                  background: "linear-gradient(90deg,#dcdde1,rgb(122, 135, 153))",
                   color: "#fff",
                   boxShadow: 3,
                   transition: "0.3s",
@@ -184,7 +193,7 @@ const Home = () => {
     textAlign="center"
     sx={{
       mb: 6,
-      background: "linear-gradient(to right, #ff7f50, #ff4500)",
+      background: "linear-gradient(to right,gray 40%, aqua 30%,gray 30%)",
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
     }}
@@ -210,7 +219,7 @@ const Home = () => {
   >
       {/* Left: Text Content */}
       <Grid item xs={12} md={6} textAlign={index % 2 === 0 ? "left" : "right"}>
-        <Typography variant="h3" fontWeight="bold" sx={{ color: "#ff6347" }}>{item.step}.</Typography>
+        <Typography variant="h3" fontWeight="bold" sx={{ color: "gray" }}>{item.step}.</Typography>
         <Typography variant="h5" fontWeight="bold" sx={{ color: "#333" }}>{item.title}</Typography>
         <Typography variant="body1" sx={{ color: "gray", mt: 1 }}>{item.description}</Typography>
       </Grid>
@@ -233,7 +242,46 @@ const Home = () => {
     </Grid>
   ))}
 </Container>
-
+<Box sx={{ minHeight: "100vh", background: "white", color: "#000000", py: 8 }}>
+      <Container sx={{ mt: 8 }}>
+        <Grid container spacing={4} alignItems="center" justifyContent="center">
+          <Grid item xs={12} md={12}>
+            <Card sx={{ p: 4, background: "linear-gradient(90deg,#dcdde1,rgb(122, 135, 153))", color: "#fff", boxShadow: 3 }}>
+              <CardContent>
+                <Grid container spacing={4} alignItems="center">
+                  {/* Left Side: Text Content */}
+                  <Grid item xs={12} md={6}>
+                    <Typography variant="h4" fontWeight="bold">
+                      Create a professional resume effortlessly
+                    </Typography>
+                    <Typography variant="body1" sx={{ mt: 2 }}>
+                      Explore job opportunities that match your skills and experience, all in one place.
+                      Take control of your career today!
+                    </Typography>
+                  </Grid>
+                  {/* Right Side: Rotating Image */}
+                  <Grid item xs={12} md={6} textAlign="center">
+                    <img
+                      src={rotatingImages[currentImageIndex]}
+                      alt="Rotating Image"
+                      style={{
+                        width: "100%",
+                        maxWidth: "400px",
+                        height: "300px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                        transition: "opacity 0.5s ease-in-out",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
     </Box>
   );
 };
