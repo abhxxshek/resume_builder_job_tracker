@@ -2,33 +2,36 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Grid, IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Trainings = () => {
-  const [trainings, setTrainings] = useState([]);
+const Trainings = ({ resumeData = {}, handleChange }) => {
+  const [trainings, setTrainings] = useState(resumeData.trainings || []);
+  const [formData, setFormData] = useState({
+      trainingTitle:"",
+      institute:"",
+      completion:"",
+      description:""
+  });
 
-  const [trainingTitle, setTrainingTitle] = useState("");
-  const [institute, setInstitute] = useState("");
-  const [completionDate, setCompletionDate] = useState("");
-  const [description, setDescription] = useState("");
-
-  const addTraining = () => {
-    const newTraining = {
-      trainingTitle,
-      institute,
-      completionDate,
-      description
-    };
-
-    setTrainings([...trainings, newTraining]);
-
-    setTrainingTitle("");
-    setInstitute("");
-    setCompletionDate("");
-    setDescription("");
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const removeTraining = (index) => {
-    const updatedTrainings = trainings.filter((_, i) => i !== index);
-    setTrainings(updatedTrainings);
+  const handleAddTraining = () => {
+    if (formData.trainingTitle && formData.institute) {
+      const newList = [...trainings, formData];
+      setTrainings(newList);
+      setFormData({ trainingTitle:"",
+        institute:"",
+        completion:"",
+        description:""});
+      handleChange({ target: { name: 'trainings', value: newList } });
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedList = trainings.filter((_, i) => i !== index);
+    setTrainings(updatedList);
+    handleChange({ target: { name: 'trainings', value: updatedList } });
   };
 
   return (
@@ -45,8 +48,8 @@ const Trainings = () => {
             label="Training Title"
             variant="outlined"
             fullWidth
-            value={trainingTitle}
-            onChange={(e) => setTrainingTitle(e.target.value)}
+            name="trainingTitle" value={formData.trainingTitle}
+            onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} md={12}>
@@ -54,18 +57,16 @@ const Trainings = () => {
             label="Institute"
             variant="outlined"
             fullWidth
-            value={institute}
-            onChange={(e) => setInstitute(e.target.value)}
+            name="institute" value={formData.institute} onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} md={12}>
           <TextField
-            label="Completion Date"
+            label="Completion"
             variant="outlined"
             fullWidth
             type="date"
-            value={completionDate}
-            onChange={(e) => setCompletionDate(e.target.value)}
+            name="completion" value={formData.completion} onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
           />
         </Grid>
@@ -76,12 +77,11 @@ const Trainings = () => {
             fullWidth
             multiline
             rows={4} 
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description" value={formData.description} onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} md={12}>
-          <Button variant="contained" color="primary" fullWidth onClick={addTraining}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddTraining}>
             + Add Training
           </Button>
         </Grid>
@@ -92,11 +92,11 @@ const Trainings = () => {
           <div key={index} style={{ marginBottom: '20px' }}>
             <Typography variant="h5">{training.trainingTitle}</Typography>
             <Typography variant="h6">Institute: {training.institute}</Typography>
-            <Typography variant="p">Completion Date: {training.completionDate}</Typography><br/>
+            <Typography variant="p">Completion Date: {training.completion}</Typography><br/>
             <Typography variant="span">Description: {training.description}</Typography>
             <IconButton
               color="error"
-              onClick={() => removeTraining(index)}
+              onClick={() => handleDelete(index)}
             >
               <DeleteIcon />
             </IconButton>
