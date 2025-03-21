@@ -12,6 +12,11 @@ import { useEffect } from "react";
 import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Template6 from "../Templates/Template6";
+import Template7 from "../Templates/Template7";
+import Template8 from "../Templates/Template8";
+import Template9 from "../Templates/Template9";
+import Template10 from "../Templates/Template10";
 
 const Layout2 = () => {
   const { template } = useParams();
@@ -188,6 +193,26 @@ const Layout2 = () => {
                 )}
                 {template === "Template5" && (
                   <Template5 resumeData={resumeData} />
+                )}
+                {template === "Template6" && (
+                  <Template6 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template7" && (
+                  <Template7 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template8" && (
+                  <Template8 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template9" && (
+                  <Template9 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template10" && (
+                  <Template10 resumeData={resumeData} />
+                  
                 )}
               </Box>
             </Box>
