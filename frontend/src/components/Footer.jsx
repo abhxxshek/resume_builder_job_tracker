@@ -30,7 +30,7 @@ const Footer = () => {
             {/* Add Logo Below the Text */}
             <Box
               component="img"
-              src="src\components\images\human-resources.png" // Update with your logo's file path or URL
+              src="/public/logo.png" // Update with your logo's file path or URL
               alt="Logo"
               sx={{
                 width: 100, // Adjust the size as needed
