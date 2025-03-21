@@ -4,9 +4,9 @@ import { Container, Typography, Box, Grid, Paper, Avatar } from '@mui/material';
 const teamMembers = [
   { name: 'Abhishek A', role: 'Project Manager', img: 'src/components/images/spider man.jpg' },
   { name: 'Akhil Zacharia', role: 'Developer', img: 'src/components/images/super man.jpg' },
-  { name: 'Aksa S Santhosh', role: 'QA Tester', img: 'src/components/images/aksaaaa.jpg' },
-  // { name: 'Anup Muthali Anil', role: 'UI/UX Designer', img: '/images/michael.jpg' },
-  { name: 'Gokul Santhosh', role: 'Content Developer', img: 'src/components/images/batman.jpg' }
+  { name: 'Aksa S Santhosh', role: 'QA Tester', img: 'src/components/images/girl.jpg' },
+  { name: 'Anup Muthali Anil', role: 'UI/UX Designer', img: 'src/components/images/batman.jpg' },
+  { name: 'Gokul Santhosh', role: 'Content Developer', img: 'src/components/images/jokker.png' }
 
 ];
 
