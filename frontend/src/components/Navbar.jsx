@@ -66,7 +66,12 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
       return [
         { label: 'Dashboard', path: '/' },
         { label: 'Templates', path: '/templates' },
-        { label: 'Jobs', path: '/jobs' },
+        
+        { label: 'Admin dashboard', path: '/admin-dashboard' },
+        { label: 'payment', path: '/payment' },
+        { label: 'Job search', path: '/job-search' },
+        { label: 'admin payment', path: '/admin-payment' },
+        
       ];
     } else {
       return [];
@@ -85,7 +90,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
               variant="h6"
               noWrap
               component={Link}
-              to={currentUser ? "/" : "/login"}
+              to={currentUser ? "/Home" : "/login"}
               sx={{ 
                 flexGrow: 1, 
                 display: { xs: 'flex', md: 'flex' },

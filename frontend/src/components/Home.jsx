@@ -3,6 +3,8 @@ import { Box, Typography, Button, Container, Grid, Card, CardContent } from "@mu
 import { styled } from "@mui/system";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Footer from "./Footer";
+
 
 const GradientButton = styled(Button)({
   background: "linear-gradient(90deg,#7f8fa6,rgb(234, 225, 222))",
@@ -21,15 +23,15 @@ const GradientButton = styled(Button)({
 const images = ["/public/img3.jpg", "/public/img4.jpg", "/public/img5.jpg"];
 
 const resumeTemplates = [
-  "/public/img3.jpg",
-  "/public/img4.jpg",
-  "/public/img5.jpg",
-  "/public/img6.jpg",
-  "/public/img7.jpg",
-  "/public/img8.jpg",
-  "/public/img9.jpg",
-  "/public/img10.jpg",
-  "/public/img11.jpg",
+  "/img3.jpg",
+  "/img4.jpg",
+  "/img5.jpg",
+  "/img6.jpg",
+  "/img7.jpg",
+  "/img8.jpg",
+  "/img9.jpg",
+  "/img10.jpg",
+  "/img11.jpg",
 ];
 const rotatingImages = ["/public/img11.jpg", "/public/img12.jpg", "/public/img13.jpg", "/public/img14.jpg"];
 
@@ -51,6 +53,7 @@ const Home = () => {
   }, []);
 
   return (
+    <>
     <Box
       sx={{
         minHeight: "100vh",
@@ -282,7 +285,10 @@ const Home = () => {
         </Grid>
       </Container>
     </Box>
+    
     </Box>
+    <Footer/>
+    </>
   );
 };
 

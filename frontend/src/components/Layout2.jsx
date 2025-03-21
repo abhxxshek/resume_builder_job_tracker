@@ -123,6 +123,7 @@ const Layout2 = () => {
             handleChange={handleChange}
           />
         </Grid>
+        
 
         {/* Template Preview */}
         <Grid
@@ -133,8 +134,31 @@ const Layout2 = () => {
             // height: "93vh",
             maxHeight: "730px",
             overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: 2,  
           }}
         >
+           {/* Save and Download Buttons */}
+         <Box
+                sx={{
+                  position: 'sticky',
+                  top: 10,
+                  right: 10,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  gap: 1,
+                }}
+              >
+                <Button variant="contained" sx={{position:"sticky"}} onClick={handleSave}>
+                  Save
+                </Button>
+                <Button variant="contained" onClick={handleDownload}>
+                  Download
+                </Button>
+              </Box>
+
           <Box
             sx={{
               width: "100%",
@@ -159,24 +183,7 @@ const Layout2 = () => {
                 position: 'relative', // Added for button positioning
               }}
             >
-              {/* Save and Download Buttons */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 10,
-                  right: 10,
-                  display: 'flex',
-                  gap: 1,
-                }}
-              >
-                <Button variant="contained" onClick={handleSave}>
-                  Save
-                </Button>
-                <Button variant="contained" onClick={handleDownload}>
-                  Download
-                </Button>
-              </Box>
-
+             
               {/* Template Preview */}
               <Box id="template-preview">
                 {template === "Template1" && (

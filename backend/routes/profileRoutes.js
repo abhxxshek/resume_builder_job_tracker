@@ -16,4 +16,9 @@ router.get('/profile-details',async (req,res)=>{
     }
   });
 
+
+  // router.get('/staff-students',verify,async(req,res)=>{
+  //   try{
+  //       const staff_id=req.user.id;
+
   module.exports = router;
