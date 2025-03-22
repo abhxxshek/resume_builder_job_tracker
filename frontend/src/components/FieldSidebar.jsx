@@ -1,71 +1,147 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Tooltip } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkIcon from "@mui/icons-material/Work";
 import FolderIcon from "@mui/icons-material/Folder";
 import BuildIcon from "@mui/icons-material/Build";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { motion } from "framer-motion";
 
-const FieldSidebar = ({ selectedField, setSelectedField }) => {
+const FieldSidebar = ({ selectedField, setSelectedField, navbarColors = {
+  primary: "#2c3e50",
+  secondary: "#34495e",
+  accent: "#3498db",
+  text: "#ffffff"
+} }) => {
+  // Inverted colors
+  const invertedColors = {
+    background: "#ffffff",
+    text: navbarColors.primary,
+    activeBackground: "rgba(44, 62, 80, 0.08)",
+    hoverBackground: "rgba(44, 62, 80, 0.04)",
+    borderColor: "rgba(0, 0, 0, 0.12)",
+    shadowColor: "rgba(0, 0, 0, 0.1)"
+  };
+
   const fieldTemplate = [
-    { name: "About", icon: <InfoIcon />},
-    { name: "Education", icon: <SchoolIcon /> },
-    { name: "Experience", icon: <WorkIcon /> },
-    { name: "Projects", icon: <FolderIcon />},
-    { name: "Skills", icon: <BuildIcon /> },
-    { name: "Achievements", icon: <EmojiEventsIcon /> },
-    // { name: "Awards", icon: <CardGiftcardIcon />  },
-    { name: "Trainings", icon: <RocketLaunchIcon /> },
+    { name: "About", icon: <InfoIcon />, tooltip: "Personal Information" },
+    { name: "Education", icon: <SchoolIcon />, tooltip: "Academic Background" },
+    { name: "Experience", icon: <WorkIcon />, tooltip: "Work History" },
+    { name: "Projects", icon: <FolderIcon />, tooltip: "Project Portfolio" },
+    { name: "Skills", icon: <BuildIcon />, tooltip: "Technical Skills" },
+    { name: "Achievements", icon: <EmojiEventsIcon />, tooltip: "Accomplishments" },
+    { name: "Trainings", icon: <RocketLaunchIcon />, tooltip: "Certifications & Training" },
   ];
 
   return (
     <Box
       sx={{
-        width: "80%",
-        p: 2,
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        flex: "1",
-        maxHeight:"620px",
-        overflowY:"auto",
+        alignItems: "center",
+        py: 1,
+        height: "calc(100% - 50px)", // Accounting for the header
+        overflowY: "auto",
+        backgroundColor: invertedColors.background,
+        boxShadow: "inset -1px 0 0 rgba(0, 0, 0, 0.08)",
         '&::-webkit-scrollbar': {
-            display: 'none', // Hide scrollbar
+          width: '5px',
+        },
+        '&::-webkit-scrollbar-track': {
+          background: '#f1f1f1',
+          borderRadius: '4px',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: '#c1c1c1',
+          borderRadius: '4px',
+          '&:hover': {
+            background: '#a1a1a1',
           },
-        
-         }}
+        },
+      }}
     >
       {fieldTemplate.map((field, index) => (
-        <Box
+        <Tooltip 
           key={index}
-          // whileTap={{ scale: 0.95 }}
-          // whileHover={{ scale: 1.05 }}
-          onClick={() => setSelectedField(field.name)}
-          // style={{width:"80%"}}
+          title={field.tooltip} 
+          placement="right"
+          arrow
         >
-          <Button
-            fullWidth
-            variant={field.name === selectedField ? "contained" : "outlined"}
+          <Box
+            component={motion.div}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => setSelectedField(field.name)}
             sx={{
-                my: 1,
+              width: "85%",
+              mb: 1.5,
+              cursor: "pointer",
+              position: "relative",
+              "&::after": field.name === selectedField ? {
+                content: '""',
+                position: "absolute",
+                left: "-10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: "4px",
+                height: "70%",
+                backgroundColor: navbarColors.accent,
+                borderRadius: "0 4px 4px 0",
+              } : {},
+            }}
+          >
+            <Button
+              fullWidth
+              variant="text"
+              sx={{
+                py: 1.5,
                 textTransform: "none",
                 display: "flex",
                 alignItems: "center",
-                border: "none",
-                width: "100%",
-                maxHeight: "90px",
                 justifyContent: "center",
                 flexDirection: "column",
-                gap: "5px", 
+                gap: "8px",
+                borderRadius: "8px",
+                backgroundColor: field.name === selectedField 
+                  ? invertedColors.activeBackground
+                  : 'transparent',
+                border: field.name === selectedField
+                  ? "none"
+                  : `1px solid ${invertedColors.borderColor}`,
+                boxShadow: field.name === selectedField 
+                  ? "0px 2px 4px rgba(0, 0, 0, 0.08)" 
+                  : "none",
+                transition: "all 0.2s ease-in-out",
+                "&:hover": {
+                  backgroundColor: invertedColors.hoverBackground,
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.05)",
+                },
               }}
-          >
-            <Typography sx={{ margin: 0, lineHeight: 1,paddingTop:"10px" }}>{field.icon}</Typography>
-            <Typography sx={{ margin: 0, lineHeight: 1 ,paddingBottom:"10px"}}>{field.name}</Typography>
-          </Button>
-        </Box>
+            >
+              <Box sx={{ 
+                color: field.name === selectedField 
+                  ? navbarColors.accent
+                  : invertedColors.text
+              }}>
+                {field.icon}
+              </Box>
+              <Typography 
+                sx={{ 
+                  fontSize: "0.8rem",
+                  fontWeight: 500,
+                  color: field.name === selectedField 
+                    ? navbarColors.accent
+                    : invertedColors.text,
+                }}
+              >
+                {field.name}
+              </Typography>
+            </Button>
+          </Box>
+        </Tooltip>
       ))}
     </Box>
   );
