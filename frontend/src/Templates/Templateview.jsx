@@ -6,6 +6,11 @@ import Template2 from './Template2';
 import Template3 from './Template3';
 import Template4 from './Template4';
 import Template5 from './Template5';
+import Template6 from "./Template6";
+import Template7 from "./Template7";
+import Template8 from "./Template8";
+import Template10 from "./Template10";
+import Template9 from "./Template9";
 
 const TemplateView = ({ resumeData = {} }) => {
   const navigate = useNavigate();
@@ -20,7 +25,7 @@ const TemplateView = ({ resumeData = {} }) => {
       backgroundColor: '#f8f9fa',
       minHeight: '100vh'
     }}>
-      {[1, 2, 3, 4, 5].map((templateNum) => (
+      {[1, 2, 3, 4, 5,6,7,8,9,10].map((templateNum) => (
         <Grid item xs={12} sm={6} md={4} key={`Template${templateNum}`}>
           <Box
             onClick={() => handleTemplateSelect(`Template${templateNum}`)}
@@ -60,6 +65,11 @@ const TemplateView = ({ resumeData = {} }) => {
                 {templateNum === 3 && <Template3 resumeData={resumeData} />}
                 {templateNum === 4 && <Template4 resumeData={resumeData} />}
                 {templateNum === 5 && <Template5 resumeData={resumeData} />}
+                {templateNum === 6 && <Template6 resumeData={resumeData} />}
+                {templateNum === 7 && <Template7 resumeData={resumeData} />}
+                {templateNum === 8 && <Template8 resumeData={resumeData} />}
+                {templateNum === 9 && <Template9 resumeData={resumeData} />}
+                {templateNum === 10 && <Template10 resumeData={resumeData} />}
               </Box>
             </Box>
             <Typography 

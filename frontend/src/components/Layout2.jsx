@@ -12,27 +12,39 @@ import { useEffect } from "react";
 import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Template6 from "../Templates/Template6";
+import Template7 from "../Templates/Template7";
+import Template8 from "../Templates/Template8";
+import Template9 from "../Templates/Template9";
+import Template10 from "../Templates/Template10";
+import axiosInstance from "../../axiosInterceptor";
+import { jwtDecode } from 'jwt-decode';
 
 const Layout2 = () => {
   const { template } = useParams();
   const [selectedField, setSelectedField] = useState("About");
   const [response, setResponse] = useState();
   const [resumeData, setResumeData] = useState({});
-
+ 
+  const user = sessionStorage.getItem('userInfo');
+  const decoded = jwtDecode(user);
+  const user_id = decoded.id;
+  
   useEffect(() => {
-    axios.get('http://localhost:3000/profile/profile-details').then((res) => {  
+    axiosInstance.get('/profile/profile-details').then((res) => {  
        console.log(res.data);
       setResponse(res.data);
       setResumeData(prevState => ({
         ...prevState,
-        firstName: res.data.personalDetails.firstName,
-        lastName: res.data.personalDetails.lastName,
-        designation: res.data.personalDetails.designation,
-        careerObjective: res.data.personalDetails.careerObjective,
-        email: res.data.personalDetails.email,
-        phoneNumber: res.data.personalDetails.phoneNumber,
-        city: res.data.personalDetails.city,
-        address: res.data.personalDetails.address,
+        userId:res.data.userId || user_id,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        designation: res.data.designation,
+        careerObjective: res.data.careerObjective,
+        email: res.data.email,
+        phoneNumber: res.data.phoneNumber,
+        city: res.data.city,
+        address: res.data.address,
         experiences: Array.isArray(res.data.experience) ? res.data.experience : [], 
         skills: Array.isArray(res.data.skills) ? res.data.skills : [], 
         education: Array.isArray(res.data.education) ? res.data.education : [], 
@@ -54,7 +66,7 @@ const Layout2 = () => {
   };
 
   const handleSave = () => {
-    axios.post('http://localhost:3000/save-resume', resumeData)
+    axiosInstance.post('/profile/save-resume', resumeData)
       .then(response => {
         alert('Resume saved successfully!');
       })
@@ -118,6 +130,7 @@ const Layout2 = () => {
             handleChange={handleChange}
           />
         </Grid>
+        
 
         {/* Template Preview */}
         <Grid
@@ -128,8 +141,31 @@ const Layout2 = () => {
             // height: "93vh",
             maxHeight: "730px",
             overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: 2,  
           }}
         >
+           {/* Save and Download Buttons */}
+         <Box
+                sx={{
+                  position: 'sticky',
+                  top: 10,
+                  right: 10,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  gap: 1,
+                }}
+              >
+                <Button variant="contained" sx={{position:"sticky"}} onClick={handleSave}>
+                  Save
+                </Button>
+                <Button variant="contained" onClick={handleDownload}>
+                  Download
+                </Button>
+              </Box>
+
           <Box
             sx={{
               width: "100%",
@@ -154,24 +190,7 @@ const Layout2 = () => {
                 position: 'relative', // Added for button positioning
               }}
             >
-              {/* Save and Download Buttons */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 10,
-                  right: 10,
-                  display: 'flex',
-                  gap: 1,
-                }}
-              >
-                <Button variant="contained" onClick={handleSave}>
-                  Save
-                </Button>
-                <Button variant="contained" onClick={handleDownload}>
-                  Download
-                </Button>
-              </Box>
-
+             
               {/* Template Preview */}
               <Box id="template-preview">
                 {template === "Template1" && (
@@ -188,6 +207,26 @@ const Layout2 = () => {
                 )}
                 {template === "Template5" && (
                   <Template5 resumeData={resumeData} />
+                )}
+                {template === "Template6" && (
+                  <Template6 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template7" && (
+                  <Template7 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template8" && (
+                  <Template8 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template9" && (
+                  <Template9 resumeData={resumeData} />
+                  
+                )}
+                {template === "Template10" && (
+                  <Template10 resumeData={resumeData} />
+                  
                 )}
               </Box>
             </Box>

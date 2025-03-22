@@ -1,28 +1,29 @@
-import './App.css'
-import { useState, useEffect } from 'react'
-import Navbar from './components/Navbar'
-import Layout2 from './components/Layout2'
-import Projects from './components/Projects'
-import Skills from './components/Skills'
-import Trainings from './components/Trainings'
-import Template1 from './Templates/Template1'
-import Dashboard from './components/Dashboard'
-import Login from './components/Login'
-import Register from './components/Register'
+import "./App.css";
+import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar";
+import Layout2 from "./components/Layout2";
+import AdminDashboard from "./components/AdminDashboard";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import AdminPayment from "./components/AdminPayment"; 
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import TemplateView from "./Templates/Templateview";
+import PrivateRoutes from "./components/PrivateRoutes";
+import JobSearch from "./components/JobSearch";
+import Home from "./components/Home";
+import Payment from "./components/Payment";
 
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom'
-import TemplateView from './Templates/Templateview'
+// // Protected route component
+// const ProtectedRoute = ({ children }) => {
+//   const userInfo = sessionStorage.getItem('userInfo');
 
-// Protected route component
-const ProtectedRoute = ({ children }) => {
-  const userInfo = sessionStorage.getItem('userInfo');
-  
-  if (!userInfo) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-};
+//   if (!userInfo) {
+//     return <Navigate to="/login" replace />;
+//   }
+
+//   return children;
+// };
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -30,24 +31,24 @@ function App() {
 
   useEffect(() => {
     // Check if user is logged in
-    const storedUserInfo = sessionStorage.getItem('userInfo');
+    const storedUserInfo = sessionStorage.getItem("userInfo");
     if (storedUserInfo) {
       try {
         // const parsedUserInfo = JSON.parse(storedUserInfo);
         // setUserInfo(parsedUserInfo);
         setUserInfo(storedUserInfo);
       } catch (error) {
-        console.error('Error parsing user info:', error);
-        sessionStorage.removeItem('userInfo');
+        console.error("Error parsing user info:", error);
+        sessionStorage.removeItem("userInfo");
       }
     }
   }, []);
 
   // Handle logout
   const handleLogout = () => {
-    sessionStorage.removeItem('userInfo');
+    sessionStorage.removeItem("userInfo");
     setUserInfo(null);
-    navigate('/login');
+    navigate("/login");
   };
 
   // Redirect already logged in users away from login/register pages
@@ -60,45 +61,31 @@ function App() {
 
   return (
     <>
-      <Navbar userInfo={userInfo} setUserInfo={setUserInfo} handleLogout={handleLogout} />
-  
+      <Navbar
+        userInfo={userInfo}
+        setUserInfo={setUserInfo}
+        handleLogout={handleLogout}
+      />
+
       <Routes>
         {/* Public routes with redirect if already logged in */}
-        <Route path="/login" element={
-          <RedirectIfLoggedIn>
-            <Login />
-          </RedirectIfLoggedIn>
-        } />
-        <Route path="/register" element={
-          <RedirectIfLoggedIn>
-            <Register />
-          </RedirectIfLoggedIn>
-        } />
-        
-        {/* Protected routes */}
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/resume-form" element={
-          <ProtectedRoute>
-            <Layout2 />
-          </ProtectedRoute>
-        } />
-        <Route path="/templates" element={
-          <ProtectedRoute>
-            <TemplateView />
-          </ProtectedRoute>
-        } />
-        <Route path="/layout2/:template" element={
-          <ProtectedRoute>
-            <Layout2 />
-          </ProtectedRoute>
-        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<PrivateRoutes />}>
+          {/* Protected routes */}
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/resume-form" element={<Layout2 />} />
+          <Route path="/templates" element={<TemplateView />} />
+          <Route path="/layout2/:template" element={<Layout2 />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard/>} /> 
+          <Route path="/admin-payment" element={<AdminPayment/>} />
+          <Route path="/job-search" element={<JobSearch/>} />
+          <Route path="/home" element={<Home/>} />
+          <Route path="/payment" element={<Payment/>} />
+        </Route>
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

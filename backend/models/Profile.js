@@ -5,8 +5,7 @@ const profileSchema = new mongoose.Schema({
       ref: "User",
       required: true,
       unique: true,
-    },
-    personalDetails: {
+      },
       firstName: String,
       lastName:String,
       designation:String,
@@ -17,7 +16,6 @@ const profileSchema = new mongoose.Schema({
       careerObjective:String,
       // linkedIn: String,
       // github: String,
-    },
     skills: [{
       skill: String,
       proficiency: {

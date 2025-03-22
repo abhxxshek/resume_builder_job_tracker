@@ -2,16 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// Generate JWT Token
-// const generateToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET || 'fallback_secret_key_123456789', {
-//     expiresIn: '30d',
-//   });
-// };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-// @access  Public
 exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -49,7 +40,7 @@ exports.registerUser = async (req, res) => {
 };
 
 // @desc    Login user & get token
-// @route   POST /api/auth/login
+// @route   POST /api/auth/login  
 // @access  Public
 exports.loginUser = async (req, res) => {
   try {
