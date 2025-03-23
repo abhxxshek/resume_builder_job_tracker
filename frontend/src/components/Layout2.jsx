@@ -19,6 +19,8 @@ import Template7 from "../Templates/Template7";
 import Template8 from "../Templates/Template8";
 import Template9 from "../Templates/Template9";
 import Template10 from "../Templates/Template10";
+import axiosInstance from "../../axiosInterceptor";
+import { jwtDecode } from 'jwt-decode';
 
 // Navbar color scheme
 const navbarColors = {
@@ -35,23 +37,29 @@ const Layout2 = () => {
   const [selectedField, setSelectedField] = useState("About");
   const [response, setResponse] = useState();
   const [resumeData, setResumeData] = useState({});
+ 
+  const user = sessionStorage.getItem('userInfo');
+  const decoded = jwtDecode(user);
+  const user_id = decoded.id;
+  
   // Fixed scale at 70%
   const scale = 0.7;
 
   useEffect(() => {
-    axios.get('http://localhost:3000/profile/profile-details').then((res) => {  
+    axiosInstance.get('/profile/profile-details').then((res) => {  
        console.log(res.data);
       setResponse(res.data);
       setResumeData(prevState => ({
         ...prevState,
-        firstName: res.data.personalDetails.firstName,
-        lastName: res.data.personalDetails.lastName,
-        designation: res.data.personalDetails.designation,
-        careerObjective: res.data.personalDetails.careerObjective,
-        email: res.data.personalDetails.email,
-        phoneNumber: res.data.personalDetails.phoneNumber,
-        city: res.data.personalDetails.city,
-        address: res.data.personalDetails.address,
+        userId:res.data.userId || user_id,
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        designation: res.data.designation,
+        careerObjective: res.data.careerObjective,
+        email: res.data.email,
+        phoneNumber: res.data.phoneNumber,
+        city: res.data.city,
+        address: res.data.address,
         experiences: Array.isArray(res.data.experience) ? res.data.experience : [], 
         skills: Array.isArray(res.data.skills) ? res.data.skills : [], 
         education: Array.isArray(res.data.education) ? res.data.education : [], 
@@ -73,7 +81,7 @@ const Layout2 = () => {
   };
 
   const handleSave = () => {
-    axios.post('http://localhost:3000/save-resume', resumeData)
+    axiosInstance.post('/profile/save-resume', resumeData)
       .then(response => {
         alert('Resume saved successfully!');
       })
