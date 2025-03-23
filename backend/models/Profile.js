@@ -6,6 +6,8 @@ const profileSchema = new mongoose.Schema({
       required: true,
       unique: true,
       },
+  profilePicture: { type: String, trim: true }, 
+
       firstName: String,
       lastName:String,
       designation:String,
@@ -56,6 +58,7 @@ const profileSchema = new mongoose.Schema({
       description: String,
       
     }],
+    
   });
   
   const Profile = mongoose.model('profile', profileSchema);
