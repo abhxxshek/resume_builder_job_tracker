@@ -21,6 +21,8 @@ import Template9 from "../Templates/Template9";
 import Template10 from "../Templates/Template10";
 import axiosInstance from "../../axiosInterceptor";
 import { jwtDecode } from 'jwt-decode';
+import { audio } from "framer-motion/client";
+import { toast, ToastContainer } from "react-toastify";
 
 // Navbar color scheme
 const navbarColors = {
@@ -83,14 +85,17 @@ const Layout2 = () => {
   const handleSave = () => {
     axiosInstance.post('/profile/save-resume', resumeData)
       .then(response => {
-        alert('Resume saved successfully!');
+        // alert('Resume saved successfully!');
+        toast.success('Resume saved successfully!',{autoClose: 2000});
       })
       .catch(error => {
-        alert('Failed to save resume');
+        // alert('Failed to save resume');
+        toast.error('Failed to save resume',{autoClose: 2000});
       });
   };
 
   const handleDownload = () => {
+    toast.success('Downloading resume...',{autoClose: 500});
     const input = document.getElementById('template-preview');
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -119,12 +124,14 @@ const Layout2 = () => {
       }
 
       pdf.save('resume.pdf');
+      toast.success('Resume downloaded successfully!',{autoClose: 2000});
       document.body.removeChild(downloadElement);
     });
   };
 
   return (
     <Box sx={{ backgroundColor: "black", minHeight: "calc(100vh - 64px)" }}>
+      <ToastContainer/>
       <Grid container spacing={0} sx={{ height: "calc(100vh - 64px)" }}>
         {/* Sidebar */}
         <Grid item xs={12} md={1.5} 

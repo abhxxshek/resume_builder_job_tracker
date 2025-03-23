@@ -53,15 +53,15 @@ router.post('/save-resume', async (req, res) => {
                 projects
               });
               await profileData.save();
-              return res.status(201).send({ message: 'Profile created', profileData });
+              return res.status(201).send({success:true, message: 'Profile created', profileData });
         } else {
           console.log('hiii prof');
           profile.set(req.body);
           await profile.save();
-          return res.status(200).send({ message: 'Profile updated', profile });
+          return res.status(200).send({success:true, message: 'Profile updated', profile });
         }
       } catch (error) {
-        res.status(500).send({ message: 'Error updating profile' });
+        res.status(500).send({success:false, message: 'Error updating profile' });
       }
 });
 
