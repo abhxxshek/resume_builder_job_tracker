@@ -5,6 +5,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "./Footer";
 
+import { toast, ToastContainer } from "react-toastify";
+
 
 const GradientButton = styled(Button)({
   background: "linear-gradient(90deg,#7f8fa6,rgb(234, 225, 222))",
@@ -52,8 +54,15 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  
+
+  function handleCreateResumeButton(){
+    toast.error("Login required !",{autoClose:2000});
+  }
+ 
   return (
     <>
+   <ToastContainer/>
     <Box
       sx={{
         minHeight: "100vh",
@@ -94,7 +103,7 @@ const Home = () => {
       Easily create a resume for any job using our best-in-class platform.
     </Typography>
     <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
-      <GradientButton variant="contained">Create My Resume Now</GradientButton>
+      <GradientButton variant="contained" onClick={()=>{handleCreateResumeButton()}} >Create My Resume Now</GradientButton>
     </Box>
   </Box>
 </Grid>
