@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid, Card, CardContent, Button } from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-
-const data = [
-  { name: "Users", value: 500 },
-  { name: "Job Searches", value: 300 },
-  { name: "Job Applications", value: 200 },
-  { name: "Downloads", value: 250 },
-];
+import axiosInstance from "../../axiosInterceptor";
 
 const COLORS = ["#8c7ae6", "#192a56", "#40739e", "#7f8fa6"];
 
 const AdminDashboard = () => {
+
+  const [totalUser, setTotalUser] = useState(0);
+  const [data, setData] = useState([
+    { name: "Users", value: 0 },
+    { name: "Job Searches", value: 30 },
+    { name: "Job Applications", value: 20 },
+    { name: "Downloads", value: 25 },
+  ]);
+    useEffect(() => {
+      axiosInstance.get('/admin/totalUser-details')
+        .then((res) => {
+          console.log(res.data);
+          setTotalUser(res.data.totalUser);
+        })
+        .catch((error) => {
+          alert('Failed to fetch details');
+        });
+    }, []);
+
+    useEffect(() => {
+      setData((prevData) =>
+        prevData.map((item) =>
+          item.name === "Users" ? { ...item, value: totalUser } : item
+        )
+      );
+    }, [totalUser]);
+
   return (
     <Box sx={{ minHeight: "100vh", background: "#F5F5F5", color: "#333", py: 6, px: 4 }}>
       <Typography
