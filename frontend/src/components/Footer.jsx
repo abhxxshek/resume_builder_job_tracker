@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Container, Grid, Typography, Link } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -48,21 +47,21 @@ const Footer = () => {
                 <Typography variant="h6" gutterBottom>
                   Our Company
                 </Typography>
-                <Link href="/about" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
-                  About Us
+                <Link href="" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                   About Us
                 </Link>
-                <Link href="/updates" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Typography variant="body2" color="inherit">
                   Updates
-                </Link>
-                <Link href="/press" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Press
-                </Link>
-                <Link href="/enterprise" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Enterprise
-                </Link>
-                <Link href="/work-for-us" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Work For Us
-                </Link>
+                </Typography>
               </Grid>
 
               {/* Career Guides Section */}
@@ -70,21 +69,21 @@ const Footer = () => {
                 <Typography variant="h6" gutterBottom>
                   Career Guides
                 </Typography>
-                <Link href="/how-to-make-a-resume" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Typography variant="body2" color="inherit">
                   How to make a resume
-                </Link>
-                <Link href="/how-to-write-a-cover-letter" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   How to write a cover letter
-                </Link>
-                <Link href="/how-to-get-hired" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   How to get hired
-                </Link>
-                <Link href="/negotiating-salaries" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Negotiating salaries
-                </Link>
-                <Link href="/following-up-a-job-offer" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Following up a job offer
-                </Link>
+                </Typography>
               </Grid>
 
               {/* Career Advice Section */}
@@ -92,43 +91,45 @@ const Footer = () => {
                 <Typography variant="h6" gutterBottom>
                   Career Advice
                 </Typography>
-                <Link href="/resumes-and-cvs" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Typography variant="body2" color="inherit">
                   Resumes & CVs
-                </Link>
-                <Link href="/cover-letters" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Cover letters
-                </Link>
-                <Link href="/interviewing" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Interviewing
-                </Link>
-                <Link href="/finding-a-job" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Finding a Job
-                </Link>
-                <Link href="/career-development" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Career Development
-                </Link>
+                </Typography>
               </Grid>
 
               {/* Support Section */}
               <Grid item xs={12} sm={3}>
+                
                 <Typography variant="h6" gutterBottom>
                   Support
                 </Typography>
-                <Link href="/faq" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Link href="#" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+Contact Us
+</Link>
+                <Typography variant="body2" color="inherit">
                   FAQ
-                </Link>
-                <Link href="/contact-us" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
-                  Contact Us
-                </Link>
-                <Link href="/terms-of-service" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                
+                <Typography variant="body2" color="inherit">
                   Terms of Service
-                </Link>
-                <Link href="/privacy-policy" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Privacy Policy
-                </Link>
-                <Link href="/cookie-policy" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                </Typography>
+                <Typography variant="body2" color="inherit">
                   Cookie Policy
-                </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Grid>

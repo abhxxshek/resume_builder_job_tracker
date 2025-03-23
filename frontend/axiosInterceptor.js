@@ -5,7 +5,7 @@ const axiosInstance=axios.create({
 })
 
 axiosInstance.interceptors.request.use((config)=>{
-    const accessToken=sessionStorage.getItem('logintoken');
+    const accessToken=sessionStorage.getItem('userInfo');
     if(accessToken){
         if(config){
             config.headers.token=accessToken;

@@ -18,6 +18,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -67,9 +68,20 @@ const Login = () => {
 
       // Save user data to sessionStorage
       sessionStorage.setItem('userInfo', data.token);
+      toast.success("You have successfully signed in!", {
+        position: "top-right",
+        autoClose: 600, 
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        onClose: () => {navigate('/dashboard');
+          window.location.href = '/dashboard';
+         }
+      });
       
       // Force a page reload to update the navbar state
-      window.location.href = '/';
+      // window.location.href = '/dashboard';
     } catch (error) {
       setError(error.message);
     } finally {
@@ -79,6 +91,7 @@ const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs" sx={{margin:"10% auto"}}>
+      <ToastContainer />  
       <Paper 
         elevation={3} 
         sx={{ 
@@ -183,6 +196,7 @@ const Login = () => {
           </Grid>
         </Box>
       </Paper>
+      
     </Container>
   );
 };

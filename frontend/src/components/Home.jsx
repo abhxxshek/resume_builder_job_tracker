@@ -5,6 +5,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "./Footer";
 
+import { toast, ToastContainer } from "react-toastify";
+
 
 const GradientButton = styled(Button)({
   background: "linear-gradient(90deg,#7f8fa6,rgb(234, 225, 222))",
@@ -20,7 +22,7 @@ const GradientButton = styled(Button)({
 
 
 
-const images = ["/public/img3.jpg", "/public/img4.jpg", "/public/img5.jpg"];
+const images = ["/img3.jpg", "/img4.jpg", "/img5.jpg"];
 
 const resumeTemplates = [
   "/img3.jpg",
@@ -33,7 +35,7 @@ const resumeTemplates = [
   "/img10.jpg",
   "/img11.jpg",
 ];
-const rotatingImages = ["/public/img11.jpg", "/public/img12.jpg", "/public/img13.jpg", "/public/img14.jpg"];
+const rotatingImages = ["/img11.jpg", "/img12.jpg", "/img13.jpg", "/img14.jpg"];
 
 
 const Home = () => {
@@ -52,8 +54,15 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  
+
+  function handleCreateResumeButton(){
+    toast.error("Login required !",{autoClose:2000});
+  }
+ 
   return (
     <>
+   <ToastContainer/>
     <Box
       sx={{
         minHeight: "100vh",
@@ -94,7 +103,7 @@ const Home = () => {
       Easily create a resume for any job using our best-in-class platform.
     </Typography>
     <Box display="flex" justifyContent={{ xs: "center", md: "flex-start" }}>
-      <GradientButton variant="contained">Create My Resume Now</GradientButton>
+      <GradientButton variant="contained" onClick={()=>{handleCreateResumeButton()}} >Create My Resume Now</GradientButton>
     </Box>
   </Box>
 </Grid>
@@ -205,13 +214,13 @@ const Home = () => {
   </Typography>
 
   {[
-    { step: "1", title: "Create an Account & Login", description: "Sign up and log in to start building your resume.", img: "/public/img12.jpg" },
-    { step: "2", title: "Profile registration", description: "Enter your personal details, work experience, and skills.", img: "/public/img13.jpg" },
-    { step: "3", title: "Choose a Template", description: "Select from a variety of professional resume templates.", img: "/public/img7.jpg" },
-    { step: "4", title: "Real time preview", description: "Real time preview of editting  your resume", img: "/public/img14.jpg" },
-    { step: "5", title: "Download ", description: "Download your resume in PDF", img: "/public/img15.jpg" },
-    { step: "6", title: "Find jobs", description: "Filter jobs according to your skills ", img: "/public/img16.jpg" },
-    { step: "7", title: "Apply ", description: "Find your dream job and apply", img: "/public/img17.jpg" },
+    { step: "1", title: "Create an Account & Login", description: "Sign up and log in to start building your resume.", img: "/img12.jpg" },
+    { step: "2", title: "Profile registration", description: "Enter your personal details, work experience, and skills.", img: "/img13.jpg" },
+    { step: "3", title: "Choose a Template", description: "Select from a variety of professional resume templates.", img: "/img7.jpg" },
+    { step: "4", title: "Real time preview", description: "Real time preview of editting  your resume", img: "/img14.jpg" },
+    { step: "5", title: "Download ", description: "Download your resume in PDF", img: "/img15.jpg" },
+    { step: "6", title: "Find jobs", description: "Filter jobs according to your skills ", img: "/img16.jpg" },
+    { step: "7", title: "Apply ", description: "Find your dream job and apply", img: "/img17.jpg" },
   ].map((item, index) => (
     <Grid 
     container 
