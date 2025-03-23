@@ -20,7 +20,7 @@ const GradientButton = styled(Button)({
 
 
 
-const images = ["/public/img3.jpg", "/public/img4.jpg", "/public/img5.jpg"];
+const images = ["/img3.jpg", "/img4.jpg", "/img5.jpg"];
 
 const resumeTemplates = [
   "/img3.jpg",
@@ -33,7 +33,7 @@ const resumeTemplates = [
   "/img10.jpg",
   "/img11.jpg",
 ];
-const rotatingImages = ["/public/img11.jpg", "/public/img12.jpg", "/public/img13.jpg", "/public/img14.jpg"];
+const rotatingImages = ["/img11.jpg", "/img12.jpg", "/img13.jpg", "/img14.jpg"];
 
 
 const Home = () => {
