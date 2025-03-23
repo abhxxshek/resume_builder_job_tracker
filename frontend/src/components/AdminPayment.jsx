@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -12,29 +12,25 @@ import {
   Button,
   Modal,
 } from "@mui/material";
-
-const paymentData = [
-  {
-    id: 1,
-    resumeName: "Software Engineer Resume",
-    buyerName: "John Doe",
-    email: "johndoe@example.com",
-    amount: "$29.99",
-    date: "March 18, 2025",
-  },
-  {
-    id: 2,
-    resumeName: "Data Scientist Resume",
-    buyerName: "Jane Smith",
-    email: "janesmith@example.com",
-    amount: "$39.99",
-    date: "March 17, 2025",
-  },
-];
+import axiosInstance from "../../axiosInterceptor";
 
 const AdminPayment = () => {
+  const [paymentData, setPaymentData] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState(null);
+
+  // Fetch payment data when the component mounts
+  useEffect(() => {
+    axiosInstance
+      .get('/admin/payment-details')
+      .then((res) => {
+        console.log(res.data);
+        setPaymentData(res.data);
+      })
+      .catch((error) => {
+        alert('Failed to fetch details');
+      });
+  }, []);
 
   const handleOpen = (receipt) => {
     setSelectedReceipt(receipt);
@@ -83,7 +79,7 @@ const AdminPayment = () => {
                     color="primary"
                     onClick={() => handleOpen(row)}
                   >
-                     Receipt
+                    Receipt
                   </Button>
                 </TableCell>
               </TableRow>
