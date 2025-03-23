@@ -19,10 +19,12 @@ app.use(morgan('dev'));
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
 app.use("/profile",profileRoutes);
+app.use("/user",userRoutes);
 app.use("/admin",adminRoutes);
 // Basic route
 app.get('/', (req, res) => {
