@@ -61,13 +61,13 @@ exports.loginUser = async (req, res) => {
       // });
       const payload={email:user.email,password:user.password,role:user.role,id:user._id}  
           const token=jwt.sign(payload,process.env.jwt_secret_key,{expiresIn:"1h"});
-          res.status(200).send({message:"Login successful",token:token})
+          res.status(200).send({success:true,message:"Login successful",token:token})
     } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+      res.status(401).json({success:false, message: 'Invalid email or password' });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({success:false, message: 'Server error', error: error.message });
   }
 };
 

@@ -51,7 +51,7 @@ const Payment = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 10 }}>
       {/* Payment Header */}
       <Card sx={{ p: 3, mb: 4, background: "#2c3e50", color: "white", textAlign: "center", borderRadius: "12px" }}>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>Premium Templates</Typography>

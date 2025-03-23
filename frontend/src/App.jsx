@@ -54,7 +54,7 @@ function App() {
   // Redirect already logged in users away from login/register pages
   const RedirectIfLoggedIn = ({ children }) => {
     if (userInfo) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/dashboard" replace />;
     }
     return children;
   };
@@ -69,18 +69,19 @@ function App() {
 
       <Routes>
         {/* Public routes with redirect if already logged in */}
+        <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<PrivateRoutes />}>
           {/* Protected routes */}
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/resume-form" element={<Layout2 />} />
           <Route path="/templates" element={<TemplateView />} />
           <Route path="/layout2/:template" element={<Layout2 />} />
           <Route path="/admin-dashboard" element={<AdminDashboard/>} /> 
           <Route path="/admin-payment" element={<AdminPayment/>} />
           <Route path="/job-search" element={<JobSearch/>} />
-          <Route path="/home" element={<Home/>} />
+          
           <Route path="/payment" element={<Payment/>} />
         </Route>
       </Routes>

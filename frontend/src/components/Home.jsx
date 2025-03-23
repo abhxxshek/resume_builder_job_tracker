@@ -205,13 +205,13 @@ const Home = () => {
   </Typography>
 
   {[
-    { step: "1", title: "Create an Account & Login", description: "Sign up and log in to start building your resume.", img: "/public/img12.jpg" },
-    { step: "2", title: "Profile registration", description: "Enter your personal details, work experience, and skills.", img: "/public/img13.jpg" },
-    { step: "3", title: "Choose a Template", description: "Select from a variety of professional resume templates.", img: "/public/img7.jpg" },
-    { step: "4", title: "Real time preview", description: "Real time preview of editting  your resume", img: "/public/img14.jpg" },
-    { step: "5", title: "Download ", description: "Download your resume in PDF", img: "/public/img15.jpg" },
-    { step: "6", title: "Find jobs", description: "Filter jobs according to your skills ", img: "/public/img16.jpg" },
-    { step: "7", title: "Apply ", description: "Find your dream job and apply", img: "/public/img17.jpg" },
+    { step: "1", title: "Create an Account & Login", description: "Sign up and log in to start building your resume.", img: "/img12.jpg" },
+    { step: "2", title: "Profile registration", description: "Enter your personal details, work experience, and skills.", img: "/img13.jpg" },
+    { step: "3", title: "Choose a Template", description: "Select from a variety of professional resume templates.", img: "/img7.jpg" },
+    { step: "4", title: "Real time preview", description: "Real time preview of editting  your resume", img: "/img14.jpg" },
+    { step: "5", title: "Download ", description: "Download your resume in PDF", img: "/img15.jpg" },
+    { step: "6", title: "Find jobs", description: "Filter jobs according to your skills ", img: "/img16.jpg" },
+    { step: "7", title: "Apply ", description: "Find your dream job and apply", img: "/img17.jpg" },
   ].map((item, index) => (
     <Grid 
     container 

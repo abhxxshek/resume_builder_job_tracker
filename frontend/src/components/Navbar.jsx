@@ -64,7 +64,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
   const getNavigationItems = () => {
     if (currentUser) {
       return [
-        { label: 'Dashboard', path: '/' },
+        { label: 'Dashboard', path: '/dashboard' },
         { label: 'Templates', path: '/templates' },
         
         { label: 'Admin dashboard', path: '/admin-dashboard' },
@@ -89,8 +89,8 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
             <Typography
               variant="h6"
               noWrap
-              component={Link}
-              to={currentUser ? "/Home" : "/login"}
+              // component={Link}
+              // to={currentUser ? "/Home" : "/login"}
               sx={{ 
                 flexGrow: 1, 
                 display: { xs: 'flex', md: 'flex' },
