@@ -1,11 +1,19 @@
-import React from "react";
-import { TextField, Typography, Container, Grid, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { TextField, Typography, Container, Grid, Box, Avatar, Card, IconButton } from "@mui/material";
+import UploadProfilePicture from "../components/UploadProfilePicture";
+
 
 const About = ({ resumeData = {}, handleChange }) => {
-  
+  const [profilePic, setProfilePic] = useState("");
+    useEffect(() => {
+      const storedImage = localStorage.getItem("profilePicture");
+      if (storedImage) setProfilePic(storedImage);
+    }, []);
   return (
     
     <Container sx={{paddingTop:"30px",paddingBottom:"30px"}} >
+      
+
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
         About Yourself
       </Typography>
@@ -90,6 +98,12 @@ const About = ({ resumeData = {}, handleChange }) => {
             onChange={handleChange}
           />
         </Grid>
+      
+<UploadProfilePicture onImageUpload={setProfilePic} />
+
+
+
+
       </Grid>
     </Container>
     

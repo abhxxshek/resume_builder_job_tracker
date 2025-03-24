@@ -1,10 +1,37 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import { Typography, Container, Box, Divider, Grid, Avatar } from "@mui/material";
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Template1 = ({ resumeData = {} }) => {
+  const [profilePic, setProfilePic] = useState("");
+
+  // Function to update profile picture from localStorage
+  const updateProfilePicture = () => {
+    const storedImage = localStorage.getItem("profilePicture");
+    setProfilePic(storedImage || "");
+  };
+
+  useEffect(() => {
+    updateProfilePicture(); // Initial check
+
+    // Listen for changes in localStorage
+    const handleStorageChange = () => {
+      updateProfilePicture();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom events if needed
+    window.addEventListener('profilePictureUpdated', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('profilePictureUpdated', handleStorageChange);
+    };
+  }, []);
   // Define consistent styling variables with more compact spacing
   const sectionStyle = {
     marginBottom: "12px",
@@ -43,21 +70,15 @@ const Template1 = ({ resumeData = {} }) => {
         }}
       >
         {/* Profile Picture */}
-        <Avatar
-          alt="Profile Picture"
-          sx={{ 
-            width: 80, // Smaller avatar
-            height: 80, 
-            mb: 1.5, 
-            mx: "auto", 
-            backgroundColor: "#e0e0e0",
-            color: "#757575",
-            fontSize: "28px",
-            fontWeight: "bold"
-          }}
-        >
-          {resumeData?.firstName?.charAt(0) || "P"}
-        </Avatar>
+        
+        {profilePic && (
+  <Avatar
+    src={profilePic}
+    alt="Profile Picture"
+    sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}
+  />
+)}
+          
 
         {/* Name and Designation */}
         <Typography variant="h5" sx={{ fontWeight: 600, color: "#2c3e50", mb: 0.5, lineHeight: 1.2 }}>
