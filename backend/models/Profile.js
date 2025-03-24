@@ -6,7 +6,7 @@ const profileSchema = new mongoose.Schema({
       required: true,
       unique: true,
       },
-  profilePicture: { type: String, trim: true }, 
+  profilePic: { type: String, trim: true }, 
 
       firstName: String,
       lastName:String,
