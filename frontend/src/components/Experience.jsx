@@ -18,12 +18,12 @@ const Experience = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddExperience = () => {
-    if (formData.employer && formData.job && formData.company) {
+    if (formData.employer && formData.jobTitle && formData.company) {
       const newList = [...experiencesList, formData];
       setExperiencesList(newList);
       setFormData({
         employer: "",
-        job: "",
+        jobTitle: "",
         company: "",
         // City: "",
         startDate: "",
@@ -66,7 +66,7 @@ const Experience = ({ resumeData = {}, handleChange }) => {
           <TextField label="Employer" fullWidth name="employer" value={formData.employer} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={6}>
-          <TextField label="Job Title" fullWidth name="job" value={formData.jobTitle} onChange={handleInputChange} />
+          <TextField label="Job Title" fullWidth name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <TextField label="Company" fullWidth name="company" value={formData.company} onChange={handleInputChange} />
