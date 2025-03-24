@@ -58,6 +58,62 @@ const JobSearch = () => {
     },
   ]);
 
+//   const [jobs] = useState([
+//     {
+//         "id": "4182664113",
+//         "title": "Housekeeping Supervisor",
+//         "url": "https://www.linkedin.com/jobs/view/4182664113",
+//         "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+//         "posterId": "4086607",
+//         "company": {
+//             "id": 163758,
+//             "name": "Fairmont Hotels & Resorts",
+//             "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQFYYdJOlpzC7g/company-logo_200_200/company-logo_200_200/0/1720426207831?e=1748476800&v=beta&t=i3a49NJu2-JK50Mr_4oUyrQrkpdNlO-ydDRpeq-73Sg",
+//             "url": "https://www.linkedin.com/company/fairmont-hotels-and-resorts/life",
+//             "staffCountRange": {},
+//             "headquarter": {}
+//         },
+//         "location": "Dubai, Dubai, United Arab Emirates (On-site)",
+//         "postAt": "2025-03-14 17:30:38 +0000 UTC",
+//         "postedTimestamp": 1741973438000
+//     },
+//     {
+//         "id": "4183388649",
+//         "title": "Frontend Developer",
+//         "url": "https://www.linkedin.com/jobs/view/4183388649",
+//         "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+//         "posterId": "791580128",
+//         "company": {
+//             "id": 2269862,
+//             "name": "Tranzeal Incorporated",
+//             "logo": "https://media.licdn.com/dms/image/v2/C560BAQEd6wmLi_AJpw/company-logo_200_200/company-logo_200_200/0/1631327191600?e=1748476800&v=beta&t=DNxEJMFYkRk2DPhrqAOa9SySfQ8LpzpYEk89iCSIWWQ",
+//             "url": "https://www.linkedin.com/company/tranzeal-inc/life",
+//             "staffCountRange": {},
+//             "headquarter": {}
+//         },
+//         "location": "Hyderabad, Telangana, India (On-site)",
+//         "postAt": "2025-03-17 16:25:53 +0000 UTC",
+//         "postedTimestamp": 1742228753000
+//     },
+//     {
+//         "id": "4183476730",
+//         "title": "React JS Full-stack Consultant",
+//         "url": "https://www.linkedin.com/jobs/view/4183476730",
+//         "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+//         "company": {
+//             "id": 1283,
+//             "name": "Infosys",
+//             "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQE7Zf1-vvfbUA/company-logo_200_200/company-logo_200_200/0/1692876768583/infosys_logo?e=1748476800&v=beta&t=vCCF5G3MFlgwlX8ssU7XcuF9t3151bNBp00dTy1WMe8",
+//             "url": "https://www.linkedin.com/company/infosys/life",
+//             "staffCountRange": {},
+//             "headquarter": {}
+//         },
+//         "location": "Bengaluru East, Karnataka, India (On-site)",
+//         "postAt": "2025-03-18 07:25:09 +0000 UTC",
+//         "postedTimestamp": 1742282709000
+//     }
+// ]);
+
   const [selectedJob, setSelectedJob] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
