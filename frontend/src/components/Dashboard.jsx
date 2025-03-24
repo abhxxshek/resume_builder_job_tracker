@@ -34,6 +34,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import StarIcon from '@mui/icons-material/Star';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import Notif from './Notif';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -391,6 +392,8 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Container>
+      {/*  notif test */}
+      <Notif/>
     </Box>
   );
 };

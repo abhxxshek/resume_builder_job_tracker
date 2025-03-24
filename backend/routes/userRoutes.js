@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router(); 
 router.use(express.json());
 const axios = require("axios");
+const notificationModel = require('../models/Notification');
 
 // use skills for searching
 router.get("/jobs", async (req, res) => {
@@ -87,4 +88,15 @@ router.post('/user/applyjob', async (req, res) => {
   }
 });
 
+// get notifications
+  router.get('/notifications', async (req, res) => {
+      try {
+          const notifications = await notificationModel.find().sort({ createdAt: -1 }); 
+          res.status(200).json(notifications);
+      } catch (error) {
+          console.error('Error fetching notifications:', error);
+          res.status(500).json({ message: 'Error fetching notifications' });
+      }
+  });
+  
 module.exports = router;
