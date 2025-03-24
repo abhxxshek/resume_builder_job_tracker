@@ -65,4 +65,26 @@ router.get("/jobdetails/:id", async (req, res) => {
   }
 });
 
+router.post('/user/applyjob', async (req, res) => {
+  const { jobId } = req.body;
+  // if (!jobId) {
+  //   return res.status(400).json({ message: 'Job ID is required' });
+  // }
+
+   try {
+  //   const job = await Job.findById(jobId);
+  //   if (!job) {
+  //     return res.status(404).json({ message: 'Job not found' });
+  //   }
+
+  //   job.applied += 1; // Increment the applied count
+    // await job.save(); // Save the updated job document
+
+    return res.status(200).json({ message: 'Application successful' });
+  } catch (error) {
+    console.error('Error applying for job:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
