@@ -34,6 +34,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import StarIcon from '@mui/icons-material/Star';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import Notif from './Notif';
 import { jwtDecode } from 'jwt-decode';
 import axiosInstance from '../../axiosInterceptor';
 
@@ -407,6 +408,8 @@ const Dashboard = ({ resumeData = {}}) => {
           </Grid>
         </Grid>
       </Container>
+      {/*  notif test */}
+      <Notif/>
     </Box>
   );
 };
