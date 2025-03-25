@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Container, Box, Divider, Grid, Avatar } from "@mui/material";
 
 const Template3= ({ resumeData = {} }) => {
+  const [profilePic, setProfilePic] = useState("");
+  
+    // Function to update profile picture from localStorage
+    const updateProfilePicture = () => {
+      const storedImage = localStorage.getItem("profilePicture");
+      setProfilePic(storedImage || "");
+    };
+  
+    useEffect(() => {
+      updateProfilePicture(); // Initial check
+  
+      // Listen for changes in localStorage
+      const handleStorageChange = () => {
+        updateProfilePicture();
+      };
+  
+      window.addEventListener('storage', handleStorageChange);
+      
+      // Also listen for custom events if needed
+      window.addEventListener('profilePictureUpdated', handleStorageChange);
+  
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('profilePictureUpdated', handleStorageChange);
+      };
+    }, []);
   return (
     <Container
       maxWidth="md"
@@ -26,12 +52,16 @@ const Template3= ({ resumeData = {} }) => {
           borderRadius: "4px",
         }}
       >
-        {/* Profile Picture */}
-        <Avatar
-          alt="Profile Picture"
-          src={resumeData?.profilePicture || "https://via.placeholder.com/150"}
-          sx={{ width: 80, height: 80, mb: 1, mx: "auto", border: "2px solid #ffffff" }} // Smaller avatar
-        />
+         {/* Profile Picture */}
+                
+                {profilePic && (
+          <Avatar
+            src={profilePic}
+            alt="Profile Picture"
+            sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}
+          />
+        )}
+                  
 
         {/* Name and Designation */}
         <Typography variant="h4" fontWeight="bold">
