@@ -59,7 +59,7 @@ const JobSearch = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        // const response = await axiosInstance.get(`/user/jobs/${skills}`);
+        // const response = await axiosInstance.get("/user/jobs");
         // setJobs(response.data); 
         setJobs([
           {
@@ -267,7 +267,8 @@ const JobSearch = () => {
           "originalListedDate": "2025-03-18 07:25:09 +0000 UTC"
     }
       );
-      setExpanded(false);
+      
+    setExpanded(false);
     } catch (error) {
       console.error("Error fetching job details:", error);
     }
@@ -285,6 +286,7 @@ const JobSearch = () => {
 
   const handleApply = async () => {
     try {
+      window.open(applyUrl, "_blank");
       // await axiosInstance.post("/user/applyjob", { jobId: selectedJob.id });
       await axiosInstance.get("/user/applyjob");
     } catch (error) {
@@ -584,21 +586,6 @@ const JobSearch = () => {
                             <Typography variant="caption" color="text.secondary">
                               {new Date(job.postedTimestamp).toLocaleDateString()}
                             </Typography>
-                          </Box>
-                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
-                            {job.skills.slice(0, 3).map((skill, i) => (
-                              <Chip 
-                                key={i} 
-                                label={skill} 
-                                size="small"
-                                sx={{ 
-                                  borderRadius: '4px',
-                                  backgroundColor: '#eef2ff',
-                                  color: '#4f46e5',
-                                  fontSize: '0.65rem'
-                                }}
-                              />
-                            ))}
                           </Box>
                         </>
                       } 

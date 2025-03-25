@@ -4,6 +4,7 @@ router.use(express.json());
 const axios = require("axios");
 const notificationModel = require('../models/Notification');
 const userStatsModel = require('../models/userStats');
+const profileModel = require('../models/Profile');
 const jwt= require('jsonwebtoken');
 
 function getUser(re) {
@@ -13,50 +14,50 @@ function getUser(re) {
 }
 
 // use skills for searching
-router.get("/jobs/:id", async (req, res) => {
+router.get("/jobs", async (req, res) => {
   try {
+  const user = getUser (req);
+  const profile = await profileModel.findOne({ userId: user.id });
+  if (!profile) {
+      console.log('Profile not found');
+  } else {
+    const userSkills =  profile.skills.map(item => item.skill);
+    console.log('Profile found:',userSkills.join(','));
     const options = {
-        method: 'GET',
-        url: 'https://linkedin-data-api.p.rapidapi.com/search-jobs-v2',
-        params: {
-          keywords: 'React',
-          locationId: '92000000',
-          datePosted: 'pastWeek,past24Hours',
-          sort: 'mostRelevant'
-        },
-        headers: {
-            'x-rapidapi-key': process.env.RapidApiKey,
-            'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com'
-          }
-      };
-      async function fetchData() {
-        try {
-            const response = await axios.request(options);
-            console.log(response.data.data);
-            res.status(200).json(response.data.data);
-        } catch (error) {
-            console.error(error);
+      method: 'GET',
+      url: 'https://linkedin-data-api.p.rapidapi.com/search-jobs-v2',
+      params: {
+        keywords: userSkills.join(','), // React
+        locationId: '92000000',
+        datePosted: 'pastWeek,past24Hours',
+        sort: 'mostRelevant'
+      },
+      headers: {
+          'x-rapidapi-key': process.env.RapidApiKey,
+          'x-rapidapi-host': 'linkedin-data-api.p.rapidapi.com'
         }
-    }
-    const user = getUser (req);
+    };
+    async function fetchData() {
       try {
-          const userStats = await userStatsModel.findOneAndUpdate({ userId: user.id },
-              { $inc: {jobSearches: 1 }, userMail: user.email,userName:user.name }, 
-              { new: true, upsert: true, setDefaultsOnInsert: true }
-          );
-        return res.status(userStats.isNew ? 201 : 200).json({message: userStats.isNew ? 'User  stats created' : 'User  stats updated',userStats});
+          const response = await axios.request(options);
+          console.log(response.data.data);
+          res.status(200).json(response.data.data);
       } catch (error) {
           console.error(error);
-          return res.status(500).json({ message: 'Server error', error });
       }
-    
-    // fetchData();
+  }
+const userStats = await userStatsModel.findOneAndUpdate({ userId: user.id },
+            { $inc: {jobSearches: 1 }, userMail: user.email,userName:user.name }, 
+            { new: true, upsert: true, setDefaultsOnInsert: true }
+        );
+  fetchData();
+  }
   } catch (error) {
     console.error("Error fetching data from API:", error);
     res.status(500).send("Error fetching data from API");
   }
 });
-
+// selected job details
 router.get("/jobdetails/:id", async (req, res) => {
   try {
     const options = {
