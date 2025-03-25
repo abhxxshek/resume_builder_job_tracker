@@ -30,6 +30,7 @@ router.get("/jobs", async (req, res) => {
             console.error(error);
         }
     }
+    
     fetchData();
   } catch (error) {
     console.error("Error fetching data from API:", error);
