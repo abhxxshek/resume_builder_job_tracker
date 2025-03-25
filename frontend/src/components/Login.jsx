@@ -167,7 +167,13 @@ const Login = () => {
               ),
             }}
           />
-          
+          <Link component={RouterLink} to="/reset-password" style={{ textDecoration: 'none', }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 0,mt:1,'&:hover': { 
+      
+      color: 'primary.main'} }} >
+          Forgot Password ?
+        </Typography>
+        </Link>
           <Button
             type="submit"
             fullWidth

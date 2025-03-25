@@ -1,6 +1,16 @@
 import React, { useState } from "react";
-import { TextField, Button, Container, Typography, Paper, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Paper,
+  Box,
+} from "@mui/material";
 import LockResetIcon from "@mui/icons-material/LockReset";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -8,28 +18,89 @@ const ForgotPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [step, setStep] = useState("email");
+  const navigate=useNavigate();
 
   const handleSendOtp = () => {
-    console.log("Sending OTP to", email);
-    setStep("otp");
+    console.log("Sending OTP to:", email); // Log the email
+    toast.info("Checking email....", {  position: "top-center" }); // Show info message
+    axios
+      .post("http://localhost:3000/forgot-password/send-otp", { email }) // Send email as an object
+      .then((res) => {
+        if (!res.data.success) {
+          toast.error(res.data.message, {
+            autoClose: 3000,
+            position: "top-center",
+          });
+        } else {
+          toast.success(res.data.message, {
+            autoClose: 3000,
+            position: "top-center",
+          });
+        }
+
+        // alert("OTP sent successfully");
+        // console.log("Sending OTP to", email);
+        setStep("otp"); // Move to the OTP step
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response?.data?.message || "An error occurred", {
+          autoClose: 2000,
+          position: "top-center",
+        }); // Show error message
+      });
   };
 
   const handleVerifyOtp = () => {
-    console.log("Verifying OTP", otp);
-    setStep("reset");
+    axios
+      .post("http://localhost:3000/forgot-password/verify-otp", { email, otp })
+      .then((res) => {
+        if (!res.data.success) {
+          toast.error(res.data.message, {autoClose: 2000, position: "top-center"});
+        } else {
+          toast.success(res.data.message, {autoClose: 2000, position: "top-center"}); // Show success message
+        }
+        // alert("OTP verified successfully");
+        // console.log("Verifying OTP", otp);
+        setStep("reset");
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response?.data?.message || "An error occurred",{autoClose:2000,position:"top-center"}); // Show error message
+      });
   };
 
   const handleResetPassword = () => {
     if (newPassword !== confirmPassword) {
+      // console.log("Resetting password:", newPassword); // Log the new password
+      toast.warning("Passwords do not match", {autoClose: 2000, position: "top-center"}); // Show warning message
       console.log("Passwords do not match");
       return;
     }
-    console.log("Resetting password", newPassword);
+    axios
+      .post("http://localhost:3000/forgot-password/reset-password", {
+        email,
+        newPassword,
+      })
+      .then((res) => {
+        if(!res.data.success){
+          toast.error(res.data.message, {autoClose: 2000, position: "top-center"});
+        }else{
+          toast.success(res.data.message, {autoClose: 1500, position: "top-center",onClose:()=>{navigate('/login')}}); // Show success message
+          
+        }
+        
+        // console.log("Resetting password", newPassword);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response?.data?.message || "An error occurred",{autoClose:2000,position:'top-center'}); // Show error message
+      });
   };
 
   return (
     <Container
-      maxWidth="xs"
+      maxWidth="100%"
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -39,6 +110,7 @@ const ForgotPassword = () => {
         fontFamily: "Poppins, sans-serif",
       }}
     >
+      <ToastContainer />
       <Paper
         elevation={12}
         sx={{
@@ -57,7 +129,11 @@ const ForgotPassword = () => {
           Forgot Password
         </Typography>
         <Typography variant="body2" color="textSecondary" mb={3}>
-          {step === "email" ? "Enter your email to receive a reset OTP." : step === "otp" ? "Enter the OTP sent to your email." : "Set a new password for your account."}
+          {step === "email"
+            ? "Enter your email to receive a reset OTP."
+            : step === "otp"
+            ? "Enter the OTP sent to your email."
+            : "Set a new password for your account."}
         </Typography>
         {step === "email" ? (
           <>
@@ -75,7 +151,12 @@ const ForgotPassword = () => {
               fullWidth
               onClick={handleSendOtp}
               disabled={!email}
-              sx={{ py: 1.2, fontSize: "1rem", fontWeight: 600, borderRadius: 2 }}
+              sx={{
+                py: 1.2,
+                fontSize: "1rem",
+                fontWeight: 600,
+                borderRadius: 2,
+              }}
             >
               Send OTP
             </Button>
@@ -96,7 +177,12 @@ const ForgotPassword = () => {
               fullWidth
               onClick={handleVerifyOtp}
               disabled={!otp}
-              sx={{ py: 1.2, fontSize: "1rem", fontWeight: 600, borderRadius: 2 }}
+              sx={{
+                py: 1.2,
+                fontSize: "1rem",
+                fontWeight: 600,
+                borderRadius: 2,
+              }}
             >
               Confirm OTP
             </Button>
@@ -127,7 +213,12 @@ const ForgotPassword = () => {
               fullWidth
               onClick={handleResetPassword}
               disabled={!newPassword || !confirmPassword}
-              sx={{ py: 1.2, fontSize: "1rem", fontWeight: 600, borderRadius: 2 }}
+              sx={{
+                py: 1.2,
+                fontSize: "1rem",
+                fontWeight: 600,
+                borderRadius: 2,
+              }}
             >
               Reset Password
             </Button>

@@ -34,12 +34,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import StarIcon from '@mui/icons-material/Star';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { jwtDecode } from 'jwt-decode';
+import axiosInstance from '../../axiosInterceptor';
 
-const Dashboard = () => {
+const Dashboard = ({ resumeData = {}}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
-  const [resumes, setResumes] = useState([
+  
+ const [resumes, setResumes] = useState([
 
   ]);
 
@@ -67,6 +70,19 @@ const Dashboard = () => {
     if (percentage < 70) return '#ff9800'; // Orange
     return '#4caf50'; // Green
   };
+
+  //decode token
+
+  const token= sessionStorage.getItem('userInfo');
+  const decodedToken=jwtDecode(token);
+  
+  // //render profile 
+  // function renderProfile(){
+  //   axiosInstance.get('http://localhost:3000/profile/profile-details').then((res)=>{
+
+  //   })
+  // }
+
 
   return (
     <Box sx={{ 
@@ -319,9 +335,9 @@ const Dashboard = () => {
                 >
                   <PersonIcon fontSize="large" />
                 </Avatar>
-                <Typography variant="h6" fontWeight="bold">John Smith</Typography>
+                <Typography variant="h6" fontWeight="bold">{resumeData.firstName||"User"}{resumeData.lastName}</Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                  john.smith@example.com
+                  {decodedToken.email}
                 </Typography>
                 <Chip 
                   label="Free Account" 
