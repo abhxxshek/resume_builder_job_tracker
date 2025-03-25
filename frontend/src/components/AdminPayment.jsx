@@ -24,7 +24,7 @@ const AdminPayment = () => {
     axiosInstance
       .get('/admin/payment-details')
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setPaymentData(res.data);
       })
       .catch((error) => {

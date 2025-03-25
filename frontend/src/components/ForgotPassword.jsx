@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   const navigate=useNavigate();
 
   const handleSendOtp = () => {
-    console.log("Sending OTP to:", email); // Log the email
+    // console.log("Sending OTP to:", email); // Log the email
     toast.info("Checking email....", {  position: "top-center" }); // Show info message
     axios
       .post("http://localhost:3000/forgot-password/send-otp", { email }) // Send email as an object
@@ -74,7 +74,7 @@ const ForgotPassword = () => {
     if (newPassword !== confirmPassword) {
       // console.log("Resetting password:", newPassword); // Log the new password
       toast.warning("Passwords do not match", {autoClose: 2000, position: "top-center"}); // Show warning message
-      console.log("Passwords do not match");
+      // console.log("Passwords do not match");
       return;
     }
     axios

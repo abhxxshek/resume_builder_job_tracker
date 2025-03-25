@@ -8,6 +8,9 @@ const COLORS = ["#8c7ae6", "#192a56", "#40739e", "#7f8fa6"];
 const AdminDashboard = () => {
 
   const [totalUser, setTotalUser] = useState(0);
+  const [jobSearches, setJobSearches] = useState(0);
+  const [jobApplications, setJobApplications] = useState(0);
+  const [downloads, setDownloads] = useState(0);
   const [data, setData] = useState([
     { name: "Users", value: 0 },
     { name: "Job Searches", value: 30 },
@@ -15,10 +18,13 @@ const AdminDashboard = () => {
     { name: "Downloads", value: 25 },
   ]);
     useEffect(() => {
-      axiosInstance.get('/admin/totalUser-details')
+      axiosInstance.get('/admin/counters')
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setTotalUser(res.data.totalUser);
+          setJobSearches(res.data.count.jobSearches);
+          setJobApplications(res.data.count.jobApplications);
+          setDownloads(res.data.count.downloads);
         })
         .catch((error) => {
           alert('Failed to fetch details');
@@ -27,11 +33,23 @@ const AdminDashboard = () => {
 
     useEffect(() => {
       setData((prevData) =>
-        prevData.map((item) =>
-          item.name === "Users" ? { ...item, value: totalUser } : item
-        )
+        prevData.map((item) => {
+          if (item.name === "Users") {
+            return { ...item, value: totalUser };
+          }
+          if (item.name === "Job Searches") {
+            return { ...item, value: jobSearches };
+          }
+          if (item.name === "Job Applications") {
+            return { ...item, value: jobApplications };
+          }
+          if (item.name === "Downloads") {
+            return { ...item, value: downloads };
+          }
+          return item; 
+        })
       );
-    }, [totalUser]);
+    }, [totalUser, jobSearches, jobApplications, downloads]);
 
   return (
     <Box sx={{ minHeight: "100vh", background: "#F5F5F5", color: "#333", py: 6, px: 4 }}>
@@ -98,16 +116,16 @@ const AdminDashboard = () => {
                 <Typography variant="h3" fontWeight="bold" sx={{ mt: 1, color: "#45A29E" }}>
                   {item.value}
                 </Typography>
-                {item.name === "Downloads" && (
+                {/* {item.name === "Downloads" && (
                   <Box sx={{ mt: 2, display: "flex", justifyContent: "center", gap: 4,  paddingBottom:"16%"}}>
                     <Typography variant="body1" fontWeight="bold" sx={{ color: "#4B6587" }}>
-                      Premium: 120
+                      Premium: 5
                     </Typography>
                     <Typography variant="body1" fontWeight="bold" sx={{ color: "#4B6587" }}>
-                      Free: 130
+                      Free: 5
                     </Typography>
                   </Box>
-                )}
+                )} */}
               </CardContent>
             </Card>
           </Grid>
