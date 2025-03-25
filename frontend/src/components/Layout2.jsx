@@ -46,6 +46,7 @@ const Layout2 = () => {
       .then((res) => {
         setResumeData({
           userId: res.data.userId || user_id,
+          profilePic:'',
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           designation: res.data.designation,
@@ -75,16 +76,25 @@ const Layout2 = () => {
     }));
   };
 
-  const handleSave = () => {
+  const loadProfilePicture = () => {
+    const storedImage = localStorage.getItem("profilePicture");
+    if (storedImage) {
+      handleChange({ target: { name: 'profilePic', value: storedImage } });
+    }
+  };
+
+  const handleSave = async () => {
+    loadProfilePicture();
+    await new Promise((resolve) => setTimeout(resolve, 0));
     axiosInstance
       .post("/profile/save-resume", resumeData)
       .then(() => toast.success("Resume saved successfully!", { autoClose: 2000 }))
       .catch(() => toast.error("Failed to save resume", { autoClose: 2000 }));
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     toast.success("Downloading resume...", { autoClose: 500 });
-  
+    await axiosInstance.get("/user/downloads");
     const resumeElement = resumeRef.current;
   
     html2canvas(resumeElement, { scale: 2, useCORS: true }).then((canvas) => {

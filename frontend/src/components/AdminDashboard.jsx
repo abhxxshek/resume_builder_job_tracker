@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid, Card, CardContent, Button } from "@mui/material";
+import { Box, Typography, Grid, Card, CardContent, Button , List, ListItem, ListItemText} from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import axiosInstance from "../../axiosInterceptor";
 
@@ -11,20 +11,24 @@ const AdminDashboard = () => {
   const [jobSearches, setJobSearches] = useState(0);
   const [jobApplications, setJobApplications] = useState(0);
   const [downloads, setDownloads] = useState(0);
+  const [showDetails, setShowDetails] = useState(false);
+  const [userDetails, setUserDetails] = useState([]);
+
   const [data, setData] = useState([
     { name: "Users", value: 0 },
-    { name: "Job Searches", value: 30 },
-    { name: "Job Applications", value: 20 },
-    { name: "Downloads", value: 25 },
+    { name: "Job Searches", value: 0 },
+    { name: "Job Applications", value: 0 },
+    { name: "Downloads", value: 5 },
   ]);
     useEffect(() => {
-      axiosInstance.get('/admin/counters')
+      axiosInstance.get('/admin/userstats')
         .then((res) => {
           // console.log(res.data);
           setTotalUser(res.data.totalUser);
-          setJobSearches(res.data.count.jobSearches);
-          setJobApplications(res.data.count.jobApplications);
-          setDownloads(res.data.count.downloads);
+          setJobSearches(res.data.totalJobSearches);
+          setJobApplications(res.data.totalApplications);
+          setDownloads(res.data.totalResumeDownloads);
+          setUserDetails(res.data.userStats)
         })
         .catch((error) => {
           alert('Failed to fetch details');
@@ -50,6 +54,10 @@ const AdminDashboard = () => {
         })
       );
     }, [totalUser, jobSearches, jobApplications, downloads]);
+
+    const handleToggleDetails = () => {
+      setShowDetails(!showDetails);
+  };
 
   return (
     <Box sx={{ minHeight: "100vh", background: "#F5F5F5", color: "#333", py: 6, px: 4 }}>
@@ -131,11 +139,37 @@ const AdminDashboard = () => {
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <Button variant="contained" color="primary" sx={{ fontSize: "1rem", fontWeight: "bold", px: 4, py: 1.5 }}>
-          View Payment Details
-        </Button>
-      </Box>
+       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4 }}>
+    <Button 
+        variant="contained" 
+        color="primary" 
+        sx={{ fontSize: "1rem", fontWeight: "bold", px: 4, py: 1.5 }} 
+        onClick={handleToggleDetails}
+    >
+        View User Stats
+    </Button>
+
+    {showDetails && (
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', mt: 2 }}>
+            {userDetails.map((user) => (
+                <ListItem key={user._id} sx={{ padding: '10px', borderBottom: 'none' }}>
+                    <ListItemText 
+                        primary={<Typography variant="h6" component="div">{user.userName}</Typography>} 
+                        secondary={
+                          <>
+                          <Typography variant="body2" component="span">Email: {user.userMail}</Typography>
+                          <Typography variant="body2" component="span"> | Job Searches: {user.jobSearches}</Typography>
+                          <Typography variant="body2" component="span"> | Applications: {user.application}</Typography>
+                          <Typography variant="body2" component="span"> | Resume Downloads: {user.resumeDownloads}</Typography>
+                          <Typography variant="body2" component="span"> | Templates: {user.templates.join(', ')}</Typography>
+                      </>
+                        } 
+                    />
+                </ListItem>
+            ))}
+        </List>
+    )}
+</Box>
     </Box>
   );
 };
