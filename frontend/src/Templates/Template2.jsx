@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Container, Box, Divider, Grid, CardContent, Card, Avatar } from "@mui/material";
 
 const Template2 = ({ resumeData = {} }) => {
   // console.log(resumeData);
+  const [profilePic, setProfilePic] = useState("");
+  
+    // Function to update profile picture from localStorage
+    const updateProfilePicture = () => {
+      const storedImage = localStorage.getItem("profilePicture");
+      setProfilePic(storedImage || "");
+    };
+  
+    useEffect(() => {
+      updateProfilePicture(); // Initial check
+  
+      // Listen for changes in localStorage
+      const handleStorageChange = () => {
+        updateProfilePicture();
+      };
+  
+      window.addEventListener('storage', handleStorageChange);
+      
+      // Also listen for custom events if needed
+      window.addEventListener('profilePictureUpdated', handleStorageChange);
+  
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('profilePictureUpdated', handleStorageChange);
+      };
+    }, []);
   
   return (
     <Container
@@ -31,12 +57,15 @@ const Template2 = ({ resumeData = {} }) => {
         }}
       >
         {/* Profile Picture */}
-        <Avatar
-          alt="Profile Picture"
-          src={resumeData?.profilePicture || "https://via.placeholder.com/150"}
-          sx={{ width: 100, height: 100, mb: 2 }}
-        />
-
+               
+               {profilePic && (
+         <Avatar
+           src={profilePic}
+           alt="Profile Picture"
+           sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}
+         />
+       )}
+                 
         {/* Name and Designation */}
         <Typography variant="h5" fontWeight="bold">
           {resumeData?.firstName } {resumeData?.lastName }

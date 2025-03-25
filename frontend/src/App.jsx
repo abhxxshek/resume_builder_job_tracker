@@ -13,6 +13,7 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import JobSearch from "./components/JobSearch";
 import Home from "./components/Home";
 import Payment from "./components/Payment";
+import ForgotPassword from "./components/ForgotPassword";
 
 
 // // Protected route component
@@ -73,6 +74,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reset-password" element={<ForgotPassword/>} />
         <Route element={<PrivateRoutes />}>
           {/* Protected routes */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -82,6 +84,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard/>} /> 
           <Route path="/admin-payment" element={<AdminPayment/>} />
           <Route path="/job-search" element={<JobSearch/>} />
+          
           
           <Route path="/payment" element={<Payment/>} />
         </Route>

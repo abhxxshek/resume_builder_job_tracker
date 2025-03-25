@@ -30,12 +30,16 @@ const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
+const passwordResetRoutes = require('./routes/passwordResetRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
 app.use("/profile", profileRoutes);
 app.use("/user", userRoutes);
-app.use("/admin", adminRoutes(io)); // Pass io to admin routes
+app.use("/admin", adminRoutes(io)); 
+app.use('/forgot-password', passwordResetRoutes);
+app.use('/payment', paymentRoutes);
 
 // Handle socket connections
 io.on('connection', (socket) => {

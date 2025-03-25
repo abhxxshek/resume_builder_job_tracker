@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Container, Box, Grid, Avatar, Divider } from "@mui/material";
 
 const Template7 = ({ resumeData = {} }) => {
+  const [profilePic, setProfilePic] = useState("");
+  
+    // Function to update profile picture from localStorage
+    const updateProfilePicture = () => {
+      const storedImage = localStorage.getItem("profilePicture");
+      setProfilePic(storedImage || "");
+    };
+  
+    useEffect(() => {
+      updateProfilePicture(); // Initial check
+  
+      // Listen for changes in localStorage
+      const handleStorageChange = () => {
+        updateProfilePicture();
+      };
+  
+      window.addEventListener('storage', handleStorageChange);
+      
+      // Also listen for custom events if needed
+      window.addEventListener('profilePictureUpdated', handleStorageChange);
+  
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('profilePictureUpdated', handleStorageChange);
+      };
+    }, []);
   return (
     <Container
       maxWidth="md"
@@ -177,18 +203,16 @@ const Template7 = ({ resumeData = {} }) => {
             background: "linear-gradient(145deg,rgb(196, 74, 159), #357ABD)", // Gradient effect
           }}
         >
-          <Avatar
-            alt="Profile Picture"
-            src={resumeData?.profilePicture || "https://via.placeholder.com/150"}
-            sx={{
-              width: 100,
-              height: 100,
-              margin: "auto",
-              mb: 2,
-              border: "3px solid #FFFFFF", // White border
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Subtle shadow
-            }}
-          />
+           {/* Profile Picture */}
+                  
+                  {profilePic && (
+            <Avatar
+              src={profilePic}
+              alt="Profile Picture"
+              sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}
+            />
+          )}
+                    
 
           <Typography variant="h5" fontWeight="bold" sx={{ fontSize: "1.4rem", mb: 1 }}>
             {resumeData?.firstName} {resumeData?.lastName}
