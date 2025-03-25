@@ -59,7 +59,7 @@ const JobSearch = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        // const response = await axiosInstance.get("/user/jobs");
+        // const response = await axiosInstance.get(`/user/jobs/${skills}`);
         // setJobs(response.data); 
         setJobs([
           {
@@ -275,8 +275,18 @@ const JobSearch = () => {
 
   const handleApplyNow = async (applyUrl) => {
     try {
-      await axiosInstance.post("/user/applyjob", { jobId: selectedJob.id });
       window.open(applyUrl, "_blank");
+      // await axiosInstance.post("/user/applyjob", { jobId: selectedJob.id });
+      await axiosInstance.get("/user/applyjob");
+    } catch (error) {
+      console.error("Error applying for job:", error);
+    }
+  };
+
+  const handleApply = async () => {
+    try {
+      // await axiosInstance.post("/user/applyjob", { jobId: selectedJob.id });
+      await axiosInstance.get("/user/applyjob");
     } catch (error) {
       console.error("Error applying for job:", error);
     }
@@ -876,6 +886,7 @@ const JobSearch = () => {
                       color="primary" 
                       size="large"
                       href={selectedJob.url} 
+                      onClick={() => handleApply()}
                       target="_blank"
                       sx={{
                         px: 4,

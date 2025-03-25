@@ -6,7 +6,7 @@ const payDetailsModel = require('../models/paymentTransaction');
 const User = require('../models/User');
 const templateModel = require('../models/Template');
 const notificationModel = require('../models/Notification');
-const counterModel = require('../models/UserActivity');
+const userStatsModel = require('../models/userStats');
 const jwt= require('jsonwebtoken');
 const axios = require("axios");
 
@@ -56,15 +56,23 @@ module.exports = (io) => {
       }
   });
 
-  //counter
-  router.get('/counters',async (req,res)=>{ 
-    try{
-    const count = await counterModel.findById("67e28490cbe9e8507d7a34fc");
+router.get('/userstats', async (req, res) => {
+  try {
     const totalUser = await User.countDocuments();
-    res.status(200).json({ count,totalUser });
-    } catch (error){
-      res.send({message:'details not found'});
-    }
+    const userStats = await userStatsModel.find(); 
+    const counts = await userStatsModel.aggregate([{
+          $group: {
+            _id: null,
+            totalResumeDownloads: { $sum: "$resumeDownloads" },
+            totalJobSearches: { $sum: "$jobSearches" },
+            totalApplications: { $sum: "$application" }
+          } }]);
+    const { totalResumeDownloads, totalJobSearches, totalApplications } = counts[0];
+      res.status(200).json({userStats,totalResumeDownloads,totalJobSearches, totalApplications,totalUser});
+  } catch (error) {
+      console.error('Error fetching stats:', error);
+      res.status(500).json({ message: 'Error fetching stats' });
+  }
 });
   //add a new template
   router.get('/add-template', async (req, res) => {
