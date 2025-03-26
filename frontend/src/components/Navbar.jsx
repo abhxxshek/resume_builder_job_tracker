@@ -215,7 +215,15 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
                 </Menu>
               </Box>
             ) : (
-              <Button component={NavLink} to="/login" color="inherit">Login</Button>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button component={NavLink} to="/login" color="inherit" sx={{ mr: 1 }}>
+                Login
+              </Button>
+              <Button component={NavLink} to="/register" variant="contained" sx={{ backgroundColor: 'white', color: '#2c3e50' }}>
+                Register
+              </Button>
+            </Box>
+              
             )}
           </Toolbar>
         </Container>
