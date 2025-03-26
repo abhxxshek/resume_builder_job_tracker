@@ -87,4 +87,35 @@ router.post('/user/applyjob', async (req, res) => {
   }
 });
 
+//save pdf
+
+// app.post("/profile/save-pdf", async (req, res) => {
+//   try {
+//     const { userId, fileName, previewImage } = req.body;
+
+//     // Save to database (MongoDB example)
+//     const pdfData = new UserPdf({ userId, fileName, previewImage });
+//     await pdfData.save();
+
+//     res.status(200).json({ message: "PDF saved successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to save PDF" });
+//   }
+// });
+
+
+// app.get("/profile/get-saved-pdfs/:userId", async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+
+//     // Fetch saved PDFs for the user
+//     const savedPdfs = await UserPdf.find({ userId });
+
+//     res.status(200).json(savedPdfs);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to fetch saved PDFs" });
+//   }
+// });
+
+
 module.exports = router;

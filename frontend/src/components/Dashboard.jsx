@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { 
   Box, 
   Container, 
@@ -36,6 +36,15 @@ import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { jwtDecode } from 'jwt-decode';
 import axiosInstance from '../../axiosInterceptor';
+
+
+
+
+
+
+
+
+
 
 const Dashboard = ({ resumeData = {}}) => {
   const theme = useTheme();
@@ -82,6 +91,17 @@ const Dashboard = ({ resumeData = {}}) => {
 
   //   })
   // }
+
+  const [profilePic, setProfilePic] = useState("");
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profilePicture");
+    if (storedImage) setProfilePic(storedImage);
+  }, []);
+  
+
+
+
 
 
   return (
@@ -324,7 +344,7 @@ const Dashboard = ({ resumeData = {}}) => {
                 textAlign: 'center',
                 mb: 2 
               }}>
-                <Avatar 
+                {/* <Avatar 
                   sx={{ 
                     width: 80, 
                     height: 80, 
@@ -334,12 +354,22 @@ const Dashboard = ({ resumeData = {}}) => {
                   }}
                 >
                   <PersonIcon fontSize="large" />
-                </Avatar>
-                <Typography variant="h6" fontWeight="bold">{resumeData.firstName||"User"}{resumeData.lastName}</Typography>
+                </Avatar> */}
+
+<Avatar 
+  src={profilePic} 
+  sx={{ width: 120, height: 120, mb: 2, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+>
+  {!profilePic && <PersonIcon fontSize="large" />}
+</Avatar>
+
+
+
+                <Typography variant="h6" fontWeight="bold">{decodedToken.firstName||"User"}{decodedToken.lastName}</Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   {decodedToken.email}
                 </Typography>
-                <Chip 
+                {/* <Chip 
                   label="Free Account" 
                   size="small"
                   sx={{ 
@@ -348,7 +378,7 @@ const Dashboard = ({ resumeData = {}}) => {
                     fontWeight: 'medium',
                     mt: 1
                   }} 
-                />
+                /> */}
               </Box>
               <Divider sx={{ my: 2 }} />
               <Box sx={{ textAlign: 'center' }}>
@@ -412,3 +442,9 @@ const Dashboard = ({ resumeData = {}}) => {
 };
 
 export default Dashboard; 
+
+
+
+
+
+

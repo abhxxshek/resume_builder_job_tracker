@@ -14,6 +14,9 @@ import JobSearch from "./components/JobSearch";
 import Home from "./components/Home";
 import Payment from "./components/Payment";
 import ForgotPassword from "./components/ForgotPassword";
+import Contact from "./components/Contact";
+import AboutUs from "./components/Aboutus";
+// import Myresumes from "./components/Myresumes";
 
 
 // // Protected route component
@@ -75,6 +78,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ForgotPassword/>} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/aboutus" element={<AboutUs/>} />
         <Route element={<PrivateRoutes />}>
           {/* Protected routes */}
           <Route path="/dashboard" element={<Dashboard />} />
@@ -84,6 +89,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard/>} /> 
           <Route path="/admin-payment" element={<AdminPayment/>} />
           <Route path="/job-search" element={<JobSearch/>} />
+          {/* <Route path="/myresumes" element={<Myresumes/>} /> */}
           
           
           <Route path="/payment" element={<Payment/>} />
