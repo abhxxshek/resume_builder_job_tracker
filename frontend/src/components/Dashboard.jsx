@@ -345,41 +345,22 @@ const Dashboard = ({ resumeData = {}}) => {
                 textAlign: 'center',
                 mb: 2 
               }}>
-                {/* <Avatar 
-                  sx={{ 
-                    width: 80, 
-                    height: 80, 
-                    bgcolor: '#2c3e50',
-                    mb: 2,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                  }}
-                >
-                  <PersonIcon fontSize="large" />
-                </Avatar> */}
+               
 
 <Avatar 
   src={profilePic} 
-  sx={{ width: 120, height: 120, mb: 2, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+  sx={{ width: 150, height: 150, mb: 2, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
 >
   {!profilePic && <PersonIcon fontSize="large" />}
 </Avatar>
 
 
 
-                <Typography variant="h6" fontWeight="bold">{decodedToken.firstName||"User"}{decodedToken.lastName}</Typography>
+                <Typography variant="h6" fontWeight="bold">{decodedToken.name}</Typography>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   {decodedToken.email}
                 </Typography>
-                {/* <Chip 
-                  label="Free Account" 
-                  size="small"
-                  sx={{ 
-                    backgroundColor: '#e3f2fd', 
-                    color: '#1976d2',
-                    fontWeight: 'medium',
-                    mt: 1
-                  }} 
-                /> */}
+               
               </Box>
               <Divider sx={{ my: 2 }} />
               <Box sx={{ textAlign: 'center' }}>
@@ -419,27 +400,14 @@ const Dashboard = ({ resumeData = {}}) => {
                     </Paper>
                   </Grid>
                 </Grid>
-                <Button 
-                  variant="outlined" 
-                  fullWidth 
-                  sx={{ 
-                    borderColor: '#2c3e50',
-                    color: '#2c3e50',
-                    '&:hover': {
-                      borderColor: '#1a252f',
-                      backgroundColor: 'rgba(44, 62, 80, 0.04)'
-                    }
-                  }}
-                >
-                  Edit Profile
-                </Button>
+               
               </Box>
             </Paper>
           </Grid>
         </Grid>
       </Container>
-      {/*  notif test */}
-      <Notif/>
+       {/* notif test */}
+      {/* <Notif/> */}
     </Box>
   );
 };
