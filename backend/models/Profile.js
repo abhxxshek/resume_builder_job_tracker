@@ -22,7 +22,7 @@ const profileSchema = new mongoose.Schema({
       skill: String,
       proficiency: {
         type: String,
-        enum: ["Beginner", "Intermediate", "Advanced"],
+        enum: ["Beginner", "Intermediate", "Expert"],
       },
     }],
     experience: [{
