@@ -92,38 +92,38 @@ const Layout2 = () => {
       .catch(() => toast.error("Failed to save resume", { autoClose: 2000 }));
   };
 
+
   const handleDownload = async () => {
     toast.success("Downloading resume...", { autoClose: 500 });
     await axiosInstance.get("/user/downloads");
     const resumeElement = resumeRef.current;
   
     html2canvas(resumeElement, { scale: 2, useCORS: true }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-  
-      const imgWidth = 190; // A4 width minus margins
-      const pageHeight = 277; // A4 height minus margins
+      const imgWidth = 190; // A4 width minus margins (210mm - 2*10mm)
+      const pageHeight = 277; // A4 height minus margins (297mm - 2*10mm)
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
   
+      const pdf = new jsPDF("p", "mm", "a4");
+  
       let heightLeft = imgHeight;
-      let position = 10;
+      let yPosition = 0;
       let pageCount = 0;
   
       while (heightLeft > 0) {
-        const sourceY = pageCount * pageHeight * (canvas.width / imgWidth);
-        const pageCanvas = document.createElement("canvas");
-        pageCanvas.width = canvas.width;
-        pageCanvas.height = pageHeight * (canvas.width / imgWidth);
-        const pageCtx = pageCanvas.getContext("2d");
+        const canvasSection = document.createElement("canvas");
+        canvasSection.width = canvas.width;
+        canvasSection.height = Math.min(pageHeight * (canvas.width / imgWidth), canvas.height - yPosition);
+        const ctx = canvasSection.getContext("2d");
   
-        pageCtx.drawImage(canvas, 0, sourceY, canvas.width, pageCanvas.height, 0, 0, canvas.width, pageCanvas.height);
+        ctx.drawImage(canvas, 0, yPosition, canvas.width, canvasSection.height, 0, 0, canvas.width, canvasSection.height);
   
-        const pageImgData = pageCanvas.toDataURL("image/png");
+        const sectionImgData = canvasSection.toDataURL("image/png");
   
         if (pageCount > 0) pdf.addPage();
-        pdf.addImage(pageImgData, "PNG", 10, position, imgWidth, (pageCanvas.height * imgWidth) / canvas.width);
+        pdf.addImage(sectionImgData, "PNG", 10, 10, imgWidth, (canvasSection.height * imgWidth) / canvas.width);
   
         heightLeft -= pageHeight;
+        yPosition += pageHeight * (canvas.width / imgWidth);
         pageCount++;
       }
   
@@ -134,6 +134,8 @@ const Layout2 = () => {
   
 
   
+
+
 
   return (
     <Box sx={{ backgroundColor: "black", minHeight: "calc(100vh - 64px)" }}>
