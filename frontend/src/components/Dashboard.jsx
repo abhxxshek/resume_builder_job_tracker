@@ -1,60 +1,59 @@
 import React, { useState,useEffect } from 'react';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  Grid, 
-  Card, 
-  CardContent, 
-  Button, 
-  IconButton, 
-  Divider, 
-  Paper, 
-  Avatar, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  ListItemIcon,
-  LinearProgress,
-  useTheme,
-  useMediaQuery,
-  Chip
+import { Box, Container, Typography, Grid, Card, CardContent,CardMedia, Button,  Divider, Paper, Avatar, useTheme,useMediaQuery
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
-import WorkIcon from '@mui/icons-material/Work';
-import SchoolIcon from '@mui/icons-material/School';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import BuildIcon from '@mui/icons-material/Build';
-import DownloadIcon from '@mui/icons-material/Download';
 import PersonIcon from '@mui/icons-material/Person';
-import StarIcon from '@mui/icons-material/Star';
-import MoreTimeIcon from '@mui/icons-material/MoreTime';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Notif from './Notif';
 import { jwtDecode } from 'jwt-decode';
 import axiosInstance from '../../axiosInterceptor';
-
-
-
-
-
-
-
-
-
+import Popup from 'reactjs-popup';
 
 const Dashboard = ({ resumeData = {}}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
-  
- const [resumes, setResumes] = useState([
+  const [profilePic, setProfilePic] = useState("");
+ const [resumes, setResumes] = useState([]);
+ const [open, setOpen] = useState(false);
+const [selectedResume, setSelectedResume] = useState('');
 
-  ]);
+  const token= sessionStorage.getItem('userInfo');
+  const decodedToken=jwtDecode(token);
+  
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profilePicture");
+    if (storedImage) setProfilePic(storedImage);
+
+    const fetchJobs = async () => {
+        try {
+            const response = await axiosInstance.get("/user/saved-resumes");
+            const resumesData = Array.isArray(response.data.resumes) ? response.data.resumes : [];
+            setResumes(resumesData);
+            console.log(resumesData); 
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    fetchJobs();
+}, []);
+
+const handleCardClick = (resume) => {
+    setSelectedResume(resume);
+    setOpen(true);
+};
+
+const handleDownload = (resume) => {
+    const link = document.createElement('a');
+    link.href = resume;
+    link.download = resume.split('/').pop(); // Extract filename from URL
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
 
   const handleCreateResume = () => {
     navigate('/templates');
@@ -69,41 +68,12 @@ const Dashboard = ({ resumeData = {}}) => {
     setResumes(resumes.filter(resume => resume.id !== id));
   };
 
-  const handleDownloadResume = (id) => {
-    // Implement download functionality
-    console.log(`Downloading resume ${id}`);
-  };
-
   // Function to determine progress color
   const getProgressColor = (percentage) => {
     if (percentage < 40) return '#f44336'; // Red
     if (percentage < 70) return '#ff9800'; // Orange
     return '#4caf50'; // Green
   };
-
-  //decode token
-
-  const token= sessionStorage.getItem('userInfo');
-  const decodedToken=jwtDecode(token);
-  
-  // //render profile 
-  // function renderProfile(){
-  //   axiosInstance.get('http://localhost:3000/profile/profile-details').then((res)=>{
-
-  //   })
-  // }
-
-  const [profilePic, setProfilePic] = useState("");
-
-  useEffect(() => {
-    const storedImage = localStorage.getItem("profilePicture");
-    if (storedImage) setProfilePic(storedImage);
-  }, []);
-  
-
-
-
-
 
   return (
     <Box sx={{ 
@@ -198,8 +168,8 @@ const Dashboard = ({ resumeData = {}}) => {
                   </Button>
                 </Box>
               ) : (
-                <Grid container spacing={3}>
-                  {resumes.map((resume) => (
+                <Grid container spacing={2}>
+                  {/* {resumes.map((resume) => (
                     <Grid item xs={12} sm={6} key={resume.id}>
                       <Card 
                         sx={{ 
@@ -322,7 +292,67 @@ const Dashboard = ({ resumeData = {}}) => {
                         </CardContent>
                       </Card>
                     </Grid>
-                  ))}
+                  ))} */}
+                  
+                  {resumes.map((resume, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                    <Card 
+                        sx={{ 
+                            height: '100%', 
+                            display: 'flex', 
+                            flexDirection: 'column',
+                            borderRadius: 2,
+                            overflow: 'hidden',
+                            border: '1px solid #e0e0e0',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateY(-4px)',
+                                boxShadow: '0 12px 20px rgba(0,0,0,0.1)'
+                            }
+                        }}
+                        onClick={() => handleCardClick(resume)}
+                    >
+                        <CardMedia
+                            component="img"
+                            image={resume}
+                            alt="Resume"
+                            sx={{ height: 140 }}
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="text.secondary">
+                                {resume}
+                            </Typography>
+                            <Button onClick={(e) => { e.stopPropagation(); handleDownload(resume); }}>
+                                Download
+                            </Button>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            ))}
+
+            <Popup open={open} onClose={() => setOpen(false)} modal>
+                <div style={{ 
+                    width: '80%', 
+                    maxWidth: '600px', 
+                    maxHeight: '80vh', 
+                    overflowY: 'auto', // Enable vertical scrolling
+                    margin: 'auto', 
+                    padding: '20px', 
+                    backgroundColor: 'white', 
+                    borderRadius: '8px' 
+                }}>
+                    <img 
+                        src={selectedResume} 
+                        alt="Resume" 
+                        style={{ 
+                            maxWidth: '100%', 
+                            maxHeight: '100%', 
+                            objectFit: 'contain' 
+                        }} 
+                    />
+                </div>
+            </Popup>
+
                 </Grid>
               )}
             </Paper>

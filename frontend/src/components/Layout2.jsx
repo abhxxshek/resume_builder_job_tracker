@@ -92,12 +92,37 @@ const Layout2 = () => {
       .catch(() => toast.error("Failed to save resume", { autoClose: 2000 }));
   };
 
+const saveImg = async () => {
+  const resumeElement = resumeRef.current;
+  html2canvas(resumeElement).then((canvas) => {
+    canvas.toBlob(async (blob) => {
+        if (blob) {
+            const formData = new FormData();
+            formData.append('file', blob, 'resume.jpg');
+            formData.append('tags', decoded.id);
+            formData.append('upload_preset', import.meta.env.VITE_Preset);
+            const uploadUrl = 'https://api.cloudinary.com/v1_1/dqpldrhqs/image/upload';
+            try {
+                const response = await fetch(uploadUrl, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                console.log('Upload successful:', data.secure_url);
+                axiosInstance.post("/user/resume-generated", {secure_url: data.secure_url});
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+    }, 'image/jpeg');
+});
+}
 
   const handleDownload = async () => {
     toast.success("Downloading resume...", { autoClose: 500 });
     await axiosInstance.get("/user/downloads");
     const resumeElement = resumeRef.current;
-  
+    saveImg();
     html2canvas(resumeElement, { scale: 2, useCORS: true }).then((canvas) => {
       const imgWidth = 190; // A4 width minus margins (210mm - 2*10mm)
       const pageHeight = 277; // A4 height minus margins (297mm - 2*10mm)
