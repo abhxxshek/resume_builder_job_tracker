@@ -59,8 +59,8 @@ exports.loginUser = async (req, res) => {
       //   isPremiumUser: user.isPremiumUser,
       //   token: generateToken(user._id),
       // });
-      const payload={email:user.email,password:user.password,role:user.role,id:user._id}  
-          const token=jwt.sign(payload,process.env.jwt_secret_key,{expiresIn:"1h"});
+      const payload={email:user.email,name:user.name,password:user.password,role:user.role,id:user._id}  
+          const token=jwt.sign(payload,process.env.jwt_secret_key,{expiresIn:"3h"});
           res.status(200).send({success:true,message:"Login successful",token:token})
     } else {
       res.status(401).json({success:false, message: 'Invalid email or password' });

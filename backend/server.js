@@ -1,8 +1,18 @@
 const express = require('express');
-const app = express(); 
+const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const connectDB = require('./config/db');
+
+const http = require('http');
+const socketIo = require('socket.io');
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST']
+    },
+});
 
 // Load environment variables
 require('dotenv').config();
@@ -25,27 +35,43 @@ const paymentRoutes = require('./routes/paymentRoutes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
-app.use("/profile",profileRoutes);
-app.use("/user",userRoutes);
-app.use("/admin",adminRoutes);
+app.use("/profile", profileRoutes);
+app.use("/user", userRoutes);
+app.use("/admin", adminRoutes(io)); 
 app.use('/forgot-password', passwordResetRoutes);
 app.use('/payment', paymentRoutes);
+
+// Handle socket connections
+io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    // Handle incoming messages
+    socket.on('message', (data) => {
+        console.log('Received message from client:', data);
+    });
+
+    // Clean up when the socket disconnects
+    socket.on('disconnect', () => {
+        console.log('User  disconnected');
+    });
+});
+
 // Basic route
 app.get('/', (req, res) => {
-  res.send('API is running...');
+    res.send('API is running...');
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-  });
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    res.status(statusCode);
+    res.json({
+        message: err.message,
+        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+    });
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is active on Port ${PORT}`);
+server.listen(PORT, () => {
+    console.log(`Server is active on Port ${PORT}`);
 });
