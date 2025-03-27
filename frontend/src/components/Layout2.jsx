@@ -55,12 +55,12 @@ const Layout2 = () => {
           phoneNumber: res.data.phoneNumber,
           city: res.data.city,
           address: res.data.address,
-          experiences: Array.isArray(res.data.experience) ? res.data.experience : [],
+          experience: Array.isArray(res.data.experience) ? res.data.experience : [],
           skills: Array.isArray(res.data.skills) ? res.data.skills : [],
           education: Array.isArray(res.data.education) ? res.data.education : [],
           achievements: Array.isArray(res.data.achievements) ? res.data.achievements : [],
-          trainings: Array.isArray(res.data.training) ? res.data.training : [],
-          projects: Array.isArray(res.data.project) ? res.data.project : [],
+          training: Array.isArray(res.data.training) ? res.data.training : [],
+          project: Array.isArray(res.data.project) ? res.data.project : [],
         });
       })
       .catch(() => {

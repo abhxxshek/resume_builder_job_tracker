@@ -18,19 +18,18 @@ const Experience = ({ resumeData = {}, handleChange }) => {
   };
 
   const handleAddExperience = () => {
-    if (formData.employer && formData.jobTitle && formData.company) {
+    if (formData.jobTitle && formData.company) {
       const newList = [...experiencesList, formData];
       setExperiencesList(newList);
       setFormData({
-        employer: "",
+        
         jobTitle: "",
         company: "",
-        // City: "",
         startDate: "",
         endDate: "",
-        description1: ""
+        description: ""
       });
-      handleChange({ target: { name: 'experiences', value: newList } });
+      handleChange({ target: { name: 'experience', value: newList } });
     }
   };
 
@@ -62,10 +61,10 @@ const Experience = ({ resumeData = {}, handleChange }) => {
       ))}
 
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField label="Employer" fullWidth name="employer" value={formData.employer} onChange={handleInputChange} />
-        </Grid>
-        <Grid item xs={6}>
+        </Grid> */}
+        <Grid item xs={12}>
           <TextField label="Job Title" fullWidth name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
@@ -81,7 +80,7 @@ const Experience = ({ resumeData = {}, handleChange }) => {
           <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="endDate" value={formData.endDate} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" fullWidth multiline rows={4} name="description1" value={formData.description1} onChange={handleInputChange} />
+          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" fullWidth onClick={handleAddExperience}>+ Add Experience</Button>
