@@ -38,6 +38,7 @@ import Template7 from "../Templates/Template7";
 import Template8 from "../Templates/Template8";
 import Template9 from "../Templates/Template9";
 import Template10 from "../Templates/Template10";
+import { jwtDecode } from "jwt-decode";
 
 const Payment = () => {
   const location = useLocation();
@@ -48,10 +49,19 @@ const Payment = () => {
   const [templateName, setTemplateName] = useState("");
   // const [responseId, setResponseId] = useState("");
 
+
+
+  //decode token
+  const user = sessionStorage.getItem("userInfo");
+  const decoded = jwtDecode(user);
+  const userEmail=decoded.email;
+  console.log("userEmail",userEmail);
+
   // Get template from URL params if coming from template selection
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const templateParam = params.get('template');
+    checkIsPaid(templateParam);
     if (templateParam) {
       setTemplateName(templateParam);
       const templateNum = parseInt(templateParam.replace('Template', ''));
@@ -60,6 +70,25 @@ const Payment = () => {
       }
     }
   }, [location.search]);
+
+  //check if user has paid for the template
+  const[isPaid,setIsPaid]=useState(false);
+  // useEffect(() => {
+  //   checkIsPaid();
+  // }, []);
+  
+  function checkIsPaid(templateName){
+    axiosInstance.post('/template/payment-status',{userEmail,templateName})
+    .then((res) => {
+      if(res.data.success){
+        
+        setIsPaid(true);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching payment status:", error);
+    });
+  }
 
   // Sample resume data for preview
   const sampleResumeData = {
@@ -90,9 +119,8 @@ const Payment = () => {
     }
   };
 
-    const [responseId, setResponseId] = useState("");
-  const [responseState, setResponseState] = useState([]);
-
+   //payment gateway and saving transaction details  
+  const [responseId, setResponseId] = useState("");
   function loadScript(src) {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -108,7 +136,6 @@ const Payment = () => {
   }
 
   const createRazorpayOrder = (amount) => {
-    // toast.info("Redirecting to payment screen....",{autoClose:2000,position:'top-center'});
     let data = JSON.stringify({
       amount: amount*100 ,
       currency: "INR",
@@ -219,10 +246,10 @@ const Payment = () => {
           borderRadius: "12px",
         }}>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            {paymentSuccess ? "Template Unlocked!" : "Upgrade to Premium"}
+            {isPaid ? "Template Unlocked!" : "Upgrade to Premium"}
           </Typography>
           <Typography variant="subtitle1">
-            {paymentSuccess 
+            {isPaid 
               ?` You now have access to Template ${selectedTemplate}`
               : "Get full access to all premium templates"}
           </Typography>
@@ -259,7 +286,7 @@ const Payment = () => {
                     value={selectedTemplate}
                     onChange={(e) => setSelectedTemplate(e.target.value)}
                     label="Select Template"
-                    disabled={paymentSuccess}
+                    disabled={isPaid}
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                       <MenuItem key={num} value={num}>
@@ -320,7 +347,7 @@ const Payment = () => {
               flexDirection: "column",
             }}>
               <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                {paymentSuccess ? (
+                {isPaid ? (
                   <>
                     <Box display="flex" alignItems="center" flexDirection="column" mb={3}>
                       <CheckCircleIcon sx={{ fontSize: 60, color: "#4CAF50", mb: 2 }} />
@@ -331,7 +358,7 @@ const Payment = () => {
                         You now have access to Template {selectedTemplate}
                       </Typography>
                     </Box>
-
+                  
                     <Button
                       variant="contained"
                       fullWidth
@@ -348,9 +375,7 @@ const Payment = () => {
                       Use Template {selectedTemplate}
                     </Button>
 
-                    <Typography variant="body2" color="textSecondary">
-                      Payment ID: {responseId}
-                    </Typography>
+                    
                   </>
                 ) : (
                   <>
