@@ -19,6 +19,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { toast, ToastContainer } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ const Login = () => {
 
       // Save user data to sessionStorage
       sessionStorage.setItem('userInfo', data.token);
+      const token=sessionStorage.getItem('userInfo');
+      const decoded = jwtDecode(token);
       toast.success("You have successfully signed in!", {
         position: "top-right",
         autoClose: 600, 
@@ -75,8 +78,8 @@ const Login = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        onClose: () => {navigate('/dashboard');
-          window.location.href = '/dashboard';
+        onClose: () => {decoded.role=="admin"?navigate('/admin-dashboard'):navigate('/dashboard');
+          window.location.href = decoded.role=="admin"?'/admin-dashboard':'/dashboard';
          }
       });
       

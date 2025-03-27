@@ -409,7 +409,7 @@ const Payment = () => {
                     <Box sx={{ mt: "auto" }}>
                       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "baseline", mb: 2 }}>
                         <Typography variant="h4" sx={{ color: "#2c3e50", fontWeight: "bold" }}>
-                          ₹{selectedTemplate >= 6 ? "149" : "0"}
+                          ₹{selectedTemplate >= 6 ? "199" : "0"}
                         </Typography>
                         {selectedTemplate >= 6 && (
                           <Typography variant="body2" sx={{ color: "text.secondary", ml: 1, textDecoration: "line-through" }}>
