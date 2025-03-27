@@ -55,14 +55,15 @@ const Payment = () => {
   const user = sessionStorage.getItem("userInfo");
   const decoded = jwtDecode(user);
   const userEmail=decoded.email;
-  console.log("userEmail",userEmail);
+  
 
   // Get template from URL params if coming from template selection
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const templateParam = params.get('template');
-    checkIsPaid(templateParam);
+    
     if (templateParam) {
+      checkIsPaid(templateParam);
       setTemplateName(templateParam);
       const templateNum = parseInt(templateParam.replace('Template', ''));
       if (!isNaN(templateNum) && templateNum >= 1 && templateNum <= 10) {
@@ -73,12 +74,13 @@ const Payment = () => {
 
   //check if user has paid for the template
   const[isPaid,setIsPaid]=useState(false);
-  // useEffect(() => {
-  //   checkIsPaid();
-  // }, []);
+
+  useEffect(() => {
+    checkIsPaid();
+  }, [isPaid]);
   
-  function checkIsPaid(templateName){
-    axiosInstance.post('/template/payment-status',{userEmail,templateName})
+  function checkIsPaid(templateParam){
+    axiosInstance.post('/template/payment-status',{userEmail,templateParam})
     .then((res) => {
       if(res.data.success){
         
@@ -199,7 +201,7 @@ const Payment = () => {
     try {
       const res = await axiosInstance.get(`http://localhost:3000/payment/paymentId/${paymentId}`);
       const transactionId=paymentId;
-      console.log("Payment response:", res.data);
+      
       // setResponseState(res.data);
       await savePayment(res.data,transactionId,templateName);
     } catch (error) {
@@ -217,6 +219,7 @@ const Payment = () => {
         return;
       }
       toast.success(res.data.message, { autoClose: 2000, position: "top-center" });
+      setIsPaid(true);
     } catch (error) {
       console.log("Error saving payment:", error);
       toast.error("Failed to save payment details.", { autoClose: 2000, position: "top-center" });
@@ -246,12 +249,12 @@ const Payment = () => {
           borderRadius: "12px",
         }}>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            {isPaid ? "Template Unlocked!" : "Upgrade to Premium"}
+            {isPaid ? "Template Unlocked!" : "Upgrade to Premium Template"}
           </Typography>
           <Typography variant="subtitle1">
             {isPaid 
               ?` You now have access to Template ${selectedTemplate}`
-              : "Get full access to all premium templates"}
+              : "Get full access to  premium template"}
           </Typography>
         </Card>
 
@@ -278,24 +281,6 @@ const Payment = () => {
                     />
                   )}
                 </Typography>
-
-                <FormControl variant="outlined" size="small" sx={{ minWidth: 200 }}>
-                  <InputLabel id="template-select-label">Select Template</InputLabel>
-                  <Select
-                    labelId="template-select-label"
-                    value={selectedTemplate}
-                    onChange={(e) => setSelectedTemplate(e.target.value)}
-                    label="Select Template"
-                    disabled={isPaid}
-                  >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                      <MenuItem key={num} value={num}>
-                        Template {num}
-                        {num >= 6 && <LockIcon fontSize="small" sx={{ ml: 1 }} />}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
               </Box>
 
               <Box sx={{
@@ -350,10 +335,7 @@ const Payment = () => {
                 {isPaid ? (
                   <>
                     <Box display="flex" alignItems="center" flexDirection="column" mb={3}>
-                      <CheckCircleIcon sx={{ fontSize: 60, color: "#4CAF50", mb: 2 }} />
-                      <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
-                        Payment Successful!
-                      </Typography>
+                      
                       <Typography variant="body1" sx={{ mb: 2 }}>
                         You now have access to Template {selectedTemplate}
                       </Typography>
@@ -395,7 +377,7 @@ const Payment = () => {
                           ? "Unlock Premium Template" 
                           : "Standard Template Access"}
                       </Typography>
-                      <img
+                      {/* <img
                         src="/images/human-resources.png"
                         alt="Template"
                         style={{
@@ -404,9 +386,9 @@ const Payment = () => {
                           borderRadius: "8px",
                           marginBottom: "10px",
                         }}
-                      />
+                      /> */}
                     </Box>
-
+{/* 
                     <Box sx={{ mb: 3, textAlign: "left" }}>
                       <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1.5 }}>
                         What You'll Get:
@@ -422,25 +404,25 @@ const Payment = () => {
                           <Typography variant="body2">{feature}</Typography>
                         </Box>
                       ))}
-                    </Box>
+                    </Box> */}
 
                     <Box sx={{ mt: "auto" }}>
                       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "baseline", mb: 2 }}>
                         <Typography variant="h4" sx={{ color: "#2c3e50", fontWeight: "bold" }}>
-                          ₹{selectedTemplate >= 6 ? "199" : "0"}
+                          ₹{selectedTemplate >= 6 ? "149" : "0"}
                         </Typography>
                         {selectedTemplate >= 6 && (
                           <Typography variant="body2" sx={{ color: "text.secondary", ml: 1, textDecoration: "line-through" }}>
-                            ₹499
+                            ₹299
                           </Typography>
                         )}
                       </Box>
 
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                      {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
                         {selectedTemplate >= 6 
                           ? "One-time payment, no recurring fees" 
                           : "Free to use with basic features"}
-                      </Typography>
+                      </Typography> */}
 
                       {loading ? (
                         <Button
@@ -471,7 +453,7 @@ const Payment = () => {
                           }}
                           onClick={() => selectedTemplate >= 6 ? createRazorpayOrder(199) : handleTemplateUse()}
                         >
-                          {selectedTemplate >= 6 ? "Upgrade Now" : "Use Template"}
+                          {selectedTemplate >= 6 ? "Buy Now" : "Use Template"}
                         </Button>
                       )}
 

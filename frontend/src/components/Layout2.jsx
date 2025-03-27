@@ -88,8 +88,8 @@ const Layout2 = () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
     axiosInstance
       .post("/profile/save-resume", resumeData)
-      .then(() => toast.success("Resume saved successfully!", { autoClose: 2000 }))
-      .catch(() => toast.error("Failed to save resume", { autoClose: 2000 }));
+      .then(() => toast.success("Resume data saved successfully!", { autoClose: 2000 }))
+      .catch(() => toast.error("Failed to save resume data", { autoClose: 2000 }));
   };
 
 const saveImg = async () => {
@@ -119,7 +119,7 @@ const saveImg = async () => {
 }
 
   const handleDownload = async () => {
-    toast.success("Downloading resume...", { autoClose: 500 });
+    toast.success("Downloading resume...", { autoClose: 500,position: "top-center" });
     await axiosInstance.get("/user/downloads");
     const resumeElement = resumeRef.current;
     saveImg();
@@ -153,7 +153,7 @@ const saveImg = async () => {
       }
   
       pdf.save("resume.pdf");
-      toast.success("Resume downloaded successfully!", { autoClose: 2000 });
+      toast.success("Resume downloaded successfully!", { autoClose: 2000,position: "top-center" });
     });
   };
   

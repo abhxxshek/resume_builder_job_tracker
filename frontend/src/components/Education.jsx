@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Box, Grid, Card, CardContent, IconButton
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Education = ({ resumeData = {}, handleChange }) => {
-  const [isEducation, setIsEducation] = useState(false);
+  // const [isEducation, setIsEducation] = useState(false);
   const [educationList, setEducationList] = useState( resumeData.education || [] );
   const [formData, setFormData] = useState({
     institution: "",
@@ -13,9 +13,9 @@ const Education = ({ resumeData = {}, handleChange }) => {
     percentage: ""
   });
 
-  const displayForm = () => {
-    setIsEducation(true);
-  };
+  // const displayForm = () => {
+  //   setIsEducation(true);
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +65,7 @@ const Education = ({ resumeData = {}, handleChange }) => {
         </Card>
       ))}
 
-      {isEducation && (
+      {/* {isEducation && ( */}
         <Box component="form" sx={{ flexGrow: 1, mb: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -88,11 +88,11 @@ const Education = ({ resumeData = {}, handleChange }) => {
             </Grid>
           </Grid>
         </Box>
-      )}
+      {/* )} */}
 
-      <Button color="primary" sx={{ marginTop: "20px" }} onClick={displayForm}>
+      {/* <Button color="primary" sx={{ marginTop: "20px" }} onClick={displayForm}>
         + Add Education
-      </Button>
+      </Button> */}
     </Box>
   );
 };

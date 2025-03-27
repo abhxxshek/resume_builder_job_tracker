@@ -89,7 +89,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard/>} /> 
           <Route path="/admin-payment" element={<AdminPayment/>} />
           <Route path="/job-search" element={<JobSearch/>} />
-          {/* <Route path="/myresumes" element={<Myresumes/>} /> */}
+          
           
           
           <Route path="/payment" element={<Payment/>} />
