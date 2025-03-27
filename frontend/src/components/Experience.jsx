@@ -1,9 +1,22 @@
-import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Box } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState, useEffect } from "react";
+import { 
+  TextField, 
+  Button, 
+  Typography, 
+  Container, 
+  Grid, 
+  IconButton, 
+  Card, 
+  CardContent, 
+  Box,
+  Divider
+} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete'
 
-const Experience = ({ resumeData = {}, handleChange }) => {
-  const [experiencesList, setExperiencesList] = useState(resumeData.experiences || []);
+const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
+  // Initialize with data from props or empty array
+  const [experiencesList, setExperiencesList] = useState(resumeData.experience || []);
+  
   const [formData, setFormData] = useState({ 
     jobTitle: "",
     company: "",
@@ -12,78 +25,180 @@ const Experience = ({ resumeData = {}, handleChange }) => {
     description: ""
   });
 
+  // Update local state when resumeData prop changes
+  useEffect(() => {
+    if (resumeData.experience) {
+      setExperiencesList(resumeData.experience);
+    }
+  }, [resumeData.experience]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAddExperience = () => {
+  const handleAddExperience = async () => {
     if (formData.jobTitle && formData.company) {
-      const newList = [...experiencesList, formData];
-      setExperiencesList(newList);
+      const newExperience = {
+        ...formData,
+        // Generate ID for new experience
+        id: Date.now().toString()
+      };
+      
+      const updatedExperiences = [...experiencesList, newExperience];
+      
+      // Update local state
+      setExperiencesList(updatedExperiences);
       setFormData({
-        
         jobTitle: "",
         company: "",
         startDate: "",
         endDate: "",
         description: ""
       });
-      handleChange({ target: { name: 'experience', value: newList } });
+      
+      // Update parent component and database
+      await updateResume({ experiences: updatedExperiences });
     }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = experiencesList.filter((_, i) => i !== index);
-    setExperiencesList(updatedList);
-    handleChange({ target: { name: 'experiences', value: updatedList } });
+  const handleDelete = async (id) => {
+    const updatedExperiences = experiencesList.filter(exp => exp.id !== id);
+    
+    // Update local state
+    setExperiencesList(updatedExperiences);
+    
+    // Update parent component and database
+    await updateResume({ experiences: updatedExperiences });
   };
 
   return (
-    <Container sx={{paddingTop:"30px",paddingBottom:"30px"}} >
-      <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
+    <Container sx={{ paddingTop: "30px", paddingBottom: "30px" }}>
+      <Typography variant="h5" color="primary" textAlign="left" gutterBottom>
         Work Experience
       </Typography>
-      <Typography variant="body1" textAlign="left" gutterBottom>
+      <Typography variant="body1" textAlign="left" gutterBottom sx={{ mb: 3 }}>
         Show your relevant experience (last 10 years).
       </Typography>
 
-      {experiencesList.map((experience, index) => (
-        <Card key={index} sx={{ mb: 2 }}>
-          <CardContent>
-            <Typography variant="h6">{experience.jobTitle}</Typography>
-            <Typography variant="body2">at {experience.company}</Typography>
-            <Typography variant="body2">From {experience.startDate} to {experience.endDate}</Typography>
-            <Typography variant="body2">{experience.description}</Typography>
-            <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
-          </CardContent>
-        </Card>
-      ))}
+      {/* Experience Cards Section */}
+      {experiencesList.length > 0 && (
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            Your Experiences:
+          </Typography>
+          <Grid container spacing={2}>
+            {experiencesList.map((experience) => (
+              <Grid item xs={12} key={experience.id}>
+                <Card variant="outlined" sx={{ position: 'relative' }}>
+                  <CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                     
+                      <Typography variant="h6" component="div">
+                        {experience.jobTitle}
+                      </Typography>
+                    </Box>
+                    <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 1 }}>
+                      {experience.company}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      {experience.startDate} - {experience.endDate || 'Present'}
+                    </Typography>
+                    {experience.description && (
+                      <>
+                        <Divider sx={{ my: 1 }} />
+                        <Typography variant="body2">
+                          {experience.description}
+                        </Typography>
+                      </>
+                    )}
+                    <IconButton 
+                      onClick={() => handleDelete(experience.id)} 
+                      sx={{ 
+                        position: 'absolute', 
+                        top: 8, 
+                        right: 8,
+                        color: 'error.main'
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
 
+      {/* Add Experience Form */}
+      <Typography variant="subtitle1" sx={{ mb: 2 }}>
+        {experiencesList.length > 0 ? 'Add Another Experience' : 'Add Your First Experience'}
+      </Typography>
       <Grid container spacing={2}>
-        {/* <Grid item xs={6}>
-          <TextField label="Employer" fullWidth name="employer" value={formData.employer} onChange={handleInputChange} />
-        </Grid> */}
-        <Grid item xs={12}>
-          <TextField label="Job Title" fullWidth name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
+        <Grid item xs={12} md={6}>
+          <TextField 
+            label="Job Title*" 
+            fullWidth 
+            name="jobTitle" 
+            value={formData.jobTitle} 
+            onChange={handleInputChange} 
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField 
+            label="Company*" 
+            fullWidth 
+            name="company" 
+            value={formData.company} 
+            onChange={handleInputChange} 
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField 
+            label="Start Date" 
+            type="date" 
+            fullWidth 
+            InputLabelProps={{ shrink: true }} 
+            name="startDate" 
+            value={formData.startDate} 
+            onChange={handleInputChange} 
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField 
+            label="End Date" 
+            type="date" 
+            fullWidth 
+            InputLabelProps={{ shrink: true }} 
+            name="endDate" 
+            value={formData.endDate} 
+            onChange={handleInputChange} 
+          />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Company" fullWidth name="company" value={formData.company} onChange={handleInputChange} />
-        </Grid>
-        {/* <Grid item xs={12}>
-          <TextField label="City" fullWidth name="City" value={formData.City} onChange={handleInputChange} />
-        </Grid> */}
-        <Grid item xs={6}>
-          <TextField label="Start Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="startDate" value={formData.startDate} onChange={handleInputChange} />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="endDate" value={formData.endDate} onChange={handleInputChange} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
+          <TextField 
+            label="Description" 
+            fullWidth 
+            multiline 
+            rows={3} 
+            name="description" 
+            value={formData.description} 
+            onChange={handleInputChange} 
+            placeholder="Describe your responsibilities and achievements"
+          />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" fullWidth onClick={handleAddExperience}>+ Add Experience</Button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            fullWidth 
+            onClick={handleAddExperience}
+            disabled={!formData.jobTitle || !formData.company}
+            sx={{ mt: 1 }}
+          >
+            {experiencesList.length > 0 ? '+ Add Another Experience' : '+ Add Experience'}
+          </Button>
         </Grid>
       </Grid>
     </Container>

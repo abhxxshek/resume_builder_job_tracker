@@ -44,7 +44,7 @@ const profileSchema = new mongoose.Schema({
     achievements: [{
       achievementTitle: String,
       description: String,
-      year: Date,
+      year: Number,
     }],
     project: [{
       projectTitle: String,
