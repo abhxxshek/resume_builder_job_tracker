@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router(); 
 router.use(express.json());
-const payDetailsModel = require('../models/paymentTransaction');
+const payDetailsModel = require('../models/Payment');
 const User = require('../models/User');
 const templateModel = require('../models/Template');
 const notificationModel = require('../models/Notification');

@@ -124,57 +124,65 @@ const Payment = () => {
   };
 
   const handleRazorpayScreen = async (amount) => {
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  
     if (!res) {
-      toast.error("Some error at razorpay screen loading !",{autoClose:2000,position:'top-center'});
+      toast.error("Failed to load Razorpay.", { autoClose: 2000, position: "top-center" });
       return;
     }
-
+  
     const options = {
       key: import.meta.env.VITE_KEYID,
-      amount: amount,
+      amount,
       currency: "INR",
-      name: "PAYMENT",
-      description: "Payment to Resume Builder",
-      image: "https://example.com/your_logo.jpg",
-      handler: function (response) {
+      name: "Resume Builder",
+      description: "Premium Resume Templates",
+      image: "/logo.png",
+      handler: async function (response) {
         setResponseId(response.razorpay_payment_id);
+        await paymentFetch(response.razorpay_payment_id);
       },
       prefill: {
-        name: "Resumebuilder",
-        email: "resumebuilder17@gmail.com",
+        name: "John Doe",
+        email: "john.doe@example.com",
       },
       theme: {
-        color: "rgba(0, 210, 126, 0.95)",
+        color: "#0d6efd",
       },
     };
-
-    if (typeof window !== "undefined" && window.Razorpay) {
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } else {
-      toast.error("Razorpay SDK failed to load.",{autoClose:2000,position:'top-center'});
-      console.error("Razorpay SDK failed to load.");
+  
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+  
+  const paymentFetch = async (paymentId) => {
+    try {
+      const res = await axiosInstance.get(`http://localhost:3000/payment/paymentId/${paymentId}`);
+      const transactionId=paymentId;
+      console.log("Payment response:", transactionId);
+      // setResponseState(res.data);
+      await savePayment(res.data,transactionId);
+    } catch (error) {
+      console.log("Error fetching payment:", error);
+      toast.error("Payment verification failed!", { autoClose: 2000, position: "top-center" });
     }
   };
-
-  const paymentFetch = (e) => {
-    e.preventDefault(); //to prevent automatic page reload
-
-    const paymentId = e.target.paymentId.value;
-    axiosInstance
-      .get(`http://localhost:3000/payment/paymentId/${paymentId}`)
-      .then((res) => {
-        // console.log(res.data);
-        setResponseState(res.data);
-      })
-      .catch((error) => {
-        console.log("error occurs", error);
-      });
+  
+  const savePayment = async (paymentData,transactionId) => {
+    try {
+      
+      const res = await axiosInstance.post(`http://localhost:3000/payment/save-payment-details`, {paymentData,transactionId});
+      if (!res.data.success) {
+        toast.error(res.data.message, { autoClose: 2000, position: "top-center" });
+        return;
+      }
+      toast.success(res.data.message, { autoClose: 2000, position: "top-center" });
+    } catch (error) {
+      console.log("Error saving payment:", error);
+      toast.error("Failed to save payment details.", { autoClose: 2000, position: "top-center" });
+    }
   };
+  
 
   return (
     <>
@@ -433,8 +441,9 @@ const Payment = () => {
                 </Button>)}
                 
                 {responseId && (
+                 
                   <Typography sx={{ paddingBottom: "10px" }}>
-                    Payment ID: {responseId}
+                    Payment ID: {responseId} 
                   </Typography>
                 )}
 

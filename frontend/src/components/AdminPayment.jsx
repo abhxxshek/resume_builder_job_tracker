@@ -56,22 +56,24 @@ const AdminPayment = () => {
       <TableContainer component={Paper} sx={{ maxWidth: 800, margin: "auto" }}>
         <Table>
           <TableHead>
-            <TableRow sx={{ background: "#40739e" }}>
-              <TableCell sx={{ color: "#fff" }}>Resume Name</TableCell>
+            <TableRow sx={{ background: "#40739e",textAlign:"center" }}>
+              {/* <TableCell sx={{ color: "#fff" }}>Resume Name</TableCell> */}
               <TableCell sx={{ color: "#fff" }}>Buyer Name</TableCell>
               <TableCell sx={{ color: "#fff" }}>Email</TableCell>
               <TableCell sx={{ color: "#fff" }}>Amount</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Purchase Date</TableCell>
+              <TableCell sx={{ color: "#fff" }}>Transaction ID</TableCell>
+              <TableCell sx={{ color: "#fff" }}>Purchase Date and time</TableCell>
               <TableCell sx={{ color: "#fff" }}>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paymentData.map((row) => (
               <TableRow key={row.id}>
-                <TableCell>{row.resumeName}</TableCell>
+                {/* <TableCell>{row.resumeName}</TableCell> */}
                 <TableCell>{row.buyerName}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.amount}</TableCell>
+                <TableCell>{row.paymentId}</TableCell>
                 <TableCell>{row.date}</TableCell>
                 <TableCell>
                   <Button

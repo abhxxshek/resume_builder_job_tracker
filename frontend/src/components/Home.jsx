@@ -57,7 +57,7 @@ const Home = () => {
   
 
   function handleCreateResumeButton(){
-    toast.error("Login required !",{autoClose:2000});
+    toast.error("Login required !",{autoClose:2000,position:'top-center'});
   }
  
   return (
