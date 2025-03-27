@@ -5,6 +5,7 @@ const axios = require("axios");
 const notificationModel = require('../models/Notification');
 const userStatsModel = require('../models/userStats');
 const profileModel = require('../models/Profile');
+const UserResumes = require('../models/Resume');
 const jwt= require('jsonwebtoken');
 
 function getUser(re) {
@@ -129,33 +130,38 @@ router.get('/notifications', async (req, res) => {
 
 //save pdf
 
-// app.post("/profile/save-pdf", async (req, res) => {
-//   try {
-//     const { userId, fileName, previewImage } = req.body;
+router.post("/resume-generated", async (req, res) => {
+  const user = getUser (req);
+  // console.log("udataurl",req.body.secure_url)
+  try {
+    const secureUrl = req.body.secure_url;
+    const updatedUser  = await UserResumes.findOneAndUpdate({ userId: user.id }, { 
+            $addToSet: { resumes: secureUrl }, // Add the new URL to the resumes array (avoids duplicates)
+            userMail: user.email },
+        { 
+            new: true, 
+            upsert: true,
+            useFindAndModify: false 
+        }
+    );
+    res.status(200).json({ message: "resume saved successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save resume" });
+  }
+});
 
-//     // Save to database (MongoDB example)
-//     const pdfData = new UserPdf({ userId, fileName, previewImage });
-//     await pdfData.save();
 
-//     res.status(200).json({ message: "PDF saved successfully" });
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to save PDF" });
-//   }
-// });
-
-
-// app.get("/profile/get-saved-pdfs/:userId", async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-
-//     // Fetch saved PDFs for the user
-//     const savedPdfs = await UserPdf.find({ userId });
-
-//     res.status(200).json(savedPdfs);
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to fetch saved PDFs" });
-//   }
-// });
+router.get("/saved-resumes", async (req, res) => {
+  const user = getUser (req);
+  try {
+    const data  = await UserResumes.find({ userId: user.id })
+    console.log(data);
+    
+    res.status(200).json({ message: "resume saved successfully", resumes:data[0].resumes });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save resume" });
+  }
+});
 
 
 module.exports = router;
