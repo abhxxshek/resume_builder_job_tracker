@@ -75,12 +75,14 @@ router.post("/save-payment-details", async (req, res) => {
   const paymentId = req.body.transactionId;
   const amount = req.body.paymentData.amount;
   const method = req.body.paymentData.method;
+  const template = req.body.templateName;
 
   try {
     const payment = new Payment({
       paymentId: paymentId,
       email: email,
       buyerName: name,
+      template: template,
       amount:amount,
       method: method,
     });
