@@ -37,8 +37,8 @@ const profileSchema = new mongoose.Schema({
     education: [{
       fieldOfStudy: String,
       institution: String,
-      startYear: Number,
-      endYear: Number,
+      startYear: Date,
+      endYear: Date,
       percentage:Number,
     }],
     achievements: [{
@@ -54,7 +54,7 @@ const profileSchema = new mongoose.Schema({
     training: [{
       trainingTitle: String,
       institute:String,
-      completion:String,
+      completion:Date,
       description: String,
       
     }],
