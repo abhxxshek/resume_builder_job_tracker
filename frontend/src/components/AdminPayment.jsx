@@ -53,11 +53,12 @@ const AdminPayment = () => {
         Payment Details
       </Typography>
 
-      <TableContainer component={Paper} sx={{ maxWidth: 950, margin: "auto" }}>
+      <TableContainer component={Paper} sx={{ maxWidth: "100%", margin: "auto" }}>
         <Table>
           <TableHead>
             <TableRow sx={{ background: "#40739e" }}>
               {/* <TableCell sx={{ color: "#fff" }}>Resume Name</TableCell> */}
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Template Name</TableCell>
               <TableCell sx={{ color: "#fff",textAlign:"center" }}>Buyer Name</TableCell>
               <TableCell sx={{ color: "#fff",textAlign:"center" }}>Email</TableCell>
               <TableCell sx={{ color: "#fff",textAlign:"center" }}>Amount</TableCell>
@@ -71,12 +72,13 @@ const AdminPayment = () => {
             {paymentData.map((row) => (
               <TableRow key={row.id}>
                 {/* <TableCell>{row.resumeName}</TableCell> */}
-                <TableCell>{row.buyerName}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.amount}</TableCell>
-                <TableCell>{row.paymentId}</TableCell>
-                <TableCell>{row.method}</TableCell>
-                <TableCell>{row.date}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.template}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.buyerName}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.email}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>₹{row.amount}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.paymentId}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.method}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{row.date}</TableCell>
                 <TableCell>
                   <Button
                     variant="contained"

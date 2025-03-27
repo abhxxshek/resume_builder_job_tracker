@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Container, Grid, IconButton } from "@mui
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Trainings = ({ resumeData = {}, handleChange }) => {
-  const [trainings, setTrainings] = useState(resumeData.trainings || []);
+  const [trainings, setTrainings] = useState(resumeData.training|| []);
   const [formData, setFormData] = useState({
       trainingTitle:"",
       institute:"",
@@ -24,14 +24,14 @@ const Trainings = ({ resumeData = {}, handleChange }) => {
         institute:"",
         completion:"",
         description:""});
-      handleChange({ target: { name: 'trainings', value: newList } });
+      handleChange({ target: { name: 'training', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = trainings.filter((_, i) => i !== index);
     setTrainings(updatedList);
-    handleChange({ target: { name: 'trainings', value: updatedList } });
+    handleChange({ target: { name: 'training', value: updatedList } });
   };
 
   return (
