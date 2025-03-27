@@ -77,11 +77,24 @@
 
 
 import React, { useState } from "react";
-import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Box } from "@mui/material";
+import { 
+  TextField, 
+  Button, 
+  Typography, 
+  Container, 
+  Grid, 
+  Box,
+  IconButton, 
+  Card, 
+  CardContent 
+} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Achievements = ({ resumeData = {}, handleChange }) => {
-  const [achievementsList, setAchievementsList] = useState(resumeData.achievements || []);
+  // In Achievements.jsx
+const [achievementsList, setAchievementsList] = useState(
+  Array.isArray(resumeData?.achievements) ? resumeData.achievements : []
+);
   const [formData, setFormData] = useState({
     achievementTitle: "",
     year: "",
@@ -90,19 +103,20 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleAddAchievement = () => {
     if (formData.achievementTitle && formData.description) {
-      const newList = [...achievementsList, formData];
+      const newAchievement = {
+        achievementTitle: formData.achievementTitle.trim(),
+        year: formData.year || null, // Handle empty year
+        description: formData.description.trim(),
+      };
+      const newList = [...achievementsList, newAchievement];
       setAchievementsList(newList);
-      setFormData({
-        achievementTitle: "",
-        year: "",
-        description: ""
-      });
       handleChange({ target: { name: 'achievements', value: newList } });
+      setFormData({ achievementTitle: "", year: "", description: "" }); // Reset form
     }
   };
 
@@ -121,30 +135,72 @@ const Achievements = ({ resumeData = {}, handleChange }) => {
         Add your most notable works and accomplishments.
       </Typography>
 
-      {/* Form Section */}
+      {achievementsList.map((achievements, index) => (
+        <Card key={index} sx={{ mb: 2 }}>
+          <CardContent>
+            <Typography variant="h6">{achievements.achievementTitle}</Typography>
+            <Typography variant="subtitle1">{achievements.year}</Typography>
+            <Typography variant="body2">{achievements.description}</Typography>
+            <IconButton onClick={() => handleDelete(index)}>
+              <DeleteIcon />
+            </IconButton>
+          </CardContent>
+        </Card>
+      ))}
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField label="Achievement Title" variant="outlined" fullWidth name="achievementTitle" value={formData.achievementTitle} onChange={handleInputChange} />
+          <TextField 
+            label="Achievement Title" 
+            variant="outlined" 
+            fullWidth 
+            name="achievementTitle" 
+            value={formData.achievementTitle} 
+            onChange={handleInputChange} 
+          />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Year" variant="outlined" fullWidth name="year" value={formData.year} onChange={handleInputChange} />
+          <TextField 
+            label="Year" 
+            variant="outlined" 
+            fullWidth 
+            name="year" 
+            value={formData.year} 
+            onChange={handleInputChange} 
+          />
         </Grid>
         <Grid item xs={12}>
-          <TextField label="Description" variant="outlined" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
+          <TextField 
+            label="Description" 
+            variant="outlined" 
+            fullWidth 
+            multiline 
+            rows={4} 
+            name="description" 
+            value={formData.description} 
+            onChange={handleInputChange} 
+          />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" fullWidth onClick={handleAddAchievement}>+ Add Achievement</Button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            fullWidth 
+            onClick={handleAddAchievement}
+          >
+            + Add Achievement
+          </Button>
         </Grid>
       </Grid>
 
       {/* Achievements List Section */}
       <Box sx={{ mt: 3 }}>
-        {achievementsList.map((achievement, index) => (
+        {achievementsList.map((achievements, index) => (
           <Card key={index} sx={{ mb: 2 }}>
             <CardContent>
-              <Typography variant="h6">{achievement.achievementTitle}</Typography>
-              <Typography variant="h6">{achievement.year}</Typography>
-              <Typography variant="body2">{achievement.description}</Typography>
+              <Typography variant="h6">{achievements.achievementTitle}</Typography>
+              <Typography variant="h6">{achievements.year}</Typography>
+              <Typography variant="body2">{achievements.description}</Typography>
               <IconButton onClick={() => handleDelete(index)}><DeleteIcon /></IconButton>
             </CardContent>
           </Card>

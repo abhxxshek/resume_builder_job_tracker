@@ -25,14 +25,14 @@ router.get('/profile-details',async (req,res)=>{
 // save 
 
 router.post('/save-resume', async (req, res) => {
-  //  console.log(req.body);
+    console.log(req.body);
   const userDetails = getUser(req);
       try {
         const profiles = await profileModel.find();
         const profile = profiles.find(profile => profile.userId.toString() == userDetails.id);
         if (!profile) {
           console.log('no prof');
-            const { userId, firstName, lastName, designation, careerObjective, email, phoneNumber, city, address, experiences, skills, education, achievements, trainings, projects } = req.body;
+            const { userId, firstName, lastName, designation, careerObjective, email, phoneNumber, city, address, experience, skills, education,achievements, training, project } = req.body;
             //userId to ObjectId
             const objectId = new mongoose.Types.ObjectId(userId);
               const profileData = new profileModel({
@@ -45,12 +45,12 @@ router.post('/save-resume', async (req, res) => {
                 phoneNumber,
                 city,
                 address,
-                experiences,
+                experience,
                 skills,
                 education,
                 achievements,
-                trainings,
-                projects
+                training,
+                project
               });
               await profileData.save();
               return res.status(201).send({success:true, message: 'Profile created', profileData });

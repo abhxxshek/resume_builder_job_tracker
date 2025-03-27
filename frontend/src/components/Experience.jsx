@@ -121,13 +121,14 @@ const Experience = ({ resumeData = {}, handleChange }) => {
       const newList = [...experiencesList, formData];
       setExperiencesList(newList);
       setFormData({
+        
         jobTitle: "",
         company: "",
         startDate: "",
         endDate: "",
         description: ""
       });
-      handleChange({ target: { name: 'experiences', value: newList } });
+      handleChange({ target: { name: 'experience', value: newList } });
     }
   };
 
@@ -178,6 +179,33 @@ const Experience = ({ resumeData = {}, handleChange }) => {
           </CardContent>
         </Card>
       ))}
+
+      <Grid container spacing={2}>
+        {/* <Grid item xs={6}>
+          <TextField label="Employer" fullWidth name="employer" value={formData.employer} onChange={handleInputChange} />
+        </Grid> */}
+        <Grid item xs={12}>
+          <TextField label="Job Title" fullWidth name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Company" fullWidth name="company" value={formData.company} onChange={handleInputChange} />
+        </Grid>
+        {/* <Grid item xs={12}>
+          <TextField label="City" fullWidth name="City" value={formData.City} onChange={handleInputChange} />
+        </Grid> */}
+        <Grid item xs={6}>
+          <TextField label="Start Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="startDate" value={formData.startDate} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="endDate" value={formData.endDate} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddExperience}>+ Add Experience</Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

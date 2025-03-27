@@ -137,9 +137,9 @@ const Template1 = ({ resumeData = {} }) => {
         <Typography variant="subtitle1" sx={sectionTitleStyle}>
           Work Experience
         </Typography>
-        {resumeData.experiences && resumeData.experiences.length > 0 ? (
-          resumeData.experiences.map((experience, index) => (
-            <Box key={index} sx={{ mb: index < resumeData.experiences.length - 1 ? 1.5 : 0 }}>
+        {resumeData.experience && resumeData.experience.length > 0 ? (
+          resumeData.experience.map((experience, index) => (
+            <Box key={index} sx={{ mb: index < resumeData.experience.length - 1 ? 1.5 : 0 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#2c3e50", mb: 0.25, lineHeight: 1.3 }}>
                 {experience.jobTitle || "Software Developer"}
               </Typography>
@@ -258,16 +258,16 @@ const Template1 = ({ resumeData = {} }) => {
           Achievements
         </Typography>
         {resumeData.achievements && resumeData.achievements.length > 0 ? (
-          resumeData.achievements.map((achievement, index) => (
+          resumeData.achievements.map((achievements, index) => (
             <Box key={index} sx={{ mb: index < resumeData.achievements.length - 1 ? 1.5 : 0 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#2c3e50", mb: 0.25, lineHeight: 1.3 }}>
-                {achievement.achievementTitle || "Best Coder Award"}
+                {achievements.achievementTitle || "Best Coder Award"}
               </Typography>
               <Typography variant="body2" sx={{ color: "#424242", fontSize: "13px", lineHeight: 1.3 }}>
-                {achievement.description || "Awarded for outstanding performance in coding competitions."}
+                {achievements.description || "Awarded for outstanding performance in coding competitions."}
               </Typography>
               <Typography variant="body2" sx={{ color: "#546e7a", fontSize: "13px", lineHeight: 1.3 }}>
-                {achievement.year ? achievement.year.substring(0, 10) : "2021-01-01"}
+                {achievements.year|| "2021-01-01"}
               </Typography>
             </Box>
           ))
@@ -293,9 +293,9 @@ const Template1 = ({ resumeData = {} }) => {
         <Typography variant="subtitle1" sx={sectionTitleStyle}>
           Trainings
         </Typography>
-        {resumeData.trainings && resumeData.trainings.length > 0 ? (
-          resumeData.trainings.map((training, index) => (
-            <Box key={index} sx={{ mb: index < resumeData.trainings.length - 1 ? 1.5 : 0 }}>
+        {resumeData.training && resumeData.training.length > 0 ? (
+          resumeData.training.map((training, index) => (
+            <Box key={index} sx={{ mb: index < resumeData.training.length - 1 ? 1.5 : 0 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#2c3e50", mb: 0.25, lineHeight: 1.3 }}>
                 {training.trainingTitle || "Advanced JavaScript"}
               </Typography>
@@ -335,9 +335,9 @@ const Template1 = ({ resumeData = {} }) => {
         <Typography variant="subtitle1" sx={sectionTitleStyle}>
           Projects
         </Typography>
-        {resumeData.projects && resumeData.projects.length > 0 ? (
-          resumeData.projects.map((project, index) => (
-            <Box key={index} sx={{ mb: index < resumeData.projects.length - 1 ? 1.5 : 0 }}>
+        {resumeData.project && resumeData.project.length > 0 ? (
+          resumeData.project.map((project, index) => (
+            <Box key={index} sx={{ mb: index < resumeData.project.length - 1 ? 1.5 : 0 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#2c3e50", mb: 0.25, lineHeight: 1.3 }}>
                 {project.projectTitle || "Online Book Store"}
               </Typography>

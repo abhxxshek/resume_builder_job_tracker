@@ -32,6 +32,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const passwordResetRoutes = require('./routes/passwordResetRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const templateRoutes = require('./routes/templateRoutes');
 
 // Mount routes
 app.use('/api/auth', authRoutes);
@@ -40,6 +41,7 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes(io)); 
 app.use('/forgot-password', passwordResetRoutes);
 app.use('/payment', paymentRoutes);
+app.use('/template', templateRoutes);
 
 // Handle socket connections
 io.on('connection', (socket) => {

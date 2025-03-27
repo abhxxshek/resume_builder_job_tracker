@@ -85,7 +85,7 @@ import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardC
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Projects = ({ resumeData = {}, handleChange }) => {
-  const [projectsList, setProjectsList] = useState(resumeData.projects || []);
+  const [projectsList, setProjectsList] = useState(resumeData.project || []);
   const [formData, setFormData] = useState({
     projectTitle: "",
     description: "",
@@ -106,14 +106,14 @@ const Projects = ({ resumeData = {}, handleChange }) => {
         description: "",
         projectLink: ""
       });
-      handleChange({ target: { name: 'projects', value: newList } });
+      handleChange({ target: { name: 'project', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = projectsList.filter((_, i) => i !== index);
     setProjectsList(updatedList);
-    handleChange({ target: { name: 'projects', value: updatedList } });
+    handleChange({ target: { name: 'project', value: updatedList } });
   };
 
   return (

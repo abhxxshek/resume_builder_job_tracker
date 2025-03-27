@@ -27,6 +27,10 @@ const resumePurchaseSchema = new mongoose.Schema({
     type: String, 
     // required: true
   },
+  template:{
+    type: String,
+
+  },
   date: {
     type: Date, 
     required: true,
