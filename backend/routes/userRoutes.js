@@ -101,7 +101,7 @@ router.get('/applyjob', async (req, res) => {
       return res.status(500).json({ message: 'Server error', error });
   }
 });
-
+// increment downloads
 router.get('/downloads', async (req, res) => {
   const user = getUser (req);
   try {
@@ -111,6 +111,19 @@ router.get('/downloads', async (req, res) => {
       );
     // console.log(userStats);
     return res.status(userStats.isNew ? 201 : 200).json({message: userStats.isNew ? 'User  stats created' : 'User  stats updated',userStats});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Server error', error });
+  }
+});
+
+// get individulal downloads
+router.get('/my-stats', async (req, res) => {
+  const user = getUser (req);
+  try {
+      const userStats = await userStatsModel.findOne({ userId: user.id })
+    //  console.log(userStats);
+    return res.status(200).json(userStats);
   } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Server error', error });
@@ -129,7 +142,6 @@ router.get('/notifications', async (req, res) => {
 });
 
 //save pdf
-
 router.post("/resume-generated", async (req, res) => {
   const user = getUser (req);
   // console.log("udataurl",req.body.secure_url)
@@ -150,16 +162,33 @@ router.post("/resume-generated", async (req, res) => {
   }
 });
 
-
+// save resume
 router.get("/saved-resumes", async (req, res) => {
   const user = getUser (req);
   try {
     const data  = await UserResumes.find({ userId: user.id })
-    console.log(data);
+    // console.log(data);
     
     res.status(200).json({ message: "resume saved successfully", resumes:data[0].resumes });
   } catch (error) {
     res.status(500).json({ error: "Failed to save resume" });
+  }
+});
+
+// delete resume
+router.delete("/delete-resume/:resume", async (req, res) => {
+  const user = getUser(req);
+  const resumeToDelete = req.params.resume;
+  try {
+      const userResumes = await UserResumes.findOne({ userId: user.id });
+      if (!userResumes) {
+          return res.status(404).json({ error: "User  not found" });
+      }
+      userResumes.resumes = userResumes.resumes.filter(resume => resume !== resumeToDelete);
+      await userResumes.save();
+      res.status(200).json({ message: "Resume deleted successfully"})
+  } catch (error) {
+      res.status(500).json({ error: "Failed to delete resume" });
   }
 });
 

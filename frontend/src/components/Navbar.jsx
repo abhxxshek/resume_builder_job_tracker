@@ -40,7 +40,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
       const storedUserInfo = sessionStorage.getItem('userInfo');
       if (storedUserInfo) {
         try {
-          setCurrentUser(JSON.parse(storedUserInfo));
+          // setCurrentUser(JSON.parse(storedUserInfo));
         } catch (error) {
           console.error('Error parsing user info:', error);
         }
