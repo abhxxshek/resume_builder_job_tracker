@@ -102,6 +102,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
         { label: 'Payment', path: '/payment' },
         { label: 'Job Search', path: '/job-search' },
         { label: 'Admin Payment', path: '/admin-payment' },
+        { label: 'Admin Template', path: '/admin-template' },
       ];
     }
     return [];

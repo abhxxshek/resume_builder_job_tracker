@@ -316,7 +316,7 @@ const resumePreview = (resume) => {
                       }}
                     >
                       <Typography variant="h5" fontWeight="bold" color="primary">
-                        {downloads}
+                        {(downloads)?downloads:0}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Downloads
