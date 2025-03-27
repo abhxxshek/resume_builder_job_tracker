@@ -36,7 +36,7 @@ const Experience = ({ resumeData = {}, handleChange }) => {
   const handleDelete = (index) => {
     const updatedList = experiencesList.filter((_, i) => i !== index);
     setExperiencesList(updatedList);
-    handleChange({ target: { name: 'experiences', value: updatedList } });
+    handleChange({ target: { name: 'experience', value: updatedList } });
   };
 
   return (
