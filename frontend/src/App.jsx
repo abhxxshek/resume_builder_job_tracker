@@ -92,8 +92,8 @@ function App() {
           <Route path="/job-search" element={<JobSearch/>} />
           <Route path="/admin-template" element={<AdminTemplate/>} />
           {/* <Route path="/myresumes" element={<Myresumes/>} /> */}
-
           <Route path="/payment" element={<Payment/>} />
+            
         </Route>
       </Routes>
     </>

@@ -7,7 +7,7 @@ const payment=require('../models/Payment');
 
 router.post('/payment-status',async(req,res)=>{
     try{
-        const templateName=req.body.templateName;
+        const templateName=req.body.templateParam;
       
         const email=req.body.userEmail;
        
