@@ -32,7 +32,7 @@ import AboutUs from "./components/Aboutus";
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     // Check if user is logged in
