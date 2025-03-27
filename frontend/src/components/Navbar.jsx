@@ -23,6 +23,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link, useNavigate, NavLink } from 'react-router-dom'; 
 import io from 'socket.io-client';
 import moment from 'moment'; 
+import { jwtDecode } from 'jwt-decode';
 
 const socket = io('http://localhost:3000');
 
@@ -93,16 +94,23 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
     handleCloseUserMenu();
   };
 
+ 
+
   const getNavigationItems = () => {
     if (currentUser) {
-      return [
-        { label: 'Dashboard', path: '/dashboard' },
-        { label: 'Templates', path: '/templates' },
-        { label: 'Admin Dashboard', path: '/admin-dashboard' },
-        { label: 'Payment', path: '/payment' },
-        { label: 'Job Search', path: '/job-search' },
-        { label: 'Admin Payment', path: '/admin-payment' },
-      ];
+      
+      const decoded = jwtDecode(currentUser);
+      return decoded.role === "admin"
+        ? [
+            { label: "Dashboard", path: "/admin-dashboard" },
+            { label: "Transaction Details", path: "/admin-payment" }
+          ]
+        : [
+            { label: "Dashboard", path: "/dashboard" },
+            { label: "Templates", path: "/templates" },
+            { label: "Job Search", path: "/job-search" }
+          ];
+      
     }
     return [];
   };
@@ -132,8 +140,8 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: 'block', md: 'none' } }}
               >
-                {navigationItems.map((item) => (
-                  <MenuItem key={item.label} component={Link} to={item.path} onClick={handleCloseNavMenu}>
+                {navigationItems.map((item,index) => (
+                  <MenuItem key={index} component={Link} to={item.path} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{item.label}</Typography>
                   </MenuItem>
                 ))}
