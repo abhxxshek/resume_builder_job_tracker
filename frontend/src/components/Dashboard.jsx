@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Box, Container, Typography, Grid, Card, CardContent,CardMedia, Button,  Divider, Paper, Avatar, useTheme,useMediaQuery
+import { Box, Container, Typography, Grid, Card, CardContent,CardMedia, Button,  Divider, Paper, Avatar, useTheme,useMediaQuery, IconButton
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -19,6 +19,8 @@ const Dashboard = ({ resumeData = {}}) => {
  const [resumes, setResumes] = useState([]);
  const [open, setOpen] = useState(false);
 const [selectedResume, setSelectedResume] = useState('');
+const [userStats, setUserStats] = useState('');
+const [downloads, setDownloads] = useState(0);
 
   const token= sessionStorage.getItem('userInfo');
   const decodedToken=jwtDecode(token);
@@ -32,13 +34,25 @@ const [selectedResume, setSelectedResume] = useState('');
             const response = await axiosInstance.get("/user/saved-resumes");
             const resumesData = Array.isArray(response.data.resumes) ? response.data.resumes : [];
             setResumes(resumesData);
-            console.log(resumesData); 
+            // console.log(resumesData); 
         } catch (error) {
             console.log(error);
         }
     };
+    const mystats = async () => {
+      try {
+          const response = await axiosInstance.get("/user/my-stats");
+          const resumesData = (response.data) ? response.data: {};
+          setUserStats(resumesData);
+          setDownloads(resumesData.resumeDownloads)
+          //  console.log(resumesData); 
+      } catch (error) {
+          console.log(error);
+      }
+  };
 
     fetchJobs();
+    mystats();
 }, []);
 
 const handleCardClick = (resume) => {
@@ -46,13 +60,8 @@ const handleCardClick = (resume) => {
     setOpen(true);
 };
 
-const handleDownload = (resume) => {
-    const link = document.createElement('a');
-    link.href = resume;
-    link.download = resume.split('/').pop(); // Extract filename from URL
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+const resumePreview = (resume) => {
+  window.open(resume, "_blank");
 };
 
   const handleCreateResume = () => {
@@ -64,9 +73,15 @@ const handleDownload = (resume) => {
     navigate(`/layout2/${resume.template}`);
   };
 
-  const handleDeleteResume = (id) => {
-    setResumes(resumes.filter(resume => resume.id !== id));
-  };
+  const resumeDelete = async (resume) => {
+    try {
+      const encodedResume = encodeURIComponent(resume);
+      await axiosInstance.delete(`/user/delete-resume/${encodedResume}`);      
+        setResumes(resumes.filter(r => r !== resume)); 
+    } catch (error) {
+        console.error("Failed to delete resume:", error);
+    }
+};
 
   // Function to determine progress color
   const getProgressColor = (percentage) => {
@@ -169,131 +184,7 @@ const handleDownload = (resume) => {
                 </Box>
               ) : (
                 <Grid container spacing={2}>
-                  {/* {resumes.map((resume) => (
-                    <Grid item xs={12} sm={6} key={resume.id}>
-                      <Card 
-                        sx={{ 
-                          height: '100%', 
-                          display: 'flex', 
-                          flexDirection: 'column',
-                          borderRadius: 2,
-                          overflow: 'hidden',
-                          border: '1px solid #e0e0e0',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            transform: 'translateY(-4px)',
-                            boxShadow: '0 12px 20px rgba(0,0,0,0.1)'
-                          }
-                        }}
-                      >
-                        <Box sx={{ 
-                          height: 8, 
-                          backgroundColor: getProgressColor(resume.completionPercentage) 
-                        }} />
-                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                            <Typography variant="h6" component="h3" fontWeight="bold">
-                              {resume.title}
-                            </Typography>
-                            <IconButton 
-                              size="small" 
-                              onClick={() => handleDeleteResume(resume.id)}
-                              sx={{ 
-                                color: 'text.secondary',
-                                '&:hover': { color: '#f44336' }
-                              }}
-                            >
-                              <DeleteIcon fontSize="small" />
-                            </IconButton>
-                          </Box>
-                          
-                          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
-                            <MoreTimeIcon sx={{ color: '#757575', fontSize: 16, mr: 0.5 }} />
-                            <Typography variant="body2" color="text.secondary">
-                              Updated: {resume.lastUpdated}
-                            </Typography>
-                          </Box>
-                          
-                          <Box sx={{ mb: 2 }}>
-                            {resume.tags.map(tag => (
-                              <Chip 
-                                key={tag}
-                                label={tag}
-                                size="small"
-                                icon={<LocalOfferIcon fontSize="small" />}
-                                sx={{ 
-                                  mr: 1, 
-                                  mb: 1,
-                                  backgroundColor: '#e3f2fd',
-                                  '& .MuiChip-icon': { color: '#1976d2' }
-                                }}
-                              />
-                            ))}
-                          </Box>
-                          
-                          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                            <Typography variant="body2" fontWeight="medium" sx={{ mr: 1 }}>
-                              Completion: {resume.completionPercentage}%
-                            </Typography>
-                            {resume.completionPercentage >= 80 && (
-                              <StarIcon sx={{ color: '#ffc107', fontSize: 18 }} />
-                            )}
-                          </Box>
-                          <LinearProgress 
-                            variant="determinate" 
-                            value={resume.completionPercentage} 
-                            sx={{ 
-                              mb: 3, 
-                              height: 8, 
-                              borderRadius: 4,
-                              backgroundColor: '#e0e0e0',
-                              '& .MuiLinearProgress-bar': {
-                                backgroundColor: getProgressColor(resume.completionPercentage)
-                              }
-                            }}
-                          />
-                          
-                          <Box sx={{ 
-                            display: 'flex', 
-                            justifyContent: 'space-between', 
-                            mt: 'auto',
-                            pt: 2,
-                            borderTop: '1px solid #f0f0f0'
-                          }}>
-                            <Button 
-                              variant="outlined" 
-                              size="medium" 
-                              startIcon={<EditIcon />}
-                              onClick={() => handleEditResume(resume.id)}
-                              sx={{
-                                borderColor: '#2c3e50',
-                                color: '#2c3e50',
-                                '&:hover': {
-                                  borderColor: '#1a252f',
-                                  backgroundColor: 'rgba(44, 62, 80, 0.04)'
-                                }
-                              }}
-                            >
-                              Edit
-                            </Button>
-                            <Button 
-                              variant="contained" 
-                              size="medium" 
-                              startIcon={<DownloadIcon />}
-                              onClick={() => handleDownloadResume(resume.id)}
-                              sx={{ 
-                                backgroundColor: '#2c3e50',
-                                '&:hover': { backgroundColor: '#1a252f' }
-                              }}
-                            >
-                              Download
-                            </Button>
-                          </Box>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  ))} */}
-                  
+                
                   {resumes.map((resume, index) => (
                 <Grid item xs={12} sm={6} key={index}>
                     <Card 
@@ -322,9 +213,12 @@ const handleDownload = (resume) => {
                             <Typography variant="body2" color="text.secondary">
                                 {resume}
                             </Typography>
-                            <Button onClick={(e) => { e.stopPropagation(); handleDownload(resume); }}>
-                                Download
+                            <Button onClick={(e) => { e.stopPropagation(); resumePreview(resume); }}>
+                                View
                             </Button>
+                            <IconButton onClick={(e) => { e.stopPropagation(); resumeDelete(resume); }}>
+                                <DeleteIcon />
+                            </IconButton>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -335,7 +229,7 @@ const handleDownload = (resume) => {
                     width: '80%', 
                     maxWidth: '600px', 
                     maxHeight: '80vh', 
-                    overflowY: 'auto', // Enable vertical scrolling
+                    overflowY: 'auto', 
                     margin: 'auto', 
                     padding: '20px', 
                     backgroundColor: 'white', 
@@ -422,7 +316,7 @@ const handleDownload = (resume) => {
                       }}
                     >
                       <Typography variant="h5" fontWeight="bold" color="primary">
-                        3
+                        {downloads}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         Downloads
