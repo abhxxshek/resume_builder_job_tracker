@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Container, Grid, IconButton, Card, CardContent, Box } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
-  // Initialize with data from props or empty array
-  const [experiencesList, setExperiencesList] = useState(resumeData.experience || []);
-  
+const Experience = ({ resumeData = {}, handleChange }) => {
+  const [experiencesList, setExperiencesList] = useState(resumeData.experiences || []);
   const [formData, setFormData] = useState({ 
     jobTitle: "",
     company: "",
@@ -14,52 +12,31 @@ const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
     description: ""
   });
 
-  // Update local state when resumeData prop changes
-  useEffect(() => {
-    if (resumeData.experience) {
-      setExperiencesList(resumeData.experience);
-    }
-  }, [resumeData.experience]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleAddExperience = async () => {
+  const handleAddExperience = () => {
     if (formData.jobTitle && formData.company) {
-      const newExperience = {
-        ...formData,
-        // Generate ID for new experience
-        id: Date.now().toString()
-      };
-      
-      const updatedExperiences = [...experiencesList, newExperience];
-      
-      // Update local state
-      setExperiencesList(updatedExperiences);
+      const newList = [...experiencesList, formData];
+      setExperiencesList(newList);
       setFormData({
+        
         jobTitle: "",
         company: "",
         startDate: "",
         endDate: "",
         description: ""
       });
-      
-      // Update parent component and database
-      await updateResume({ experiences: updatedExperiences });
+      handleChange({ target: { name: 'experience', value: newList } });
     }
   };
 
-  const handleDelete = async (id) => {
-    const updatedExperiences = experiencesList.filter(exp => exp.id !== id);
-    
-    // Update local state
-    setExperiencesList(updatedExperiences);
-    
-    // Update parent component and database
-    await updateResume({ experiences: updatedExperiences });
-
+  const handleDelete = (index) => {
+    const updatedList = experiencesList.filter((_, i) => i !== index);
+    setExperiencesList(updatedList);
+    handleChange({ target: { name: 'experience', value: updatedList } });
   };
 
   return (
@@ -67,7 +44,7 @@ const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
       <Typography variant="h4" color="primary" textAlign="left" gutterBottom>
         Work Experience
       </Typography>
-      <Typography variant="body1" textAlign="left" gutterBottom sx={{ mb: 3 }}>
+      <Typography variant="body1" textAlign="left" gutterBottom>
         Show your relevant experience (last 10 years).
       </Typography>
 
@@ -83,74 +60,30 @@ const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
         </Card>
       ))}
 
-      {/* Add Experience Form */}
-      <Typography variant="subtitle1" sx={{ mb: 2 }}>
-        {experiencesList.length > 0 ? 'Add Another Experience' : 'Add Your First Experience'}
-      </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <TextField 
-            label="Job Title*" 
-            fullWidth 
-            name="jobTitle" 
-            value={formData.jobTitle} 
-            onChange={handleInputChange} 
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField 
-            label="Company*" 
-            fullWidth 
-            name="company" 
-            value={formData.company} 
-            onChange={handleInputChange} 
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField 
-            label="Start Date" 
-            type="date" 
-            fullWidth 
-            InputLabelProps={{ shrink: true }} 
-            name="startDate" 
-            value={formData.startDate} 
-            onChange={handleInputChange} 
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField 
-            label="End Date" 
-            type="date" 
-            fullWidth 
-            InputLabelProps={{ shrink: true }} 
-            name="endDate" 
-            value={formData.endDate} 
-            onChange={handleInputChange} 
-          />
+        {/* <Grid item xs={6}>
+          <TextField label="Employer" fullWidth name="employer" value={formData.employer} onChange={handleInputChange} />
+        </Grid> */}
+        <Grid item xs={12}>
+          <TextField label="Job Title" fullWidth name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField 
-            label="Description" 
-            fullWidth 
-            multiline 
-            rows={3} 
-            name="description" 
-            value={formData.description} 
-            onChange={handleInputChange} 
-            placeholder="Describe your responsibilities and achievements"
-          />
+          <TextField label="Company" fullWidth name="company" value={formData.company} onChange={handleInputChange} />
+        </Grid>
+        {/* <Grid item xs={12}>
+          <TextField label="City" fullWidth name="City" value={formData.City} onChange={handleInputChange} />
+        </Grid> */}
+        <Grid item xs={6}>
+          <TextField label="Start Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="startDate" value={formData.startDate} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField label="End Date" type="date" fullWidth InputLabelProps={{ shrink: true }} name="endDate" value={formData.endDate} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            fullWidth 
-            onClick={handleAddExperience}
-            disabled={!formData.jobTitle || !formData.company}
-            sx={{ mt: 1 }}
-          >
-            {experiencesList.length > 0 ? '+ Add Another Experience' : '+ Add Experience'}
-          </Button>
+          <TextField label="Description" fullWidth multiline rows={4} name="description" value={formData.description} onChange={handleInputChange} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" fullWidth onClick={handleAddExperience}>+ Add Experience</Button>
         </Grid>
       </Grid>
     </Container>
