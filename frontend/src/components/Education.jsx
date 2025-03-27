@@ -107,8 +107,8 @@ import { TextField, Button, Typography, Box, Grid, Card, CardContent, IconButton
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Education = ({ resumeData = {}, handleChange }) => {
-  const [isEducation, setIsEducation] = useState(false);
-  const [educationList, setEducationList] = useState(resumeData.education || []);
+  // const [isEducation, setIsEducation] = useState(false);
+  const [educationList, setEducationList] = useState( resumeData.education || [] );
   const [formData, setFormData] = useState({
     institution: "",
     fieldOfStudy: "",
@@ -118,9 +118,9 @@ const Education = ({ resumeData = {}, handleChange }) => {
   });
   const [errors, setErrors] = useState({});
 
-  const displayForm = () => {
-    setIsEducation(true);
-  };
+  // const displayForm = () => {
+  //   setIsEducation(true);
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -237,6 +237,35 @@ const Education = ({ resumeData = {}, handleChange }) => {
           </CardContent>
         </Card>
       ))}
+
+      {/* {isEducation && ( */}
+        <Box component="form" sx={{ flexGrow: 1, mb: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField label="School" name="institution" variant="outlined" fullWidth value={formData.institution} onChange={handleInputChange} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Degree" name="fieldOfStudy" variant="outlined" fullWidth value={formData.fieldOfStudy} onChange={handleInputChange} />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField label="Start Date" type="date" name="startYear" value={formData.startYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField label="End Date" type="date" name="endYear" value={formData.endYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Percentage" type="number" name="percentage" value={formData.percentage} onChange={handleInputChange}  variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="primary" fullWidth onClick={handleAddEducation}>Add</Button>
+            </Grid>
+          </Grid>
+        </Box>
+      {/* )} */}
+
+      {/* <Button color="primary" sx={{ marginTop: "20px" }} onClick={displayForm}>
+        + Add Education
+      </Button> */}
     </Box>
   );
 };

@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+require('dotenv').config();
+
 const cors = require('cors');
 const connectDB = require('./config/db');
+
 
 const http = require('http');
 const socketIo = require('socket.io');
@@ -14,8 +17,7 @@ const io = socketIo(server, {
     },
 });
 
-// Load environment variables
-require('dotenv').config();
+
 
 // Connect to database
 connectDB();
