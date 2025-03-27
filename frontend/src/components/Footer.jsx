@@ -29,7 +29,7 @@ const Footer = () => {
             {/* Add Logo Below the Text */}
             <Box
               component="img"
-              src="src\components\images\human-resources.png" // Update with your logo's file path or URL
+              src="\logo.png" // Update with your logo's file path or URL
               alt="Logo"
               sx={{
                 width: 100, // Adjust the size as needed
@@ -47,7 +47,7 @@ const Footer = () => {
                 <Typography variant="h6" gutterBottom>
                   Our Company
                 </Typography>
-                <Link href="" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Link href="/aboutus" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
                    About Us
                 </Link>
                 <Typography variant="body2" color="inherit">
@@ -114,7 +114,7 @@ const Footer = () => {
                 <Typography variant="h6" gutterBottom>
                   Support
                 </Typography>
-                <Link href="#" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
+                <Link href="/contact" color="inherit" display="block" sx={{ textDecoration: 'none', '&:hover': { color: '#03a9f4' } }}>
 Contact Us
 </Link>
                 <Typography variant="body2" color="inherit">

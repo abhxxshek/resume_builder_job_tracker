@@ -783,7 +783,7 @@ const JobSearch = () => {
                           </Typography>
                         </Box>
                         
-                        <Box sx={{ mt: 2 }}>
+                        {/* <Box sx={{ mt: 2 }}>
                           <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>
                             Specialities:
                           </Typography>
@@ -801,7 +801,7 @@ const JobSearch = () => {
                               />
                             ))}
                           </Box>
-                        </Box>
+                        </Box> */}
                       </Paper>
                     </Grid>
                   </Grid>
