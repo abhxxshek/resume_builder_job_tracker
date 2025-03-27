@@ -58,7 +58,7 @@ const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
       });
       
       // Update parent component and database
-      await updateResume({ experiences: updatedExperiences });
+      await updateResume({ experience: updatedExperiences });
     }
   };
 
@@ -69,7 +69,7 @@ const Experience = ({ resumeData = {}, handleChange, updateResume }) => {
     setExperiencesList(updatedExperiences);
     
     // Update parent component and database
-    await updateResume({ experiences: updatedExperiences });
+    await updateResume({ experience: updatedExperiences });
   };
 
   return (
