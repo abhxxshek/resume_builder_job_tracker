@@ -53,17 +53,18 @@ const AdminPayment = () => {
         Payment Details
       </Typography>
 
-      <TableContainer component={Paper} sx={{ maxWidth: 800, margin: "auto" }}>
+      <TableContainer component={Paper} sx={{ maxWidth: 950, margin: "auto" }}>
         <Table>
           <TableHead>
-            <TableRow sx={{ background: "#40739e",textAlign:"center" }}>
+            <TableRow sx={{ background: "#40739e" }}>
               {/* <TableCell sx={{ color: "#fff" }}>Resume Name</TableCell> */}
-              <TableCell sx={{ color: "#fff" }}>Buyer Name</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Email</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Amount</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Transaction ID</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Purchase Date and time</TableCell>
-              <TableCell sx={{ color: "#fff" }}>Action</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Buyer Name</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Email</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Amount</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Transaction ID</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Method</TableCell>
+              <TableCell sx={{ color: "#fff" ,textAlign:"center"}}>Purchase Date and time</TableCell>
+              <TableCell sx={{ color: "#fff",textAlign:"center" }}>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -74,6 +75,7 @@ const AdminPayment = () => {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.amount}</TableCell>
                 <TableCell>{row.paymentId}</TableCell>
+                <TableCell>{row.method}</TableCell>
                 <TableCell>{row.date}</TableCell>
                 <TableCell>
                   <Button

@@ -73,8 +73,8 @@ router.post("/save-payment-details", async (req, res) => {
   const email = decode.email;
   const name = decode.name;
   const paymentId = req.body.transactionId;
-  const amount = req.body.amount;
-  const method = req.body.method;
+  const amount = req.body.paymentData.amount;
+  const method = req.body.paymentData.method;
 
   try {
     const payment = new Payment({

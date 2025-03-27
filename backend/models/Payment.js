@@ -16,7 +16,7 @@ const resumePurchaseSchema = new mongoose.Schema({
 
   },
   amount: {
-    type: mongoose.Types.Decimal128, 
+    type: Number, 
     // required: true
   },
   paymentId:{

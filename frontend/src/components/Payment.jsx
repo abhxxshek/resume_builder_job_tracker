@@ -159,7 +159,7 @@ const Payment = () => {
     try {
       const res = await axiosInstance.get(`http://localhost:3000/payment/paymentId/${paymentId}`);
       const transactionId=paymentId;
-      console.log("Payment response:", transactionId);
+      console.log("Payment response:", res.data);
       // setResponseState(res.data);
       await savePayment(res.data,transactionId);
     } catch (error) {
