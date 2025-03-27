@@ -4,226 +4,276 @@ import { Typography, Container, Box, Divider, Grid, Avatar } from "@mui/material
 const Template5 = ({ resumeData = {} }) => {
   const [profilePic, setProfilePic] = useState("");
   
-    // Function to update profile picture from localStorage
-    const updateProfilePicture = () => {
-      const storedImage = localStorage.getItem("profilePicture");
-      setProfilePic(storedImage || "");
+  const updateProfilePicture = () => {
+    const storedImage = localStorage.getItem("profilePicture");
+    setProfilePic(storedImage || "");
+  };
+
+  useEffect(() => {
+    updateProfilePicture();
+    const handleStorageChange = () => updateProfilePicture();
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('profilePictureUpdated', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('profilePictureUpdated', handleStorageChange);
     };
-  
-    useEffect(() => {
-      updateProfilePicture(); // Initial check
-  
-      // Listen for changes in localStorage
-      const handleStorageChange = () => {
-        updateProfilePicture();
-      };
-  
-      window.addEventListener('storage', handleStorageChange);
-      
-      // Also listen for custom events if needed
-      window.addEventListener('profilePictureUpdated', handleStorageChange);
-  
-      return () => {
-        window.removeEventListener('storage', handleStorageChange);
-        window.removeEventListener('profilePictureUpdated', handleStorageChange);
-      };
-    }, []);
-  return (
-    <Container
-      maxWidth="md"
+  }, []);
+
+  // Check if we need multiple pages
+  const hasAchievements = resumeData.achievements?.length > 0;
+  const hasProjects = resumeData.project?.length > 0;
+  const needsSecondPage = hasAchievements || hasProjects;
+
+  // Container styles
+  const containerStyles = {
+    width: "210mm",
+    height: "297mm",
+    padding: "20px",
+    backgroundColor: "#ffffff",
+    boxShadow: 3,
+    fontFamily: "Arial, sans-serif",
+    border: "6px solid rgb(19, 71, 21)",
+    "@media print": {
+      boxShadow: "none",
+      border: "none",
+    }
+  };
+
+  // Header component
+  const Header = () => (
+    <Box
       sx={{
-        width: "210mm",
-        height: "297mm",
-        padding: "20px",
-        backgroundColor: "#ffffff", // White background
-        boxShadow: 3,
-        fontFamily: "Arial, sans-serif",
-        border: "6px solid rgb(19, 71, 21)", // Thick green border
+        textAlign: "center",
+        mb: 2,
+        backgroundColor: "#4caf50",
+        color: "#ffffff",
+        padding: "10px",
+        borderRadius: "4px",
       }}
     >
-      {/* Header Section with Thick Green Background */}
-      <Box
-        sx={{
-          textAlign: "center",
-          mb: 2, // Reduced margin
-          backgroundColor: "#4caf50", // Green background
-          color: "#ffffff", // White text
-          padding: "10px", // Reduced padding
-          borderRadius: "4px",
-        }}
-      >
-         {/* Profile Picture */}
-                
-                {profilePic && (
-          <Avatar
-            src={profilePic}
-            alt="Profile Picture"
-            sx={{ width: 100, height: 100, margin: "0 auto", mb: 1 }}
-          />
-        )}
-                  
-
-        {/* Name and Designation */}
-        <Typography variant="h4" fontWeight="bold">
-          {resumeData?.firstName} {resumeData?.lastName}
-        </Typography>
-        <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
-          {resumeData?.designation || "Your Designation"}
-        </Typography>
-
-        {/* Contact Information */}
-        <Box sx={{ mt: 1 }}>
-          <Typography variant="body2">
-            📧 {resumeData?.email || "your.email@example.com"} | 📞{" "}
-            {resumeData?.phoneNumber || "Your Phone Number"} | 📍{" "}
-            {resumeData?.city || "City"}, {resumeData?.address || "Your Address"}
-          </Typography>
-        </Box>
-      </Box>
-
-     
-
-      {/* About Me Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          About Me
-        </Typography>
-        <Typography variant="body2" sx={{ fontSize: "0.9rem" }}> {/* Smaller font */}
-          {resumeData?.careerObjective || "Your profile summary goes here."}
-        </Typography>
-      </Box>
-
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
-
-      {/* Experience Section */}
-      {resumeData.experiences && resumeData.experiences.length > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-            Work Experience
-          </Typography>
-          {resumeData.experiences.map((experience, index) => (
-            <Box key={index} mb={1}>
-              <Typography variant="h6" sx={{ fontSize: "1rem" }}>{experience.jobTitle}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
-                at {experience.company} | {experience.startDate} - {experience.endDate}
-              </Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{experience.description}</Typography>
-            </Box>
-          ))}
-        </Box>
+      {profilePic && (
+        <Avatar
+          src={profilePic}
+          alt="Profile Picture"
+          sx={{ 
+            width: 100, 
+            height: 100, 
+            margin: "0 auto", 
+            mb: 1,
+            border: "3px solid rgb(19, 71, 21)"
+          }}
+        />
       )}
-
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
-
-      {/* Education Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          Education
+      <Typography variant="h4" fontWeight="bold">
+        {resumeData?.firstName} {resumeData?.lastName}
+      </Typography>
+      <Typography variant="subtitle1" sx={{ color: "#ffffff" }}>
+        {resumeData?.designation || "Your Designation"}
+      </Typography>
+      <Box sx={{ mt: 1 }}>
+        <Typography variant="body2">
+          📧 {resumeData?.email || "your.email@example.com"} | 📞{" "}
+          {resumeData?.phoneNumber || "Your Phone Number"} | 📍{" "}
+          {resumeData?.city || "City"}, {resumeData?.address || "Your Address"}
         </Typography>
-        {resumeData.education && resumeData.education.length > 0 ? (
-          resumeData.education.map((edu, index) => (
-            <Box key={index} mb={1}>
-              <Typography variant="h6" sx={{ fontSize: "1rem" }}>{edu.institution}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{edu.fieldOfStudy}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{`${edu.startYear} - ${edu.endYear}`}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{edu.percentage}</Typography>
-            </Box>
+      </Box>
+    </Box>
+  );
+
+  // Section title component
+  const SectionTitle = ({ children }) => (
+    <Typography 
+      variant="h5" 
+      fontWeight="bold" 
+      color="#4caf50"
+      sx={{ mb: 1 }}
+    >
+      {children}
+    </Typography>
+  );
+
+  // Green divider component
+  const GreenDivider = () => (
+    <Divider sx={{ 
+      my: 1, 
+      backgroundColor: "#4caf50", 
+      height: "2px" 
+    }} />
+  );
+
+  // Main content sections
+  const AboutSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>About Me</SectionTitle>
+      <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
+        {resumeData?.careerObjective || "Your profile summary goes here."}
+      </Typography>
+    </Box>
+  );
+
+  const ExperienceSection = () => (
+    resumeData.experience?.length > 0 && (
+      <Box sx={{ mb: 2 }}>
+        <SectionTitle>Work Experience</SectionTitle>
+        {resumeData.experience.map((exp, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" sx={{ fontSize: "1rem" }}>{exp.jobTitle}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
+              at {exp.company} | {exp.startDate} - {exp.endDate}
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{exp.description}</Typography>
+          </Box>
+        ))}
+      </Box>
+    )
+  );
+
+  const EducationSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>Education</SectionTitle>
+      {resumeData.education?.length > 0 ? (
+        resumeData.education.map((edu, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" sx={{ fontSize: "1rem" }}>{edu.institution}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{edu.fieldOfStudy}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
+              {edu.startYear} - {edu.endYear} | {edu.percentage}
+            </Typography>
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your education details</Typography>
+      )}
+    </Box>
+  );
+
+  const SkillsSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>Skills</SectionTitle>
+      <Grid container spacing={1}>
+        {resumeData.skills?.length > 0 ? (
+          resumeData.skills.map((skill, index) => (
+            <Grid item xs={6} key={index}>
+              <Typography variant="body1" fontWeight="bold" sx={{ fontSize: "0.9rem" }}>
+                {skill.skill}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" sx={{ fontSize: "0.8rem" }}>
+                Level: {skill.proficiency}
+              </Typography>
+            </Grid>
           ))
         ) : (
-          <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your education details go here.</Typography>
+          <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your skills</Typography>
         )}
-      </Box>
+      </Grid>
+    </Box>
+  );
 
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
+  const TrainingSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>Trainings</SectionTitle>
+      {resumeData.training?.length > 0 ? (
+        resumeData.training.map((train, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" sx={{ fontSize: "1rem" }}>{train.trainingTitle}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
+              Institute: {train.institute} | Completed: {train.completion}
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{train.description}</Typography>
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your trainings</Typography>
+      )}
+    </Box>
+  );
 
-      {/* Skills Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          Skills
-        </Typography>
-        <Grid container spacing={1}>
-          {resumeData.skills && resumeData.skills.length > 0 ? (
-            resumeData.skills.map((skill, index) => (
-              <Grid item xs={6} key={index}>
-                <Typography variant="body1" fontWeight="bold" sx={{ fontSize: "0.9rem" }}>
-                  {skill.skill}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" sx={{ fontSize: "0.8rem" }}>
-                  Level: {skill.proficiency}
-                </Typography>
-              </Grid>
-            ))
-          ) : (
-            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your skills will be displayed here.</Typography>
-          )}
-        </Grid>
-      </Box>
+  const AchievementsSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>Achievements</SectionTitle>
+      {resumeData.achievements?.length > 0 ? (
+        resumeData.achievements.map((ach, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" sx={{ fontSize: "1rem" }}>{ach.achievementTitle}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{ach.description}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{ach.year}</Typography>
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your achievements</Typography>
+      )}
+    </Box>
+  );
 
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
-
-      {/* Achievements Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          Achievements
-        </Typography>
-        {resumeData.achievements && resumeData.achievements.length > 0 ? (
-          resumeData.achievements.map((achievement, index) => (
-            <Box key={index} mb={1}>
-              <Typography variant="h6" sx={{ fontSize: "1rem" }}>{achievement.achievementTitle}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{achievement.description}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{achievement.year}</Typography>
-            </Box>
-          ))
-        ) : (
-          <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your achievements go here.</Typography>
-        )}
-      </Box>
-
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
-
-      {/* Training Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          Trainings
-        </Typography>
-        {resumeData.trainings && resumeData.trainings.length > 0 ? (
-          resumeData.trainings.map((training, index) => (
-            <Box key={index} mb={1}>
-              <Typography variant="h6" sx={{ fontSize: "1rem" }}>{training.trainingTitle}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Institute: {training.institute}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Completion Date: {training.completion}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{training.description}</Typography>
-            </Box>
-          ))
-        ) : (
-          <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your training details will be displayed here.</Typography>
-        )}
-      </Box>
-
-      <Divider sx={{ my: 1, backgroundColor: "#4caf50", height: "1px" }} /> {/* Thick green divider */}
-
-      {/* Projects Section */}
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h5" fontWeight="bold" color="#4caf50"> {/* Green text */}
-          Projects
-        </Typography>
-        {resumeData.projects && resumeData.projects.length > 0 ? (
-          resumeData.projects.map((project, index) => (
-            <Box key={index} mb={1}>
-              <Typography variant="h6" sx={{ fontSize: "1rem" }}>{project.projectTitle}</Typography>
-              <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{project.description}</Typography>
+  const ProjectsSection = () => (
+    <Box sx={{ mb: 2 }}>
+      <SectionTitle>Projects</SectionTitle>
+      {resumeData.project?.length > 0 ? (
+        resumeData.project.map((proj, index) => (
+          <Box key={index} mb={1}>
+            <Typography variant="h6" sx={{ fontSize: "1rem" }}>{proj.projectTitle}</Typography>
+            <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>{proj.description}</Typography>
+            {proj.projectLink && (
               <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>
-                <a href={project.projectLink} target="_blank" rel="noopener noreferrer">
-                  {project.projectLink}
+                <a 
+                  href={proj.projectLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: "#4caf50", textDecoration: "none" }}
+                >
+                  {proj.projectLink}
                 </a>
               </Typography>
-            </Box>
-          ))
-        ) : (
-          <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your project details go here.</Typography>
-        )}
-      </Box>
-    </Container>
+            )}
+          </Box>
+        ))
+      ) : (
+        <Typography variant="body2" sx={{ fontSize: "0.9rem" }}>Your projects</Typography>
+      )}
+    </Box>
+  );
+
+  return (
+    <>
+      {/* First Page */}
+      <Container maxWidth="md" sx={{
+        ...containerStyles,
+        marginBottom: needsSecondPage ? "20px" : 0,
+        "@media print": {
+          marginBottom: 0,
+          pageBreakAfter: needsSecondPage ? "always" : "auto"
+        }
+      }}>
+        <Header />
+        <GreenDivider />
+        <AboutSection />
+        <GreenDivider />
+        <ExperienceSection />
+        <GreenDivider />
+        <EducationSection />
+        <GreenDivider />
+        <SkillsSection />
+        <GreenDivider />
+      
+      </Container>
+
+      {/* Second Page (only if needed) */}
+      {needsSecondPage && (
+        <Container maxWidth="md" sx={{
+          ...containerStyles,
+          "@media print": {
+            pageBreakBefore: "always"
+          }
+        }}>
+          <TrainingSection/>
+          <GreenDivider />
+          <AchievementsSection />
+          <GreenDivider />
+          <ProjectsSection />
+        </Container>
+      )}
+    </>
   );
 };
 
