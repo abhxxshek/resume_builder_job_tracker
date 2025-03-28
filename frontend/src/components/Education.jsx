@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Box, Grid, Card, CardContent, IconButton
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Education = ({ resumeData = {}, handleChange }) => {
-  // const [isEducation, setIsEducation] = useState(false);
+  const [isEducation, setIsEducation] = useState(false);
   const [educationList, setEducationList] = useState( resumeData.education || [] );
   const [formData, setFormData] = useState({
     institution: "",
@@ -12,19 +12,52 @@ const Education = ({ resumeData = {}, handleChange }) => {
     endYear: "",
     percentage: ""
   });
+  const [errors, setErrors] = useState({});
 
-  // const displayForm = () => {
-  //   setIsEducation(true);
-  // };
+  const displayForm = () => {
+    setIsEducation(true);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    handleChange(e); // Update the template as well
+    handleChange(e);
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+    if (!formData.institution.trim()) {
+      newErrors.institution = "School name is required";
+    } else if (/\d/.test(formData.institution)) {
+      newErrors.institution = "School name should not contain numbers";
+    }
+    
+    if (!formData.fieldOfStudy.trim()) {
+      newErrors.fieldOfStudy = "Degree is required";
+    } else if (/\d/.test(formData.fieldOfStudy)) {
+      newErrors.fieldOfStudy = "Degree should not contain numbers";
+    }
+    
+    if (!formData.startYear) {
+      newErrors.startYear = "Start date is required";
+    }
+    
+    if (!formData.endYear) {
+      newErrors.endYear = "End date is required";
+    } else if (formData.startYear && formData.endYear && formData.startYear > formData.endYear) {
+      newErrors.endYear = "End date cannot be before start date";
+    }
+    
+    if (!formData.percentage || formData.percentage < 0 || formData.percentage > 100) {
+      newErrors.percentage = "Percentage must be between 0 and 100";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleAddEducation = () => {
-    if (formData.institution && formData.fieldOfStudy) {
+    if (validateForm()) {
       const newList = [...educationList, formData];
       setEducationList(newList);
       setFormData({
@@ -34,14 +67,15 @@ const Education = ({ resumeData = {}, handleChange }) => {
         endYear: "",
         percentage: ""
       });
-      handleChange({ target: { name: 'education', value: newList } }); // Update the template
+      setErrors({});
+      handleChange({ target: { name: 'education', value: newList } });
     }
   };
 
   const handleDelete = (index) => {
     const updatedList = educationList.filter((_, i) => i !== index);
     setEducationList(updatedList);
-    handleChange({ target: { name: 'education', value: updatedList } }); // Update the template
+    handleChange({ target: { name: 'education', value: updatedList } });
   };
 
   return (
@@ -52,6 +86,41 @@ const Education = ({ resumeData = {}, handleChange }) => {
       <Typography variant="body2" color="textSecondary" textAlign="left" gutterBottom>
         A varied education on your resume sums up the value that your learnings and background will bring to a job.
       </Typography>
+
+      {isEducation && (
+        <Box component="form" sx={{ flexGrow: 1, mb: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField label="School" name="institution" variant="outlined" fullWidth value={formData.institution} 
+                onChange={handleInputChange} error={!!errors.institution} helperText={errors.institution} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Degree" name="fieldOfStudy" variant="outlined" fullWidth value={formData.fieldOfStudy} 
+                onChange={handleInputChange} error={!!errors.fieldOfStudy} helperText={errors.fieldOfStudy} />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField label="Start Date" type="date" name="startYear" value={formData.startYear} 
+                onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth error={!!errors.startYear} helperText={errors.startYear} />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField label="End Date" type="date" name="endYear" value={formData.endYear} 
+                onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth error={!!errors.endYear} helperText={errors.endYear} />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField label="Percentage" type="number" name="percentage" value={formData.percentage} 
+                onChange={handleInputChange} variant="outlined" fullWidth 
+                error={!!errors.percentage} helperText={errors.percentage} />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="primary" fullWidth onClick={handleAddEducation}>Add</Button>
+            </Grid>
+          </Grid>
+        </Box>
+      )}
+
+      <Button color="primary" sx={{ marginBottom: "20px" }} onClick={displayForm}>
+        + Add Education
+      </Button>
 
       {educationList.map((edu, index) => (
         <Card key={index} sx={{ mb: 2 }}>
@@ -65,36 +134,9 @@ const Education = ({ resumeData = {}, handleChange }) => {
         </Card>
       ))}
 
-      {/* {isEducation && ( */}
-        <Box component="form" sx={{ flexGrow: 1, mb: 2 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField label="School" name="institution" variant="outlined" fullWidth value={formData.institution} onChange={handleInputChange} />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField label="Degree" name="fieldOfStudy" variant="outlined" fullWidth value={formData.fieldOfStudy} onChange={handleInputChange} />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField label="Start Date" type="date" name="startYear" value={formData.startYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField label="End Date" type="date" name="endYear" value={formData.endYear} onChange={handleInputChange} InputLabelProps={{ shrink: true }} fullWidth />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField label="Percentage" type="number" name="percentage" value={formData.percentage} onChange={handleInputChange}  variant="outlined" fullWidth />
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant="contained" color="primary" fullWidth onClick={handleAddEducation}>Add</Button>
-            </Grid>
-          </Grid>
-        </Box>
-      {/* )} */}
-
-      {/* <Button color="primary" sx={{ marginTop: "20px" }} onClick={displayForm}>
-        + Add Education
-      </Button> */}
     </Box>
   );
 };
 
 export default Education;
+

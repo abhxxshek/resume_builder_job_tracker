@@ -5,6 +5,7 @@ import {
   Typography, 
   Container, 
   Grid, 
+  Box,
   IconButton, 
   Card, 
   CardContent 
@@ -12,10 +13,10 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Achievements = ({ resumeData = {}, handleChange }) => {
-  // In Achievements.jsx
-const [achievementsList, setAchievementsList] = useState(
-  Array.isArray(resumeData?.achievements) ? resumeData.achievements : []
-);
+  const [achievementsList, setAchievementsList] = useState(
+    Array.isArray(resumeData?.achievements) ? resumeData.achievements : []
+  );
+
   const [formData, setFormData] = useState({
     achievementTitle: "",
     year: "",
@@ -24,7 +25,14 @@ const [achievementsList, setAchievementsList] = useState(
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+
+    // Restrict Year input to max 4 digits and allow only numbers
+    if (name === "year") {
+      if (!/^\d*$/.test(value)) return; // Allow only numbers
+      if (value.length > 4) return; // Restrict to max 4 digits
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAddAchievement = () => {
@@ -56,19 +64,6 @@ const [achievementsList, setAchievementsList] = useState(
         Add your most notable works and accomplishments.
       </Typography>
 
-      {achievementsList.map((achievements, index) => (
-        <Card key={index} sx={{ mb: 2 }}>
-          <CardContent>
-            <Typography variant="h6">{achievements.achievementTitle}</Typography>
-            <Typography variant="subtitle1">{achievements.year}</Typography>
-            <Typography variant="body2">{achievements.description}</Typography>
-            <IconButton onClick={() => handleDelete(index)}>
-              <DeleteIcon />
-            </IconButton>
-          </CardContent>
-        </Card>
-      ))}
-
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField 
@@ -81,13 +76,16 @@ const [achievementsList, setAchievementsList] = useState(
           />
         </Grid>
         <Grid item xs={12}>
+          {/* Year Input - Only Numbers, Max 4 Digits */}
           <TextField 
-            label="Year" 
+            label="Year (YYYY)" 
             variant="outlined" 
             fullWidth 
+            type="text" 
             name="year" 
             value={formData.year} 
             onChange={handleInputChange} 
+            inputProps={{ maxLength: 4 }} // Ensure max 4 characters
           />
         </Grid>
         <Grid item xs={12}>
@@ -113,6 +111,22 @@ const [achievementsList, setAchievementsList] = useState(
           </Button>
         </Grid>
       </Grid>
+
+      {/* Achievements List Section */}
+      <Box sx={{ mt: 3 }}>
+        {achievementsList.map((achievements, index) => (
+          <Card key={index} sx={{ mb: 2 }}>
+            <CardContent>
+              <Typography variant="h6">{achievements.achievementTitle}</Typography>
+              <Typography variant="subtitle1">{achievements.year}</Typography>
+              <Typography variant="body2">{achievements.description}</Typography>
+              <IconButton onClick={() => handleDelete(index)}>
+                <DeleteIcon />
+              </IconButton>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
     </Container>
   );
 };

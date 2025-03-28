@@ -47,6 +47,18 @@ const Register = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  const validateName = (name) => {
+    return /^[a-zA-Z ]+$/.test(name);
+  };
+
+  const validateEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -54,6 +66,21 @@ const Register = () => {
     // Validation
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields');
+      return;
+    }
+
+    if (!validateName(name)) {
+      setError('Name should only contain letters and spaces');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError('Invalid email format');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError('Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character.');
       return;
     }
 
@@ -78,7 +105,6 @@ const Register = () => {
         throw new Error(data.message || 'Registration failed');
       }
 
-      // Force redirect to login page with success state
       window.location.href = '/login?registered=true';
     } catch (error) {
       setError(error.message);
@@ -163,18 +189,9 @@ const Register = () => {
             value={password}
             onChange={handleChange}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon color="action" />
-                </InputAdornment>
-              ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={toggleShowPassword}
-                    edge="end"
-                  >
+                  <IconButton onClick={toggleShowPassword} edge="end">
                     {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
@@ -193,55 +210,28 @@ const Register = () => {
             value={confirmPassword}
             onChange={handleChange}
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon color="action" />
-                </InputAdornment>
-              ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={toggleShowConfirmPassword}
-                    edge="end"
-                  >
+                  <IconButton onClick={toggleShowConfirmPassword} edge="end">
                     {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </IconButton>
                 </InputAdornment>
               ),
             }}
           />
-          
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ 
-              mt: 3, 
-              mb: 2, 
-              py: 1.5,
-              backgroundColor: '#2c3e50',
-              '&:hover': { backgroundColor: '#1a252f' }
-            }}
+            sx={{ mt: 3, mb: 2, backgroundColor: '#2c3e50', '&:hover': { backgroundColor: '#1a252f' } }}
             disabled={loading}
           >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign Up'}
           </Button>
-          
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Typography variant="body2" align="center">
-                Already have an account?{' '}
-                <Link component={RouterLink} to="/login" variant="body2" sx={{ fontWeight: 'bold' }}>
-                  Sign In
-                </Link>
-              </Typography>
-            </Grid>
-          </Grid>
         </Box>
       </Paper>
     </Container>
   );
 };
 
-export default Register; 
+export default Register;
