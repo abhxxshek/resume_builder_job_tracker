@@ -104,7 +104,9 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
       return decoded.role === "admin"
         ? [
             { label: "Dashboard", path: "/admin-dashboard" },
+            { label: "Templates", path: "/admin-template" },
             { label: "Transaction Details", path: "/admin-payment" }
+            
           ]
         : [
             { label: "Dashboard", path: "/dashboard" },
