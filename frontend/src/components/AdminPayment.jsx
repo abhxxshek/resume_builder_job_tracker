@@ -12,6 +12,7 @@ import {
   Button,
   Modal,
 } from "@mui/material";
+import dayjs from "dayjs";
 import axiosInstance from "../../axiosInterceptor";
 
 const AdminPayment = () => {
@@ -78,7 +79,7 @@ const AdminPayment = () => {
                 <TableCell sx={{textAlign:"center"}}>₹{row.amount}</TableCell>
                 <TableCell sx={{textAlign:"center"}}>{row.paymentId}</TableCell>
                 <TableCell sx={{textAlign:"center"}}>{row.method}</TableCell>
-                <TableCell sx={{textAlign:"center"}}>{row.date}</TableCell>
+                <TableCell sx={{textAlign:"center"}}>{dayjs(row.date).format("DD-MM-YYYY")}</TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
@@ -118,7 +119,7 @@ const AdminPayment = () => {
               <Typography><strong>Buyer Name:</strong> {selectedReceipt.buyerName}</Typography>
               <Typography><strong>Email:</strong> {selectedReceipt.email}</Typography>
               <Typography><strong>Amount Paid:</strong> {selectedReceipt.amount}</Typography>
-              <Typography><strong>Purchase Date:</strong> {selectedReceipt.date}</Typography>
+              <Typography><strong>Purchase Date:</strong> {dayjs(selectedReceipt.date).format("DD-MM-YYYY")}</Typography>
               <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
                 <Button variant="contained" onClick={handleClose}>Close</Button>
               </Box>

@@ -94,12 +94,13 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
     handleCloseUserMenu();
   };
 
- 
+ var userDetails={};
 
   const getNavigationItems = () => {
     if (currentUser) {
       
       const decoded = jwtDecode(currentUser);
+      userDetails=decoded;
       return decoded.role === "admin"
         ? [
             { label: "Dashboard", path: "/admin-dashboard" },
@@ -108,7 +109,8 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
         : [
             { label: "Dashboard", path: "/dashboard" },
             { label: "Templates", path: "/templates" },
-            { label: "Job Search", path: "/job-search" }
+            { label: "Job Search", path: "/job-search" },
+            { label: "Purchase History", path: "/user-payments" }
           ];
       
     }
@@ -197,7 +199,7 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar sx={{ bgcolor: '#1976d2', color: 'white' }}>
-                      {currentUser.name ? currentUser.name.charAt(0).toUpperCase() : 'U'}
+                      {userDetails.name ? userDetails.name.charAt(0).toUpperCase() : 'U'}
                     </Avatar>
                   </IconButton>
                 </Tooltip>
@@ -209,10 +211,10 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
                 >
                   <Box sx={{ px: 2, py: 1 }}>
                     <Typography variant="subtitle1" fontWeight="bold">
-                      {currentUser.name}
+                      {userDetails.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {currentUser.email}
+                      {userDetails.email}
                     </Typography>
                   </Box>
                   <Divider />

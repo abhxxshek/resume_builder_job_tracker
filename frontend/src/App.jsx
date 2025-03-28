@@ -17,6 +17,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import Contact from "./components/Contact";
 import AboutUs from "./components/Aboutus";
 import AdminTemplate from "./components/AdminTemplate";
+import UserPayments from "./components/UserPayments";
 // import Myresumes from "./components/Myresumes";
 
 
@@ -91,7 +92,7 @@ function App() {
           <Route path="/admin-payment" element={<AdminPayment/>} />
           <Route path="/job-search" element={<JobSearch/>} />
           <Route path="/admin-template" element={<AdminTemplate/>} />
-          {/* <Route path="/myresumes" element={<Myresumes/>} /> */}
+          <Route path="/user-payments" element={<UserPayments/>} />
           <Route path="/payment" element={<Payment/>} />
             
         </Route>

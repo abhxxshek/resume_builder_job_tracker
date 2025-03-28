@@ -6,6 +6,7 @@ const notificationModel = require('../models/Notification');
 const userStatsModel = require('../models/userStats');
 const profileModel = require('../models/Profile');
 const UserResumes = require('../models/Resume');
+const payDetailsModel = require('../models/Payment');
 const jwt= require('jsonwebtoken');
 
 function getUser(re) {
@@ -191,6 +192,21 @@ router.delete("/delete-resume/:resume", async (req, res) => {
       res.status(500).json({ error: "Failed to delete resume" });
   }
 });
+
+//fetch the individual payment details
+router.get('/payment-details',async(req,res)=>{
+  try{
+    const user=getUser(req);
+    const payments = await payDetailsModel.find({email:user.email});
+    if(!payments){
+      return res.status(404).json({message:'No payment details found'});
+    }
+    res.status(200).json(payments);
+  } catch (error){
+    console.error('Error fetching payment details:', error);
+    res.status(500).json({ message: 'Error fetching payment details' });
+  }
+})
 
 
 module.exports = router;
