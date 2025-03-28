@@ -230,7 +230,7 @@ const Template2 = ({ resumeData = {} }) => {
         <Box
           sx={{
             width: "70%",
-            padding: "20px",
+            padding: "100px",
             backgroundColor: "#f0faf0",
             overflow: "hidden",
           }}
@@ -239,6 +239,8 @@ const Template2 = ({ resumeData = {} }) => {
           <EducationSection />
           <SkillsSection />
           <TrainingSection />
+          <AchievementsSection />
+            <ProjectsSection />
         </Box>
       </Box>
 
@@ -259,12 +261,11 @@ const Template2 = ({ resumeData = {} }) => {
           <Box
             sx={{
               width: "70%",
-              paddingTop: "100px",
+              paddingTop: "20%",
               backgroundColor: "#f0faf0",
             }}
           >
-            <AchievementsSection />
-            <ProjectsSection />
+            
           </Box>
         </Box>
       )}

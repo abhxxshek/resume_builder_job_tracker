@@ -230,7 +230,7 @@ const Template4 = ({ resumeData = {} }) => {
       {/* First Page */}
       <Container maxWidth="md" sx={{
         ...containerStyles,
-        marginBottom: needsSecondPage ? "20px" : 0,
+        marginBottom: needsSecondPage ? "100px" : 0,
         "@media print": {
           marginBottom: 0,
           pageBreakAfter: needsSecondPage ? "always" : "auto"
@@ -243,10 +243,8 @@ const Template4 = ({ resumeData = {} }) => {
         <ExperienceSection />
         <RedDivider />
         <EducationSection />
-        <RedDivider />
-        <SkillsSection />
-        <RedDivider />
-        <TrainingSection />
+        
+        
       </Container>
 
       {/* Second Page (only if needed) */}
@@ -259,9 +257,12 @@ const Template4 = ({ resumeData = {} }) => {
         }}>
           
           <RedDivider />
+        <TrainingSection />
+        <RedDivider />
           <AchievementsSection />
           <RedDivider />
           <ProjectsSection />
+          
         </Container>
       )}
     </>

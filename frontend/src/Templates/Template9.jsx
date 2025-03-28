@@ -355,6 +355,10 @@ const Template9 = ({ resumeData = {} }) => {
           {renderEducation()}
           {renderSkills()}
           {renderExperience()}
+          {renderTraining()}
+          {renderProjects()}
+          {renderAchievements()}
+          
         </>,
         true
       )}
