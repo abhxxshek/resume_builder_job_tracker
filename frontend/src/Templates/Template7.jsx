@@ -279,7 +279,7 @@ const Template7 = ({ resumeData = {} }) => {
       {/* First Page */}
       <Container maxWidth="md" sx={{
         ...containerStyles,
-        marginBottom: needsSecondPage ? "20px" : 0,
+        marginBottom: needsSecondPage ? "100px" : 0,
         "@media print": {
           marginBottom: 0,
           pageBreakAfter: needsSecondPage ? "always" : "auto"

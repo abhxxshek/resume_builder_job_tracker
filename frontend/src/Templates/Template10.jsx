@@ -352,6 +352,11 @@ const Template10 = ({ resumeData = {} }) => {
           {renderContact()}
           {renderEducation()}
           {renderSkills()}
+          {renderExperience()}
+          
+        {renderTraining()}
+          {renderProjects()}
+          {renderAchievements()}
           
         </>,
         true
@@ -360,11 +365,7 @@ const Template10 = ({ resumeData = {} }) => {
       {/* Second Page (only if needed) */}
       {needsSecondPage && renderPage(
         <>
-        {renderExperience()}
-          
-        {renderTraining()}
-          {renderProjects()}
-          {renderAchievements()}
+        
         </>
       )}
     </>

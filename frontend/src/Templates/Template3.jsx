@@ -219,7 +219,7 @@ const Template3 = ({ resumeData = {} }) => {
       {/* First Page */}
       <Container maxWidth="md" sx={{
         ...containerStyles,
-        marginBottom: needsSecondPage ? "20px" : 0,
+        marginBottom: needsSecondPage ? "100px" : 0,
         "@media print": {
           marginBottom: 0,
           pageBreakAfter: needsSecondPage ? "always" : "auto"
@@ -235,7 +235,7 @@ const Template3 = ({ resumeData = {} }) => {
         <Divider sx={{ my: 1, backgroundColor: "rgb(188, 81, 19)", height: "1px" }} />
         <SkillsSection />
         <Divider sx={{ my: 1, backgroundColor: "rgb(188, 81, 19)", height: "1px" }} />
-        <TrainingSection />
+        
       </Container>
 
       {/* Second Page (only if needed) */}
@@ -246,11 +246,12 @@ const Template3 = ({ resumeData = {} }) => {
             pageBreakBefore: "always"
           }
         }}>
-          
-          <Divider sx={{ my: 1, backgroundColor: "rgb(188, 81, 19)", height: "1px" }} />
+          <TrainingSection />
+        <Divider sx={{ my: 1, backgroundColor: "rgb(188, 81, 19)", height: "1px" }} />
           <AchievementsSection />
           <Divider sx={{ my: 1, backgroundColor: "rgb(188, 81, 19)", height: "1px" }} />
           <ProjectsSection />
+         
         </Container>
       )}
     </>
