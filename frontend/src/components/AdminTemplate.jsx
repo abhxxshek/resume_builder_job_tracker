@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Grid,Typography,Box,Paper, Container,Button,Tabs, Tab,Chip} from "@mui/material";
+import {Grid,Typography,Box,Paper, Container,Button,Tabs, Tab,Chip,TextField} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Template1 from "../Templates/Template1";
 import Template2 from "../Templates/Template2";
@@ -11,11 +11,50 @@ import Template7 from "../Templates/Template7";
 import Template8 from "../Templates/Template8";
 import Template9 from "../Templates/Template9";
 import Template10 from "../Templates/Template10";
+import { keyframes } from '@emotion/react';
+import axiosInstance from "../../axiosInterceptor";
 
+
+const buttonHover = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("all");
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!inputValue) {
+      alert('Input cannot be empty');
+      return;
+    }
+    setIsLoading(true);
+    try {
+      await axiosInstance.post('/admin/add-notification', { message: inputValue });
+    } catch (error) {
+      console.log('Failed to submit data.',error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Define template categories
   const categories = {
@@ -57,6 +96,49 @@ const AdminTemplate = () => {
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box sx={{ mb: 4, textAlign: "center" }}>
+      <Typography variant="h4" component="h1" gutterBottom sx={{ 
+          fontWeight: 600, 
+          color: "#2c3e50"
+        }}>
+          Notify Users
+        </Typography>
+      <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 2,
+        flexWrap: 'wrap',
+        padding: 2,
+      }}
+    >
+      <TextField
+        label="Notify Users"
+        variant="outlined"
+        value={inputValue}
+        onChange={handleInputChange}
+        fullWidth
+        sx={{
+          maxWidth: 300,
+        }}
+      />
+      <Button
+        variant="contained"
+        onClick={handleSubmit}
+        disabled={isLoading}
+        sx={{
+          maxWidth: 150,
+          backgroundColor: '#1976d2',
+          '&:hover': {
+            backgroundColor: '#115293',
+            animation: `${buttonHover} 0.5s ease-in-out`,
+          },
+          animation: isLoading ? `${buttonHover} 0.5s ease-in-out infinite` : 'none',
+        }}
+      >
+        {isLoading ? 'Sending...' : 'Send'}
+      </Button>
+    </Box>
         <Typography variant="h4" component="h1" gutterBottom sx={{ 
           fontWeight: 600, 
           color: "#2c3e50"
