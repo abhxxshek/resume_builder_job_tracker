@@ -118,7 +118,7 @@ const AdminPayment = () => {
               <Typography><strong>Resume Name:</strong> {selectedReceipt.resumeName}</Typography>
               <Typography><strong>Buyer Name:</strong> {selectedReceipt.buyerName}</Typography>
               <Typography><strong>Email:</strong> {selectedReceipt.email}</Typography>
-              <Typography><strong>Amount Paid:</strong> {selectedReceipt.amount}</Typography>
+              <Typography><strong>Amount Paid:</strong> ₹{selectedReceipt.amount}</Typography>
               <Typography><strong>Purchase Date:</strong> {dayjs(selectedReceipt.date).format("DD-MM-YYYY")}</Typography>
               <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
                 <Button variant="contained" onClick={handleClose}>Close</Button>
