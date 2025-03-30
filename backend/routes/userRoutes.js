@@ -25,7 +25,12 @@ router.get("/jobs", async (req, res) => {
       console.log('Profile not found');
   } else {
     const userSkills =  profile.skills.map(item => item.skill);
+    if (userSkills.length > 0) {
     console.log('Profile found:',userSkills.join(','));
+    }else{
+      console.log('No skills found');
+      res.status(200).json('No skills in your profile');
+    }
     const options = {
       method: 'GET',
       url: 'https://linkedin-data-api.p.rapidapi.com/search-jobs-v2',
