@@ -28,6 +28,7 @@ import Template6 from "./Template6";
 import Template7 from "./Template7";
 import Template8 from "./Template8";
 import Template10 from "./Template10";
+import Template13 from "./Template13";
 import Template9 from "./Template9";
 
 const TemplateView = ({ resumeData = {}, isPremiumUser = false }) => {
@@ -58,7 +59,8 @@ const TemplateView = ({ resumeData = {}, isPremiumUser = false }) => {
     7: ["creative","premium"],
     8: ["modern","premium"],
     9: ["creative", "modern","premium"],
-    10: ["professional","premium"]
+    10: ["professional","premium"],
+    13: ["creative","Editable"]
   };
 
   // Check if template is premium (templates 6-10)
@@ -91,8 +93,8 @@ const TemplateView = ({ resumeData = {}, isPremiumUser = false }) => {
 
   // Filter templates by category
   const filteredTemplates = activeCategory === "all" 
-    ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
-    : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(
+    ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,13] 
+    : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,13].filter(
         templateNum => templateCategories[templateNum].includes(activeCategory)
       );
 
@@ -309,6 +311,7 @@ const TemplateView = ({ resumeData = {}, isPremiumUser = false }) => {
                     {templateNum === 8 && <Template8 resumeData={resumeData} />}
                     {templateNum === 9 && <Template9 resumeData={resumeData} />}
                     {templateNum === 10 && <Template10 resumeData={resumeData} />}
+                    {templateNum === 13 && <Template13 resumeData={resumeData} />}
                   </Box>
                 </Box>
               </Box>

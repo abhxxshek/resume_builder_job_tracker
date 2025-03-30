@@ -18,6 +18,7 @@ import Contact from "./components/Contact";
 import AboutUs from "./components/Aboutus";
 import AdminTemplate from "./components/AdminTemplate";
 import UserPayments from "./components/UserPayments";
+import TemplateEditor from "./components/TemplateEditor";
 // import Myresumes from "./components/Myresumes";
 
 
@@ -94,7 +95,7 @@ function App() {
           <Route path="/admin-template" element={<AdminTemplate/>} />
           <Route path="/user-payments" element={<UserPayments/>} />
           <Route path="/payment" element={<Payment/>} />
-            
+          <Route path="/edit-template" element={<TemplateEditor/>} />
         </Route>
       </Routes>
     </>

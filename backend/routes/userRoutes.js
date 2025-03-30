@@ -7,6 +7,7 @@ const userStatsModel = require('../models/userStats');
 const profileModel = require('../models/Profile');
 const UserResumes = require('../models/Resume');
 const payDetailsModel = require('../models/Payment');
+const styleModel = require('../models/Style');
 const jwt= require('jsonwebtoken');
 
 function getUser(re) {
@@ -208,5 +209,16 @@ router.get('/payment-details',async(req,res)=>{
   }
 })
 
+// style update 
+router.get('/savedStyle', async (req, res) => {
+  try {
+     const newStyle = await styleModel.findOne({templateName: 'Template13.jsx'});
+      // console.log(newStyle);   
+     res.status(200).json(newStyle);
+  }catch (error) {
+     console.error('Error adding notification:', error);
+     res.status(500).json({ message: 'Error finding styles' });
+  }
+}); 
 
 module.exports = router;
