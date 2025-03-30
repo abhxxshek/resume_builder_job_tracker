@@ -16,8 +16,7 @@ const profileSchema = new mongoose.Schema({
       city:String,
       address: String,
       careerObjective:String,
-      // linkedIn: String,
-      // github: String,
+      
     skills: [{
       skill: String,
       proficiency: {
@@ -28,10 +27,10 @@ const profileSchema = new mongoose.Schema({
     experience: [{
       jobTitle: String,
       company: String,
-      // location: String,
+      
       startDate: Date,
       endDate: Date,
-      // currentJob: Boolean,
+      
       description: String,
     }],
     education: [{

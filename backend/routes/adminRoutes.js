@@ -16,25 +16,7 @@ function getUser(re) {
   return decoded
 }
 
-// router.get('/add',async (req,res)=>{ 
 
-// try{
-//   // const temp = await templateModel.find();
-//   // res.status(200).json(temp);
-//     // console.log(temp);
-//     const options = {
-//       method: 'GET',
-//       url: "https://res.cloudinary.com/dqpldrhqs/raw/upload/v1742831226/Template9_e4tm4j.jsx"
-      
-//   };
-//      const response = await axios.request(options);
-//                 console.log(response.data);
-//                 res.status(200).json(response.data);
-//   } catch (error) {
-//     console.error('Error :', error);
-//   }
-
-// })
 
 module.exports = (io) => {
 
@@ -77,12 +59,7 @@ router.get('/userstats', async (req, res) => {
   //add a new template
   router.get('/add-template', async (req, res) => {
           try {
-              // Emit an event to notify all connected clients
-              // const { name, price, isFree, cloudinaryUrl } = req.body; 
-        // const newTemplate = new Template({ name, price, isFree, cloudinaryUrl });
-        // await newTemplate.save(); 
-        // Emit an event to notify all connected clients
-        // io.emit('newTemplate', 'Enthsda ok  by ');
+              
               io.emit('message', 'New template added');
               res.status(201).json({ message: 'Template added successfully!' });
           } catch (error) {

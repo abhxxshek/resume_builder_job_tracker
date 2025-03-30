@@ -17,11 +17,11 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
+
 import PersonIcon from '@mui/icons-material/Person';
 
 const Register = () => {
-  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',

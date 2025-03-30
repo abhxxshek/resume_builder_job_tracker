@@ -8,7 +8,7 @@ import {
   Button,
   Avatar,
   Stack,
-  Chip,
+ 
   Dialog,
   DialogTitle,
   DialogContent,
@@ -270,27 +270,7 @@ const AdminDashboard = () => {
                       </Grid>
                     </Grid>
                     
-                    {user.templates.length > 0 && (
-                      <>
-                        <Divider sx={{ my: 2 }} />
-                        <Typography variant="subtitle2" fontWeight="bold" sx={{ mb: 1 }}>
-                          Templates Used:
-                        </Typography>
-                        <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                          {user.templates.map((template, index) => (
-                            <Chip 
-                              key={index}
-                              label={template}
-                              size="small"
-                              sx={{ 
-                                backgroundColor: 'rgba(140, 122, 230, 0.1)',
-                                color: '#8c7ae6'
-                              }}
-                            />
-                          ))}
-                        </Stack>
-                      </>
-                    )}
+
                   </CardContent>
                 </Card>
               </Grid>

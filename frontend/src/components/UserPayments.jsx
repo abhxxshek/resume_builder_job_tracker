@@ -26,7 +26,7 @@ const UserPayments = () => {
         axiosInstance
           .get('/user/payment-details')
           .then((res) => {
-            // console.log(res.data);
+            
             setPaymentData(res.data);
           })
           .catch((error) => {
@@ -59,7 +59,7 @@ const UserPayments = () => {
             <Table>
               <TableHead>
                 <TableRow sx={{ background: "#40739e" }}>
-                  {/* <TableCell sx={{ color: "#fff" }}>Resume Name</TableCell> */}
+                 
                   <TableCell sx={{ color: "#fff",textAlign:"center" }}>Template Name</TableCell>
                   <TableCell sx={{ color: "#fff",textAlign:"center" }}>Buyer Name</TableCell>
                   <TableCell sx={{ color: "#fff",textAlign:"center" }}>Email</TableCell>
@@ -73,7 +73,7 @@ const UserPayments = () => {
               <TableBody>
                 {paymentData.map((row) => (
                   <TableRow key={row.id}>
-                    {/* <TableCell>{row.resumeName}</TableCell> */}
+                    
                     <TableCell sx={{textAlign:"center"}}>{row.template}</TableCell>
                     <TableCell sx={{textAlign:"center"}}>{row.buyerName}</TableCell>
                     <TableCell sx={{textAlign:"center"}}>{row.email}</TableCell>

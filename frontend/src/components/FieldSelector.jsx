@@ -7,7 +7,7 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Skills from "./Skills";
 import Achievements from "./Achievements";
-// import Awards from "./Awards";
+
 import Trainings from "./Trainings";
 
 const FieldSelector = ({ selectedField, resumeData, handleChange, navbarColors = {
