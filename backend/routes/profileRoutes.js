@@ -25,7 +25,7 @@ router.get('/profile-details',async (req,res)=>{
 // save 
 
 router.post('/save-resume', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
   const userDetails = getUser(req);
       try {
         const profiles = await profileModel.find();

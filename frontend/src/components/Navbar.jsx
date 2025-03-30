@@ -105,8 +105,8 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
         ? [
             { label: "Dashboard", path: "/admin-dashboard" },
             { label: "Templates", path: "/admin-template" },
-            { label: "Transaction Details", path: "/admin-payment" }
-            
+            { label: "Transaction Details", path: "/admin-payment" },
+            { label: "Edit Template", path: "/edit-template" }
           ]
         : [
             { label: "Dashboard", path: "/dashboard" },

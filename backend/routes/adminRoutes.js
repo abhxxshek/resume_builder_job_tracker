@@ -1,22 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router(); 
 router.use(express.json());
 const payDetailsModel = require('../models/Payment');
 const User = require('../models/User');
-const templateModel = require('../models/Template');
 const notificationModel = require('../models/Notification');
 const userStatsModel = require('../models/userStats');
+const styleModel = require('../models/Style');
 const jwt= require('jsonwebtoken');
-const axios = require("axios");
 
 function getUser(re) {
   const decoded = jwt.verify(re.headers.token,process.env.jwt_secret_key);
   if(!decoded) throw 'Unauthorized access';
   return decoded
 }
-
-
 
 module.exports = (io) => {
 
@@ -56,17 +52,6 @@ router.get('/userstats', async (req, res) => {
       res.status(500).json({ message: 'Error fetching stats' });
   }
 });
-  //add a new template
-  router.get('/add-template', async (req, res) => {
-          try {
-              
-              io.emit('message', 'New template added');
-              res.status(201).json({ message: 'Template added successfully!' });
-          } catch (error) {
-              console.error('Error adding template:', error);
-              res.status(500).json({ message: 'Error adding template' });
-          }
-    });
 
   // Add a new notification 
   router.post('/add-notification', async (req, res) => {
@@ -82,5 +67,30 @@ router.get('/userstats', async (req, res) => {
       }
   });
   
+   // save template Style resume
+ router.post('/save-Style', async (req, res) => {
+  try {
+     const { headingColor, fontSize, color, fontFamily } = req.body;
+     const newStyle = await styleModel.findOneAndUpdate({templateName: 'Template13.jsx'},{
+       careerObjective: '',
+       headingColor:headingColor, 
+       fontSize:fontSize, 
+       color:color, 
+       fontFamily:fontFamily 
+     });
+     
+     // console.log('New style saved successfully!',newStyle);
+     const message = 'Template13.jsx was Updated!';
+     const newNotification = new notificationModel({ message });
+     await newNotification.save();
+     io.emit('notification', newNotification);
+     res.status(201).json(newNotification);
+     }
+   catch (error) {
+     console.error('Error adding notification:', error);
+     res.status(500).json({ message: 'Error adding notification' });
+  }
+}); 
+
   return router; 
 };

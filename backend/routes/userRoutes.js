@@ -7,6 +7,7 @@ const userStatsModel = require('../models/userStats');
 const profileModel = require('../models/Profile');
 const UserResumes = require('../models/Resume');
 const payDetailsModel = require('../models/Payment');
+const styleModel = require('../models/Style');
 const jwt= require('jsonwebtoken');
 
 function getUser(re) {
@@ -24,7 +25,12 @@ router.get("/jobs", async (req, res) => {
       console.log('Profile not found');
   } else {
     const userSkills =  profile.skills.map(item => item.skill);
+    if (userSkills.length > 0) {
     console.log('Profile found:',userSkills.join(','));
+    }else{
+      console.log('No skills found');
+      res.status(200).json('No skills in your profile');
+    }
     const options = {
       method: 'GET',
       url: 'https://linkedin-data-api.p.rapidapi.com/search-jobs-v2',
@@ -208,5 +214,16 @@ router.get('/payment-details',async(req,res)=>{
   }
 })
 
+// style update 
+router.get('/savedStyle', async (req, res) => {
+  try {
+     const newStyle = await styleModel.findOne({templateName: 'Template13.jsx'});
+      // console.log(newStyle);   
+     res.status(200).json(newStyle);
+  }catch (error) {
+     console.error('Error adding notification:', error);
+     res.status(500).json({ message: 'Error finding styles' });
+  }
+}); 
 
 module.exports = router;

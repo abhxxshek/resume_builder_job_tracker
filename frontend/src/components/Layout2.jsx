@@ -15,6 +15,7 @@ import Template7 from "../Templates/Template7";
 import Template8 from "../Templates/Template8";
 import Template9 from "../Templates/Template9";
 import Template10 from "../Templates/Template10";
+import Template13 from "../Templates/Template13";
 import axiosInstance from "../../axiosInterceptor";
 import { jwtDecode } from "jwt-decode";
 import html2canvas from "html2canvas";
@@ -219,6 +220,7 @@ const saveImg = async () => {
               {template === "Template8" && <Template8 resumeData={resumeData} />}
               {template === "Template9" && <Template9 resumeData={resumeData} />}
               {template === "Template10" && <Template10 resumeData={resumeData} />}
+              {template === "Template13" && <Template13 resumeData={resumeData} />}
             </Box>
           </Box>
         </Grid>
