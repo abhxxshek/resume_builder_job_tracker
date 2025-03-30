@@ -231,8 +231,14 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
               <Button component={NavLink} to="/login" color="inherit" sx={{ mr: 1 }}>
                 Login
               </Button>
-              <Button component={NavLink} to="/register" variant="contained" sx={{ backgroundColor: 'white', color: '#2c3e50' }}>
+              <Button component={NavLink} to="/register" color="inherit"  >
                 Register
+              </Button>
+              <Button component={NavLink} to="/contact" color="inherit"  sx={{ mr: 1 }}>
+                Contact Us
+              </Button>
+              <Button component={NavLink} to="/aboutus" color="inherit"  sx={{ mr: 1 }}>
+                About Us
               </Button>
             </Box>
               
@@ -244,5 +250,6 @@ const Navbar = ({ userInfo, setUserInfo, handleLogout }) => {
     </>
   );
 };
+// sx={{  color: '#2c3e50' }}
 
 export default Navbar;

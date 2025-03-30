@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const resumePurchaseSchema = new mongoose.Schema({
   
-  // resumeName: {
-  //   type: String, 
-  //    required: true
-  // },
+
   buyerName: {
     type: String, 
     // required: true

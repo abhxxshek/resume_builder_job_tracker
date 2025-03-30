@@ -83,8 +83,7 @@ const Login = () => {
          }
       });
       
-      // Force a page reload to update the navbar state
-      // window.location.href = '/dashboard';
+
     } catch (error) {
       setError(error.message);
     } finally {

@@ -2,10 +2,9 @@ import React from 'react';
 import { Container, Typography, Box, Grid, Paper, Avatar } from '@mui/material';
 
 const teamMembers = [
-  { name: 'Abhishek A', role: 'Project Manager', img: '/spider man.jpg' },
+  { name: 'Abhishek A', role: 'Project Manager', img: '/batman.jpg' },
   { name: 'Akhil Zacharia', role: 'Developer', img: '/super man.jpg' },
   { name: 'Aksa S Santhosh', role: 'QA Tester', img: '/girl.jpg' },
-  { name: 'Anup Muthali Anil', role: 'UI/UX Designer', img: '/batman.jpg' },
   { name: 'Gokul Santhosh', role: 'Content Developer', img: '/jokker.png' }
 
 ];

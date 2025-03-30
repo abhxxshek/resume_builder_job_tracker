@@ -45,9 +45,9 @@ const Payment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(1);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
   const [templateName, setTemplateName] = useState("");
-  // const [responseId, setResponseId] = useState("");
+
 
 
 
@@ -156,7 +156,7 @@ const Payment = () => {
     axiosInstance
       .request(config)
       .then((response) => {
-        // console.log(JSON.stringify(response.data));
+     
 
         handleRazorpayScreen(response.data.amount);
       })
@@ -202,7 +202,7 @@ const Payment = () => {
       const res = await axiosInstance.get(`http://localhost:3000/payment/paymentId/${paymentId}`);
       const transactionId=paymentId;
       
-      // setResponseState(res.data);
+   
       await savePayment(res.data,transactionId,templateName);
     } catch (error) {
       console.log("Error fetching payment:", error);
@@ -377,34 +377,9 @@ const Payment = () => {
                           ? "Unlock Premium Template" 
                           : "Standard Template Access"}
                       </Typography>
-                      {/* <img
-                        src="/images/human-resources.png"
-                        alt="Template"
-                        style={{
-                          width: "80px",
-                          height: "80px",
-                          borderRadius: "8px",
-                          marginBottom: "10px",
-                        }}
-                      /> */}
+                     
                     </Box>
-{/* 
-                    <Box sx={{ mb: 3, textAlign: "left" }}>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1.5 }}>
-                        What You'll Get:
-                      </Typography>
-                      {[
-                        `Full access to Template ${selectedTemplate}`,
-                        selectedTemplate >= 6 ? "Premium design features" : "Standard features",
-                        "Unlimited edits and downloads",
-                        "Export to PDF, Word, and more",
-                      ].map((feature, idx) => (
-                        <Box key={idx} sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                          <CheckCircleIcon sx={{ color: "#2c3e50", mr: 1, fontSize: 20 }} />
-                          <Typography variant="body2">{feature}</Typography>
-                        </Box>
-                      ))}
-                    </Box> */}
+
 
                     <Box sx={{ mt: "auto" }}>
                       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "baseline", mb: 2 }}>
@@ -418,11 +393,7 @@ const Payment = () => {
                         )}
                       </Box>
 
-                      {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                        {selectedTemplate >= 6 
-                          ? "One-time payment, no recurring fees" 
-                          : "Free to use with basic features"}
-                      </Typography> */}
+                     
 
                       {loading ? (
                         <Button

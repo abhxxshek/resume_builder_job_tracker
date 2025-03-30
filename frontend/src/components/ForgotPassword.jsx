@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   const navigate=useNavigate();
 
   const handleSendOtp = () => {
-    // console.log("Sending OTP to:", email); // Log the email
+ 
     toast.info("Checking email....", {  position: "top-center" }); // Show info message
     axios
       .post("http://localhost:3000/forgot-password/send-otp", { email }) // Send email as an object
@@ -38,8 +38,7 @@ const ForgotPassword = () => {
           });
         }
 
-        // alert("OTP sent successfully");
-        // console.log("Sending OTP to", email);
+      
         setStep("otp"); // Move to the OTP step
       })
       .catch((err) => {
@@ -60,8 +59,7 @@ const ForgotPassword = () => {
         } else {
           toast.success(res.data.message, {autoClose: 2000, position: "top-center"}); // Show success message
         }
-        // alert("OTP verified successfully");
-        // console.log("Verifying OTP", otp);
+
         setStep("reset");
       })
       .catch((err) => {
@@ -72,9 +70,9 @@ const ForgotPassword = () => {
 
   const handleResetPassword = () => {
     if (newPassword !== confirmPassword) {
-      // console.log("Resetting password:", newPassword); // Log the new password
+
       toast.warning("Passwords do not match", {autoClose: 2000, position: "top-center"}); // Show warning message
-      // console.log("Passwords do not match");
+
       return;
     }
     axios
@@ -90,7 +88,7 @@ const ForgotPassword = () => {
           
         }
         
-        // console.log("Resetting password", newPassword);
+ 
       })
       .catch((err) => {
         console.error(err);

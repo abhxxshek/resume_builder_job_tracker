@@ -59,96 +59,96 @@ const JobSearch = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        // const response = await axiosInstance.get("/user/jobs");
-        // setJobs(response.data); 
-        setJobs([
-          {
-              "id": "4182664113",
-              "title": "Housekeeping Supervisor",
-              "url": "https://www.linkedin.com/jobs/view/4182664113",
-              "referenceId": "ddrINX7LoijSKvSQew9KIw==",
-              "posterId": "4086607",
-              "company": {
-                  "id": 163758,
-                  "name": "Fairmont Hotels & Resorts",
-                  "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQFYYdJOlpzC7g/company-logo_200_200/company-logo_200_200/0/1720426207831?e=1748476800&v=beta&t=i3a49NJu2-JK50Mr_4oUyrQrkpdNlO-ydDRpeq-73Sg",
-                  "url": "https://www.linkedin.com/company/fairmont-hotels-and-resorts/life",
-                  "staffCountRange": {"start": 10001},
-                  "headquarter": {
-                    "city": "Dubai",
-                    "country": "AE"
-                  }
-              },
-              "location": "Dubai, Dubai, United Arab Emirates (On-site)",
-              "postAt": "2025-03-14 17:30:38 +0000 UTC",
-              "postedTimestamp": 1741973438000,
-              "state": "Open",
-              "type": "Full-time",
-              "workPlace": "On-site",
-              "skills": ["Management", "Hospitality", "Leadership"],
-              "salary": "AED 5,000 - 6,000 per month",
-              "experience": "3+ years",
-              "views": 124,
-              "applicants": 28
-          },
-          {
-              "id": "4183388649",
-              "title": "Frontend Developer",
-              "url": "https://www.linkedin.com/jobs/view/4183388649",
-              "referenceId": "ddrINX7LoijSKvSQew9KIw==",
-              "posterId": "791580128",
-              "company": {
-                  "id": 2269862,
-                  "name": "Tranzeal Incorporated",
-                  "logo": "https://media.licdn.com/dms/image/v2/C560BAQEd6wmLi_AJpw/company-logo_200_200/company-logo_200_200/0/1631327191600?e=1748476800&v=beta&t=DNxEJMFYkRk2DPhrqAOa9SySfQ8LpzpYEk89iCSIWWQ",
-                  "url": "https://www.linkedin.com/company/tranzeal-inc/life",
-                  "staffCountRange": {"start": 501, "end": 1000},
-                  "headquarter": {
-                    "city": "San Jose",
-                    "country": "US"
-                  }
-              },
-              "location": "Hyderabad, Telangana, India (On-site)",
-              "postAt": "2025-03-17 16:25:53 +0000 UTC",
-              "postedTimestamp": 1742228753000,
-              "state": "Open",
-              "type": "Full-time",
-              "workPlace": "Hybrid",
-              "skills": ["React", "JavaScript", "HTML/CSS", "TypeScript", "Redux"],
-              "salary": "₹800,000 - ₹1,200,000 per year",
-              "experience": "2-5 years",
-              "views": 215,
-              "applicants": 42
-          },
-          {
-              "id": "4183476730",
-              "title": "React JS Full-stack Consultant",
-              "url": "https://www.linkedin.com/jobs/view/4183476730",
-              "referenceId": "ddrINX7LoijSKvSQew9KIw==",
-              "company": {
-                  "id": 1283,
-                  "name": "Infosys",
-                  "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQE7Zf1-vvfbUA/company-logo_200_200/company-logo_200_200/0/1692876768583/infosys_logo?e=1748476800&v=beta&t=vCCF5G3MFlgwlX8ssU7XcuF9t3151bNBp00dTy1WMe8",
-                  "url": "https://www.linkedin.com/company/infosys/life",
-                  "staffCountRange": {"start": 10001},
-                  "headquarter": {
-                    "city": "Bangalore",
-                    "country": "IN"
-                  }
-              },
-              "location": "Bengaluru East, Karnataka, India (On-site)",
-              "postAt": "2025-03-18 07:25:09 +0000 UTC",
-              "postedTimestamp": 1742282709000,
-              "state": "Open",
-              "type": "Full-time",
-              "workPlace": "Hybrid",
-              "skills": ["React", "Java", "DevOps", "JavaScript", "HTML5", "CSS3", "Spring Boot"],
-              "salary": "₹1,000,000 - ₹1,500,000 per year",
-              "experience": "4-7 years",
-              "views": 189,
-              "applicants": 37
-          }
-        ]); 
+        const response = await axiosInstance.get("/user/jobs");
+        setJobs(response.data); 
+
+        //   {
+        //       "id": "4182664113",
+        //       "title": "Housekeeping Supervisor",
+        //       "url": "https://www.linkedin.com/jobs/view/4182664113",
+        //       "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+        //       "posterId": "4086607",
+        //       "company": {
+        //           "id": 163758,
+        //           "name": "Fairmont Hotels & Resorts",
+        //           "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQFYYdJOlpzC7g/company-logo_200_200/company-logo_200_200/0/1720426207831?e=1748476800&v=beta&t=i3a49NJu2-JK50Mr_4oUyrQrkpdNlO-ydDRpeq-73Sg",
+        //           "url": "https://www.linkedin.com/company/fairmont-hotels-and-resorts/life",
+        //           "staffCountRange": {"start": 10001},
+        //           "headquarter": {
+        //             "city": "Dubai",
+        //             "country": "AE"
+        //           }
+        //       },
+        //       "location": "Dubai, Dubai, United Arab Emirates (On-site)",
+        //       "postAt": "2025-03-14 17:30:38 +0000 UTC",
+        //       "postedTimestamp": 1741973438000,
+        //       "state": "Open",
+        //       "type": "Full-time",
+        //       "workPlace": "On-site",
+        //       "skills": ["Management", "Hospitality", "Leadership"],
+        //       "salary": "AED 5,000 - 6,000 per month",
+        //       "experience": "3+ years",
+        //       "views": 124,
+        //       "applicants": 28
+        //   },
+        //   {
+        //       "id": "4183388649",
+        //       "title": "Frontend Developer",
+        //       "url": "https://www.linkedin.com/jobs/view/4183388649",
+        //       "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+        //       "posterId": "791580128",
+        //       "company": {
+        //           "id": 2269862,
+        //           "name": "Tranzeal Incorporated",
+        //           "logo": "https://media.licdn.com/dms/image/v2/C560BAQEd6wmLi_AJpw/company-logo_200_200/company-logo_200_200/0/1631327191600?e=1748476800&v=beta&t=DNxEJMFYkRk2DPhrqAOa9SySfQ8LpzpYEk89iCSIWWQ",
+        //           "url": "https://www.linkedin.com/company/tranzeal-inc/life",
+        //           "staffCountRange": {"start": 501, "end": 1000},
+        //           "headquarter": {
+        //             "city": "San Jose",
+        //             "country": "US"
+        //           }
+        //       },
+        //       "location": "Hyderabad, Telangana, India (On-site)",
+        //       "postAt": "2025-03-17 16:25:53 +0000 UTC",
+        //       "postedTimestamp": 1742228753000,
+        //       "state": "Open",
+        //       "type": "Full-time",
+        //       "workPlace": "Hybrid",
+        //       "skills": ["React", "JavaScript", "HTML/CSS", "TypeScript", "Redux"],
+        //       "salary": "₹800,000 - ₹1,200,000 per year",
+        //       "experience": "2-5 years",
+        //       "views": 215,
+        //       "applicants": 42
+        //   },
+        //   {
+        //       "id": "4183476730",
+        //       "title": "React JS Full-stack Consultant",
+        //       "url": "https://www.linkedin.com/jobs/view/4183476730",
+        //       "referenceId": "ddrINX7LoijSKvSQew9KIw==",
+        //       "company": {
+        //           "id": 1283,
+        //           "name": "Infosys",
+        //           "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQE7Zf1-vvfbUA/company-logo_200_200/company-logo_200_200/0/1692876768583/infosys_logo?e=1748476800&v=beta&t=vCCF5G3MFlgwlX8ssU7XcuF9t3151bNBp00dTy1WMe8",
+        //           "url": "https://www.linkedin.com/company/infosys/life",
+        //           "staffCountRange": {"start": 10001},
+        //           "headquarter": {
+        //             "city": "Bangalore",
+        //             "country": "IN"
+        //           }
+        //       },
+        //       "location": "Bengaluru East, Karnataka, India (On-site)",
+        //       "postAt": "2025-03-18 07:25:09 +0000 UTC",
+        //       "postedTimestamp": 1742282709000,
+        //       "state": "Open",
+        //       "type": "Full-time",
+        //       "workPlace": "Hybrid",
+        //       "skills": ["React", "Java", "DevOps", "JavaScript", "HTML5", "CSS3", "Spring Boot"],
+        //       "salary": "₹1,000,000 - ₹1,500,000 per year",
+        //       "experience": "4-7 years",
+        //       "views": 189,
+        //       "applicants": 37
+        //   }
+        // ]); 
       
       } catch (error) {
         console.error("Error fetching jobs:", error);
@@ -184,89 +184,89 @@ const JobSearch = () => {
 
   const handleViewDetails = async (jobId) => {
     try {
-      // const response = await axiosInstance.get(`/user/jobdetails/${jobId}`);
-      // setSelectedJob(response.data);
+      const response = await axiosInstance.get(`/user/jobdetails/${jobId}`);
+      setSelectedJob(response.data);
       const job = jobs.find(j => j.id === jobId);
-      setSelectedJob({
-        ...job,
+
+    //     ...job,
         
         
-          "id": "4183476730",
-          "state": "LISTED",
-          "title": "React JS Full-stack Consultant",
-          "description": "Primary - React, Java, DevOps Secondary - HTML5, CSS3, JavaScript, jQuery, Java, J2EE, continuous deployment and DevOps tools, Git\n\nAs part of the Infosys delivery team, your primary role would be to interface with the client for quality assurance, issue resolution and ensuring high customer satisfaction.\n\n You will understand requirements, create and review designs, validate the architecture and ensure high levels of service offerings to clients in the technology domain. You will participate in project estimation, provide inputs for solution delivery, conduct technical risk planning, perform code reviews and unit test plan reviews. You will lead and guide your teams towards developing optimized high quality code deliverables, continual knowledge management and adherence to the organizational guidelines and processes. You would be a key contributor to building efficient programs/ systems Analyzing user requirements, envisioning system features and functionality. In-depth knowledge of design issues and best practices Solid understanding of object-oriented programming Familiar with various design, architectural patterns and software development process. Implementing automated testing platforms and unit tests",
-          "url": "https://www.linkedin.com/jobs/view/4183476730/",
-          "applyMethod": {
-              "companyApplyUrl": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-203679&sourceId=4003",
-              "easyApplyUrl": ""
-          },
-          "company": {
-              "id": 1283,
-              "name": "Infosys",
-              "universalName": "infosys",
-              "description": "Infosys is a global leader in next-generation digital services and consulting. We enable clients in more than 50 countries to navigate their digital transformation. With over three decades of experience in managing the systems and workings of global enterprises, we expertly steer our clients through their digital journey. We do it by enabling the enterprise with an AI-powered core that helps prioritize the execution of change. We also empower the business with agile digital at scale to deliver unprecedented levels of performance and customer delight. Our always-on learning agenda drives their continuous improvement through building and transferring digital skills, expertise, and ideas from our innovation ecosystem.\n\nVisit www.infosys.com to see how Infosys (NYSE: INFY) can help your enterprise navigate your next.\n\n",
-              "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQE7Zf1-vvfbUA/company-logo_200_200/company-logo_200_200/0/1692876768583/infosys_logo?e=1748476800&v=beta&t=vCCF5G3MFlgwlX8ssU7XcuF9t3151bNBp00dTy1WMe8",
-              "url": "https://www.linkedin.com/company/infosys",
-              "followerCount": 9852443,
-              "staffCount": 345514,
-              "staffCountRange": {
-                  "start": 10001
-              },
-              "specialities": [
-                  "IT Solutions and Services",
-                  "Consulting",
-                  "Business Process Outsourcing",
-                  "Products and Platforms",
-                  "Engineering Services",
-                  "Cloud Services",
-                  "Artificial Intelligence",
-                  "Digital",
-                  "Big Data"
-              ],
-              "industries": [
-                  "IT Services and IT Consulting"
-              ],
-              "headquarter": {
-                  "geographicArea": "Karnataka",
-                  "country": "IN",
-                  "city": "Bangalore",
-                  "postalCode": "560100",
-                  "line1": "Infosys Limited"
-              }
-          },
-          "contentLanguage": {
-              "code": "EN",
-              "name": "English"
-          },
-          "location": "Bengaluru East, Karnataka, India",
-          "type": "Full-time",
-          "applies": 27,
-          "views": 84,
-          "workPlace": "Hybrid",
-          "expireAt": 1744874708000,
-          "formattedJobFunctions": [
-              "Consulting",
-              "Information Technology",
-              "Sales"
-          ],
-          "jobFunctions": [
-              "CNSL",
-              "IT",
-              "SALE"
-          ],
-          "industries": [
-              96
-          ],
-          "formattedIndustries": [
-              "IT Services and IT Consulting"
-          ],
-          "formattedExperienceLevel": "Mid-Senior level",
-          "listedAt": 1742282709000,
-          "listedAtDate": "2025-03-18 07:25:09 +0000 UTC",
-          "originalListedAt": 1742282709000,
-          "originalListedDate": "2025-03-18 07:25:09 +0000 UTC"
-    }
-      );
+    //       "id": "4183476730",
+    //       "state": "LISTED",
+    //       "title": "React JS Full-stack Consultant",
+    //       "description": "Primary - React, Java, DevOps Secondary - HTML5, CSS3, JavaScript, jQuery, Java, J2EE, continuous deployment and DevOps tools, Git\n\nAs part of the Infosys delivery team, your primary role would be to interface with the client for quality assurance, issue resolution and ensuring high customer satisfaction.\n\n You will understand requirements, create and review designs, validate the architecture and ensure high levels of service offerings to clients in the technology domain. You will participate in project estimation, provide inputs for solution delivery, conduct technical risk planning, perform code reviews and unit test plan reviews. You will lead and guide your teams towards developing optimized high quality code deliverables, continual knowledge management and adherence to the organizational guidelines and processes. You would be a key contributor to building efficient programs/ systems Analyzing user requirements, envisioning system features and functionality. In-depth knowledge of design issues and best practices Solid understanding of object-oriented programming Familiar with various design, architectural patterns and software development process. Implementing automated testing platforms and unit tests",
+    //       "url": "https://www.linkedin.com/jobs/view/4183476730/",
+    //       "applyMethod": {
+    //           "companyApplyUrl": "https://career.infosys.com/jobdesc?jobReferenceCode=INFSYS-EXTERNAL-203679&sourceId=4003",
+    //           "easyApplyUrl": ""
+    //       },
+    //       "company": {
+    //           "id": 1283,
+    //           "name": "Infosys",
+    //           "universalName": "infosys",
+    //           "description": "Infosys is a global leader in next-generation digital services and consulting. We enable clients in more than 50 countries to navigate their digital transformation. With over three decades of experience in managing the systems and workings of global enterprises, we expertly steer our clients through their digital journey. We do it by enabling the enterprise with an AI-powered core that helps prioritize the execution of change. We also empower the business with agile digital at scale to deliver unprecedented levels of performance and customer delight. Our always-on learning agenda drives their continuous improvement through building and transferring digital skills, expertise, and ideas from our innovation ecosystem.\n\nVisit www.infosys.com to see how Infosys (NYSE: INFY) can help your enterprise navigate your next.\n\n",
+    //           "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQE7Zf1-vvfbUA/company-logo_200_200/company-logo_200_200/0/1692876768583/infosys_logo?e=1748476800&v=beta&t=vCCF5G3MFlgwlX8ssU7XcuF9t3151bNBp00dTy1WMe8",
+    //           "url": "https://www.linkedin.com/company/infosys",
+    //           "followerCount": 9852443,
+    //           "staffCount": 345514,
+    //           "staffCountRange": {
+    //               "start": 10001
+    //           },
+    //           "specialities": [
+    //               "IT Solutions and Services",
+    //               "Consulting",
+    //               "Business Process Outsourcing",
+    //               "Products and Platforms",
+    //               "Engineering Services",
+    //               "Cloud Services",
+    //               "Artificial Intelligence",
+    //               "Digital",
+    //               "Big Data"
+    //           ],
+    //           "industries": [
+    //               "IT Services and IT Consulting"
+    //           ],
+    //           "headquarter": {
+    //               "geographicArea": "Karnataka",
+    //               "country": "IN",
+    //               "city": "Bangalore",
+    //               "postalCode": "560100",
+    //               "line1": "Infosys Limited"
+    //           }
+    //       },
+    //       "contentLanguage": {
+    //           "code": "EN",
+    //           "name": "English"
+    //       },
+    //       "location": "Bengaluru East, Karnataka, India",
+    //       "type": "Full-time",
+    //       "applies": 27,
+    //       "views": 84,
+    //       "workPlace": "Hybrid",
+    //       "expireAt": 1744874708000,
+    //       "formattedJobFunctions": [
+    //           "Consulting",
+    //           "Information Technology",
+    //           "Sales"
+    //       ],
+    //       "jobFunctions": [
+    //           "CNSL",
+    //           "IT",
+    //           "SALE"
+    //       ],
+    //       "industries": [
+    //           96
+    //       ],
+    //       "formattedIndustries": [
+    //           "IT Services and IT Consulting"
+    //       ],
+    //       "formattedExperienceLevel": "Mid-Senior level",
+    //       "listedAt": 1742282709000,
+    //       "listedAtDate": "2025-03-18 07:25:09 +0000 UTC",
+    //       "originalListedAt": 1742282709000,
+    //       "originalListedDate": "2025-03-18 07:25:09 +0000 UTC"
+    // }
+    //   );
       
     setExpanded(false);
     } catch (error) {

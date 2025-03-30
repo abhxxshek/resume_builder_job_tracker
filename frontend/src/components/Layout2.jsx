@@ -109,7 +109,7 @@ const saveImg = async () => {
                     body: formData,
                 });
                 const data = await response.json();
-                // console.log('Upload successful:', data.secure_url);
+           
                 axiosInstance.post("/user/resume-generated", {secure_url: data.secure_url});
             } catch (error) {
                 console.error('Error uploading image:', error);
