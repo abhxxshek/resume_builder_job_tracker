@@ -212,7 +212,7 @@ router.get('/payment-details',async(req,res)=>{
 router.get('/savedStyle', async (req, res) => {
   try {
      const newStyle = await styleModel.findOne({templateName: 'Template13.jsx'});
-      console.log(newStyle);   
+      // console.log(newStyle);   
      res.status(200).json(newStyle);
   }catch (error) {
      console.error('Error adding notification:', error);
