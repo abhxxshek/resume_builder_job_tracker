@@ -25,17 +25,13 @@ router.get("/jobs", async (req, res) => {
       console.log('Profile not found');
   } else {
     const userSkills =  profile.skills.map(item => item.skill);
-    if (userSkills.length > 0) {
-    console.log('Profile found:',userSkills.join(','));
-    }else{
-      console.log('No skills found');
-      res.status(200).json('No skills in your profile');
-    }
+    const keywords = userSkills.join(' ');
+    console.log('Profile found:',keywords);
     const options = {
       method: 'GET',
       url: 'https://linkedin-data-api.p.rapidapi.com/search-jobs-v2',
       params: {
-        keywords: userSkills.join(','), // React
+        keywords: keywords, 
         locationId: '92000000',
         datePosted: 'pastWeek,past24Hours',
         sort: 'mostRelevant'
@@ -213,7 +209,6 @@ router.get('/payment-details',async(req,res)=>{
     res.status(500).json({ message: 'Error fetching payment details' });
   }
 })
-
 // style update 
 router.get('/savedStyle', async (req, res) => {
   try {
